@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shake
+  m_Name: Attack1_Act
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -41,6 +41,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.33333334
         value: 30
+        inSlope: 120
+        outSlope: 120
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 40
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -124,6 +133,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.33333334
         value: 30
+        inSlope: 120
+        outSlope: 120
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 40
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -150,7 +168,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16666667
+  - time: 0.33333334
     functionName: Act
     data: 
     objectReferenceParameter: {fileID: 0}
