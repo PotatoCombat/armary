@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveBehaviour : BattlerBehaviour
+public class MovePositionBehaviour : ActorBehaviour
 {
     public enum Position
     {
@@ -13,7 +13,7 @@ public class MoveBehaviour : BattlerBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (!Battler)
+        if (!Actor)
         {
             return;
         }
@@ -27,12 +27,12 @@ public class MoveBehaviour : BattlerBehaviour
             case Position.Foes:
                 break;
             case Position.Local:
-                nextPosition += (Vector2)Battler.transform.position;
+                nextPosition += (Vector2)Actor.transform.position;
                 break;
             case Position.Global:
             default:
                 break;
         }
-        Battler.Move(nextPosition, stateInfo.length);
+        Actor.Move(nextPosition, stateInfo.length);
     }
 }

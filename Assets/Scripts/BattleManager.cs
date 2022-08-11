@@ -1,186 +1,190 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
     public BattleData data;
+    public BattlePositions positions;
+    public EffectsDB effectsDB;
+    public BattlerDB battlerDB;
 
-    public Formations formations;
-    public Formation allyFormation;
-    public Formation foeFormation;
+    public Transform stage;
+    public List<Battler> players;
+    public List<Battler> npcs;
+    public Battler weather;
 
-    public Battler[] allies;
-    public Battler[] foes;
-    public Battler[] weather;
-
+    public int wave;
     public int turn;
-    public List<Battler[]> turnOrder;
+    public BattleState state;
 
+    public MoveData move;
     public Battler user;
-    public Battler[] targets;
+    public List<Battler> targets;
+    public int targetIndex;
 
     public List<MoveButton> buttons;
-    public BattleFsm fsm;
 
-    public List<Battler> animating;
-    public List<Action> animations;
-
-    public bool next;
+    public List<Actor> animating;
 
     private void OnEnable()
     {
-        LoadMenu();
-        LoadAllies();
-        LoadFoes();
-        LoadTurns();
-        LoadAnimations();
-        LoadFsm();
+        // LoadMenu();
+        // LoadStage();
+        LoadVariables();
+        LoadParty();
+        // LoadWave();
     }
 
-    private void LoadMenu()
+    private void LoadVariables()
     {
-        foreach (var button in buttons)
-        {
-            button.onClick.RemoveListener(SelectMoveButton);
-            button.onClick.AddListener(SelectMoveButton);
-        }
-    }
-
-    private void LoadAllies()
-    {
-        if (allyFormation)
-        {
-            allyFormation.gameObject.SetActive(false);
-        }
-        allyFormation = formations.GetAllyFormation(data.allies.Count);
-        if (allyFormation)
-        {
-            allyFormation.gameObject.SetActive(true);
-        }
-        allies = LoadBattlers(allyFormation, data.allies);
-    }
-
-    private void LoadFoes()
-    {
-        if (foeFormation)
-        {
-            foeFormation.gameObject.SetActive(false);
-        }
-        foeFormation = formations.GetFoeFormation(data.foeFormation);
-        if (foeFormation)
-        {
-            foeFormation.gameObject.SetActive(true);
-        }
-        foes = LoadBattlers(foeFormation, data.foes);
-    }
-
-    private void LoadTurns()
-    {
+        wave = 0;
         turn = 0;
-        turnOrder = new List<Battler[]>
-        {
-            allies,
-            foes,
-            weather,
-        };
+        state = BattleState.Start;
+        battlerDB.Load();
+        effectsDB.Load();
     }
 
-    private void LoadAnimations()
+    public void LoadParty()
     {
-        animations = new List<Action>();
-    }
-
-    private void LoadFsm()
-    {
-        fsm.SetController(this);
-        fsm.ChangeState(new StartBattleState());
-    }
-
-    private Battler[] LoadBattlers(Formation formation, List<BattlerData> battlerDatas)
-    {
-        if (!formation)
+        var allies = data.party.allies;
+        for (var i = 0; i < players.Count; i++)
         {
-            return Array.Empty<Battler>();
-        }
-        var battlers = formation.battlers;
-        for (var i = 0; i < battlers.Length; i++)
-        {
-            if (i < battlerDatas.Count)
+            if (i < allies.Count)
             {
-                battlers[i].gameObject.SetActive(true);
-                battlers[i].SetData(battlerDatas[i]);
+                players[i].Load(allies[i]);
+                players[i].transform.localPosition = positions.GetAllyPosition(allies.Count, i);
             }
             else
             {
-                battlers[i].gameObject.SetActive(false);
+                players[i].Hide();
             }
-            battlers[i].onClick.RemoveListener(SelectBattler);
-            battlers[i].onClick.AddListener(SelectBattler);
-            battlers[i].onAnimationEvent.RemoveListener(HandleAnimationEvent);
-            battlers[i].onAnimationEvent.AddListener(HandleAnimationEvent);
         }
+    }
+
+    public void LoadWave(int wave)
+    {
+        if (wave < 0 || wave >= data.encounter.waves.Count)
+        {
+            return;
+        }
+        var foes = data.encounter.waves[wave].foes;
+        for (var i = 0; i < npcs.Count; i++)
+        {
+            if (i < foes.Count)
+            {
+                npcs[i].Load(foes[i].CreateBattlerData());
+                npcs[i].transform.localPosition = foes[i].position;
+            }
+            else
+            {
+                npcs[i].Hide();
+            }
+        }
+    }
+
+    public void LoadPreviousWave()
+    {
+        LoadWave(--wave);
+    }
+
+    public void LoadNextWave()
+    {
+        LoadWave(++wave);
+    }
+
+    // public void SwapBattler(int index, BattlerData battlerData)
+    // {
+    //     if (currentAllies.Length < index)
+    //     {
+    //         currentAllies[index].Load(battlerData);
+    //     }
+    // }
+
+    public void SpawnBattler(BattlerTemplate battlerTemplate)
+    {
+        foreach (var ally in GetAllies())
+        {
+            if (ally.data == null)
+            {
+                ally.Load(battlerTemplate.CreateBattlerData());
+                return;
+            }
+        }
+    }
+
+    public List<Battler> GetAllies()
+    {
+        return state switch
+        {
+            BattleState.Player => players,
+            BattleState.Npc => npcs,
+            _ => new List<Battler>(),
+        };
+    }
+
+    public List<Battler> GetFoes()
+    {
+        return state switch
+        {
+            BattleState.Player => npcs,
+            BattleState.Npc => players,
+            _ => new List<Battler>(),
+        };
+    }
+
+    public List<Battler> GetBattlers()
+    {
+        // Make private
+        var battlers = new List<Battler>();
+        battlers.AddRange(players);
+        battlers.AddRange(npcs);
         return battlers;
     }
 
-    private void Update()
+    public void StartPlayerTurn()
     {
-        if (next)
+        state = BattleState.Player;
+    }
+
+    public void StartNpcTurn()
+    {
+        state = BattleState.Npc;
+    }
+
+    public void StartWeatherTurn()
+    {
+        state = BattleState.Weather;
+    }
+
+    public void EndTurn()
+    {
+        move = null;
+        user = null;
+        targets = null;
+        targetIndex = 0;
+
+        // if (players.dead) => state = BattleState.Gameover;
+        // if (npcs.dead) => state = BattleState.Victory;
+        if (state == BattleState.Player)
         {
-            next = false;
-            user = allies[0];
-            targets = new []
-            {
-                foes[0],
-            };
-            new MoveLogic().Play(this);
-            StartAnimations();
+            //if (players.hasActions)
+            StartPlayerTurn();
+            //else
+            StartNpcTurn();
         }
-    }
-
-    public Battler[] GetCurrentTurn()
-    {
-        return turnOrder[(turn - 1) % turnOrder.Count];
-    }
-
-    public Battler[] GetNextTurn()
-    {
-        return turnOrder[turn % turnOrder.Count];
-    }
-
-    public void StartAnimations()
-    {
-        fsm.ChangeState(new AnimatingState());
-    }
-
-    public void FinishAnimations()
-    {
-        var nextTurn = GetNextTurn();
-        if (nextTurn == foes)
+        else if (state == BattleState.Npc)
         {
-            fsm.ChangeState(new FoeTurnState());
+            //if (npcs.hasActions)
+            StartNpcTurn();
+            //else
+            StartWeatherTurn();
         }
-        else if (nextTurn == weather)
+        else if (state == BattleState.Weather)
         {
-            fsm.ChangeState(new WeatherTurnState());
-        }
-        else
-        {
-            fsm.ChangeState(new AllyTurnState());
-        }
-    }
-
-    public void QueueAnimations(params Action[] anims)
-    {
-        animations.AddRange(anims);
-    }
-
-    public void PlayNextAnimation()
-    {
-        if (animations.Count > 0)
-        {
-            animations[0].Invoke();
-            animations.RemoveAt(0);
+            //if (npcs.hasActions)
+            StartWeatherTurn();
+            //else
+            StartPlayerTurn();
         }
     }
 
@@ -200,49 +204,99 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void SelectMoveButton(MoveButton moveButton)
+    public void SelectMove(MoveButton moveButton)
     {
         Debug.Log($"Selected: {moveButton}");
-        if (user)
-        {
-            user.PlayAnimation(moveButton.data.animation);
-        }
+        move = moveButton.data;
+        // ShowTargets();
     }
 
-    public void SelectBattler(Battler battler)
+    public void CancelMove()
+    {
+        Debug.Log($"Cancelled move");
+        move = null;
+        // HideTargets();
+        // ShowMoves();
+    }
+
+    public void SelectUser(Battler battler)
     {
         Debug.Log($"Selected: {battler}");
         user = battler;
-        ShowMoves(user);
+        // ShowMoves();
     }
 
-    public void HandleAnimationEvent(Battler battler, BattlerAnimationEvent evt)
+    public void SelectTargets(List<Battler> battlers)
     {
-        Debug.Log($"Animation Event ({evt}): {battler}");
+        var debug = "Selected: ";
+        foreach (var battler in battlers)
+        {
+            debug += $"{battler}, ";
+        }
+        Debug.Log(debug);
+        targets = battlers;
+        // PerformMove();
+    }
+
+    public void PerformMove()
+    {
+        if (move && user && targets != null)
+        {
+            // var hit = move.power * user.damage;
+            // if (move.target == single)
+            // {
+            //     targets[].Hit(hit);
+            // }
+        }
+    }
+
+    public void PerformHit()
+    {
+        // var hit = move.power * user.damage;
+        // if (move.target == single)
+        // {
+        //     targets[].Hit(hit);
+        // }
+    }
+
+    public void PlayWeaponEffect()
+    {
+        // PlayEffect(user.weapon.effect, move.target);
+    }
+
+    public void PlayMoveEffect()
+    {
+        PlayEffect(move.effect, move.target);
+    }
+
+    public void PlayEffect(string name, string targetting)
+    {
+        var effect = Instantiate(effectsDB[name], stage);
+        effect.actor.onAnimationEvent.AddListener(HandleAnimationEvent);
+        effect.actor.Busy();
+    }
+
+    public void HandleAnimationEvent(Actor actor, ActorEvent evt)
+    {
+        Debug.Log($"Animation Event ({evt}): {actor}");
         switch (evt)
         {
-            case BattlerAnimationEvent.Idle:
-                var isIdle = animating.Remove(battler) && animating.Count <= 0;
+            case ActorEvent.Idle:
+                var isIdle = animating.Remove(actor) && animating.Count <= 0;
                 if (isIdle)
                 {
-                    if (animations.Count > 0)
-                    {
-                        PlayNextAnimation();
-                    }
-                    else
-                    {
-                        FinishAnimations();
-                    }
+                    EndTurn();
                 }
                 break;
-            case BattlerAnimationEvent.Busy:
-                animating.Add(battler);
+            case ActorEvent.Busy:
+                animating.Add(actor);
                 break;
-            case BattlerAnimationEvent.Act:
-                if (animations.Count > 0)
-                {
-                    PlayNextAnimation();
-                }
+            case ActorEvent.Hit:
+                PerformHit();
+                PlayWeaponEffect();
+                break;
+            case ActorEvent.Effect:
+                PlayMoveEffect();
                 break;
         }
     }

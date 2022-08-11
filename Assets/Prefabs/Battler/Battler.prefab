@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6087186083358723161}
-  onAction:
+  onAnimationEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &916122998070216932
@@ -127,14 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b7bac5092a45d0ba3e1219c7771aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 8761660027632490270}
+  actor: {fileID: 8761660027632490270}
   hpText: {fileID: 0}
   data:
+    type: {fileID: 0}
     moves: []
   onClick:
-    m_PersistentCalls:
-      m_Calls: []
-  onAnimationEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!222 &916122998070216930
@@ -477,16 +475,4 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5154648179549310831}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6669507187417339198}
-        m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: Click
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []

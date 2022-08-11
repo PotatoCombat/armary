@@ -1,23 +1,22 @@
 using UnityEngine;
 
-public class IdleBehaviour : BattlerBehaviour
+public class IdleBehaviour : ActorBehaviour
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (Battler)
+        if (Actor)
         {
-            Battler.RaiseAnimating(false);
-            //Battler.Act();
+            Actor.Idle();
         }
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
-        if (Battler)
+        if (Actor)
         {
-            Battler.RaiseAnimating(true);
+            Actor.Busy();
         }
     }
 }

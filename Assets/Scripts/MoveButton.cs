@@ -1,17 +1,10 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class MoveButton : MonoBehaviour
 {
-    public Button button;
     public TextMeshProUGUI text;
     public MoveData data;
-
-    public UnityEvent<MoveButton> onClick;
 
     public void SetData(MoveData data)
     {
@@ -23,10 +16,5 @@ public class MoveButton : MonoBehaviour
     {
         this.data = null;
         text.text = "";
-    }
-
-    public void Click()
-    {
-        onClick.Invoke(this);
     }
 }
