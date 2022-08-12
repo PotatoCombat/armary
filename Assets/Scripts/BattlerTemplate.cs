@@ -8,6 +8,7 @@ public class BattlerTemplate
     public int level;
 
     public Vector2 position;
+    //public float delay
 
     public BattlerData CreateBattlerData()
     {

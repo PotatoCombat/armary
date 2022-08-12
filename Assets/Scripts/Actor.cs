@@ -7,6 +7,8 @@ public class Actor : MonoBehaviour
     public Animator animator;
     public UnityEvent<Actor, ActorEvent> onAnimationEvent;
 
+    // Paused state
+
     public void Idle()
     {
         onAnimationEvent?.Invoke(this, ActorEvent.Idle);

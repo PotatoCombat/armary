@@ -167,30 +167,32 @@ MonoBehaviour:
     foeTeam: {fileID: 0}
   effectsDB: {fileID: 11400000, guid: 50d81d71025a84231a64463fb012fa77, type: 2}
   battlerDB: {fileID: 11400000, guid: 701dd4edeaeb44f519803575365d114f, type: 2}
-  stage: {fileID: 971075220}
-  players:
-  - {fileID: 1601084669}
-  - {fileID: 987273989}
-  - {fileID: 219727136}
-  - {fileID: 2000533183}
-  - {fileID: 659051378}
-  npcs:
-  - {fileID: 255268888}
-  - {fileID: 449581672}
-  - {fileID: 1174586594}
-  - {fileID: 1476388111}
-  - {fileID: 903092048}
-  weather: {fileID: 0}
+  stage:
+    transform: {fileID: 971075220}
+    players:
+    - {fileID: 1601084669}
+    - {fileID: 987273989}
+    - {fileID: 219727136}
+    - {fileID: 2000533183}
+    - {fileID: 659051378}
+    npcs:
+    - {fileID: 255268888}
+    - {fileID: 449581672}
+    - {fileID: 1174586594}
+    - {fileID: 1476388111}
+    - {fileID: 903092048}
+    weather: {fileID: 0}
+  menu:
+    buttons:
+    - {fileID: 1018041849}
+    - {fileID: 2140219402}
+  fsm:
+    state: 0
   wave: 0
-  turn: 0
-  state: 0
+  targetIndex: 0
   move: {fileID: 0}
   user: {fileID: 0}
   targets: []
-  targetIndex: 0
-  buttons:
-  - {fileID: 1018041849}
-  - {fileID: 2140219402}
   animating: []
 --- !u!4 &117926852
 Transform:
@@ -863,7 +865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &520922861
 RectTransform:
   m_ObjectHideFlags: 0
@@ -929,6 +931,7 @@ MonoBehaviour:
       moves:
       - {fileID: 0}
     backup: []
+  surpriseAttack: 0
 --- !u!4 &618033154
 Transform:
   m_ObjectHideFlags: 0

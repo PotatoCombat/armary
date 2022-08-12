@@ -8,57 +8,58 @@ public class BattleManager : MonoBehaviour
     public EffectsDB effectsDB;
     public BattlerDB battlerDB;
 
-    public Transform stage;
-    public List<Battler> players;
-    public List<Battler> npcs;
-    public Battler weather;
+    public BattleStage stage;
+    public BattleMenu menu;
+    public BattleFsm fsm;
 
     public int wave;
-    public int turn;
-    public BattleState state;
+    public int targetIndex;
 
     public MoveData move;
     public Battler user;
     public List<Battler> targets;
-    public int targetIndex;
-
-    public List<MoveButton> buttons;
-
     public List<Actor> animating;
 
-    private void OnEnable()
-    {
-        // LoadMenu();
-        // LoadStage();
-        LoadVariables();
-        LoadParty();
-        // LoadWave();
-    }
+    public List<Battler> Allies { get; set; }
+    public List<Battler> Foes { get; set; }
+    public List<Battler> Battlers { get; set; }
 
-    private void LoadVariables()
+    private void Start()
     {
-        wave = 0;
-        turn = 0;
-        state = BattleState.Start;
         battlerDB.Load();
         effectsDB.Load();
     }
 
-    public void LoadParty()
+    private void OnEnable()
     {
-        var allies = data.party.allies;
-        for (var i = 0; i < players.Count; i++)
-        {
-            if (i < allies.Count)
-            {
-                players[i].Load(allies[i]);
-                players[i].transform.localPosition = positions.GetAllyPosition(allies.Count, i);
-            }
-            else
-            {
-                players[i].Hide();
-            }
-        }
+        fsm.Load(this);
+        fsm.Start();
+    }
+
+    public bool SurpriseAttack => data.surpriseAttack;
+    public bool AllPlayersDead => stage.players.TrueForAll(battler => !battler.IsAlive);
+    public bool AllNpcsDead => stage.npcs.TrueForAll(battler => !battler.IsAlive);
+    public bool TurnEnded => Allies.TrueForAll(battler => battler.Actions == 0);
+    public bool FinalWave => (wave + 1) == data.encounter.waves.Count;
+
+    public void ShowPlayers()
+    {
+        stage.LoadPlayers(data.party.allies);
+    }
+
+    public void HidePlayers()
+    {
+        stage.LoadPlayers(data.party.allies);
+    }
+
+    public void ShowNpcs()
+    {
+        stage.LoadPlayers(data.party.allies);
+    }
+
+    public void HideNpcs()
+    {
+        stage.LoadPlayers(data.party.allies);
     }
 
     public void LoadWave(int wave)
@@ -67,19 +68,7 @@ public class BattleManager : MonoBehaviour
         {
             return;
         }
-        var foes = data.encounter.waves[wave].foes;
-        for (var i = 0; i < npcs.Count; i++)
-        {
-            if (i < foes.Count)
-            {
-                npcs[i].Load(foes[i].CreateBattlerData());
-                npcs[i].transform.localPosition = foes[i].position;
-            }
-            else
-            {
-                npcs[i].Hide();
-            }
-        }
+        stage.LoadNpcs(data.encounter.waves[wave].foes);
     }
 
     public void LoadPreviousWave()
@@ -102,7 +91,7 @@ public class BattleManager : MonoBehaviour
 
     public void SpawnBattler(BattlerTemplate battlerTemplate)
     {
-        foreach (var ally in GetAllies())
+        foreach (var ally in Allies)
         {
             if (ally.data == null)
             {
@@ -112,94 +101,18 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public List<Battler> GetAllies()
-    {
-        return state switch
-        {
-            BattleState.Player => players,
-            BattleState.Npc => npcs,
-            _ => new List<Battler>(),
-        };
-    }
-
-    public List<Battler> GetFoes()
-    {
-        return state switch
-        {
-            BattleState.Player => npcs,
-            BattleState.Npc => players,
-            _ => new List<Battler>(),
-        };
-    }
-
-    public List<Battler> GetBattlers()
-    {
-        // Make private
-        var battlers = new List<Battler>();
-        battlers.AddRange(players);
-        battlers.AddRange(npcs);
-        return battlers;
-    }
-
-    public void StartPlayerTurn()
-    {
-        state = BattleState.Player;
-    }
-
-    public void StartNpcTurn()
-    {
-        state = BattleState.Npc;
-    }
-
-    public void StartWeatherTurn()
-    {
-        state = BattleState.Weather;
-    }
-
-    public void EndTurn()
-    {
-        move = null;
-        user = null;
-        targets = null;
-        targetIndex = 0;
-
-        // if (players.dead) => state = BattleState.Gameover;
-        // if (npcs.dead) => state = BattleState.Victory;
-        if (state == BattleState.Player)
-        {
-            //if (players.hasActions)
-            StartPlayerTurn();
-            //else
-            StartNpcTurn();
-        }
-        else if (state == BattleState.Npc)
-        {
-            //if (npcs.hasActions)
-            StartNpcTurn();
-            //else
-            StartWeatherTurn();
-        }
-        else if (state == BattleState.Weather)
-        {
-            //if (npcs.hasActions)
-            StartWeatherTurn();
-            //else
-            StartPlayerTurn();
-        }
-    }
-
     public void ShowMoves(Battler battler)
     {
         var moves = battler.data.moves;
-        for (var i = 0; i < buttons.Count; i++)
+        for (var i = 0; i < menu.buttons.Count; i++)
         {
             if (i < moves.Length)
             {
-                buttons[i].SetData(moves[i]);
+                menu.buttons[i].SetData(moves[i]);
             }
             else
             {
-                buttons[i].ClearData();
+                menu.buttons[i].ClearData();
             }
         }
     }
@@ -238,6 +151,20 @@ public class BattleManager : MonoBehaviour
         // PerformMove();
     }
 
+    public void NotifyIdleActor(Actor actor)
+    {
+        var completedAnimations = animating.Remove(actor) && animating.Count <= 0;
+        if (completedAnimations)
+        {
+            fsm.Next();
+        }
+    }
+
+    public void NotifyBusyActor(Actor actor)
+    {
+        animating.Add(actor);
+    }
+
     public void PerformMove()
     {
         if (move && user && targets != null)
@@ -271,7 +198,7 @@ public class BattleManager : MonoBehaviour
 
     public void PlayEffect(string name, string targetting)
     {
-        var effect = Instantiate(effectsDB[name], stage);
+        var effect = Instantiate(effectsDB[name], stage.transform);
         effect.actor.onAnimationEvent.AddListener(HandleAnimationEvent);
         effect.actor.Busy();
     }
@@ -282,14 +209,10 @@ public class BattleManager : MonoBehaviour
         switch (evt)
         {
             case ActorEvent.Idle:
-                var isIdle = animating.Remove(actor) && animating.Count <= 0;
-                if (isIdle)
-                {
-                    EndTurn();
-                }
+                NotifyIdleActor(actor);
                 break;
             case ActorEvent.Busy:
-                animating.Add(actor);
+                NotifyBusyActor(actor);
                 break;
             case ActorEvent.Hit:
                 PerformHit();
