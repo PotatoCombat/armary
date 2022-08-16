@@ -21,6 +21,7 @@ public class Battler : MonoBehaviour
 
     public void Load(BattlerData data)
     {
+        // Model and AI
         this.data = data;
         gameObject.SetActive(true);
     }

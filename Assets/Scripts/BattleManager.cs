@@ -26,6 +26,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        // Runs after enable
         battlerDB.Load();
         effectsDB.Load();
     }
@@ -49,12 +50,12 @@ public class BattleManager : MonoBehaviour
 
     public void HidePlayers()
     {
-        stage.LoadPlayers(data.party.allies);
+        // stage.LoadPlayers(data.party.allies);
     }
 
     public void ShowNpcs()
     {
-        stage.LoadPlayers(data.party.allies);
+        // stage.LoadPlayers(data.party.allies);
     }
 
     public void HideNpcs()

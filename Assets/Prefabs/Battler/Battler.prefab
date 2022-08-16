@@ -132,9 +132,6 @@ MonoBehaviour:
   data:
     type: {fileID: 0}
     moves: []
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!222 &916122998070216930
 CanvasRenderer:
   m_ObjectHideFlags: 0
