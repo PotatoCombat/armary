@@ -50,6 +50,7 @@ public class BattleFsm
         Weather,
         Victory,
         Gameover,
+        Flee,
         End,
     }
 
@@ -127,6 +128,8 @@ public class BattleFsm
             base.Enter();
             Manager.Allies = Manager.stage.players;
             Manager.Foes = Manager.stage.npcs;
+            Manager.user = Manager.Allies.Find(battler => battler.Actions == 0);
+            // Manager.ShowMoves();
         }
 
         public override void Next()

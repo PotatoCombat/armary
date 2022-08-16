@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 405ce503a74c4bfe9ccc7a2d2c3b2126, type: 3}
-  m_Name: Spin
+  m_Script: {fileID: 11500000, guid: 03ae4e50d923470bb6636e49ee0b312f, type: 3}
+  m_Name: Sunny
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300424, guid: af8183249dd18734a9415f11af1f8471, type: 3}
-  target: 
-  animation: Spin
-  effect: 
+  icon: {fileID: 21300710, guid: af8183249dd18734a9415f11af1f8471, type: 3}

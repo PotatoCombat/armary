@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MoveData : ScriptableObject
 {
+    public Sprite sprite;
     public string target;
     // public string type;
     public string animation;

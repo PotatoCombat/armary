@@ -4,18 +4,22 @@ using UnityEngine.UI;
 
 public class WeatherInfo : MonoBehaviour
 {
-    [SerializeField] private Image weatherIcon;
+    [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI weather;
-    [SerializeField] private TextMeshProUGUI waves;
 
-    public void SetWeather(string weather)
-    {
-        this.weather.text = $"{weather}";
-        this.weatherIcon = null;
-    }
+    public WeatherData data;
 
-    public void SetWaves(int wave, int maxWaves)
+    private void OnValidate()
     {
-        this.waves.text = $"{wave}/{maxWaves}";
+        if (data)
+        {
+            icon.sprite = data.icon;
+            weather.text = data.name;
+        }
+        else
+        {
+            icon.sprite = null;
+            weather.text = " --- ";
+        }
     }
 }

@@ -1,8 +1,20 @@
-using System;
-using System.Collections.Generic;
+using UnityEngine;
 
-[Serializable]
-public class BattleMenu
+public class BattleMenu : MonoBehaviour
 {
-    public List<MoveButton> buttons;
+    public HoverButton attack;
+    public HoverButton tactic;
+    public HoverButton skill;
+    public HoverButton equip;
+    public HoverButton item;
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }

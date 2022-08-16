@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class BattleManager : MonoBehaviour
     public BattlerDB battlerDB;
 
     public BattleStage stage;
-    public BattleMenu menu;
+    public BattleUi ui;
     public BattleFsm fsm;
 
     public int wave;
@@ -102,35 +103,103 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void ShowMoves(Battler battler)
+    public void ShowMenu()
     {
-        var moves = battler.data.moves;
-        for (var i = 0; i < menu.buttons.Count; i++)
-        {
-            if (i < moves.Length)
-            {
-                menu.buttons[i].SetData(moves[i]);
-            }
-            else
-            {
-                menu.buttons[i].ClearData();
-            }
-        }
+        ui.menu.Show();
+        // If user is numb
+        // If user is silent
     }
 
-    public void SelectMove(MoveButton moveButton)
+    public void HidePanel()
     {
-        Debug.Log($"Selected: {moveButton}");
-        move = moveButton.data;
-        // ShowTargets();
+        ui.lastPanel.Hide();
+        ui.lastPanel = null;
+    }
+
+    private void ShowPanel(ButtonGroup panel, Action<HoverButton, int> setButton = null)
+    {
+        if (ui.lastPanel)
+        {
+            ui.lastPanel.Hide();
+        }
+        ui.lastPanel = panel;
+        panel.Show(setButton);
+    }
+
+    public void ShowAttacks()
+    {
+        ShowPanel(ui.attacks, (button, i) => button.targetImage.sprite = user.data.moves[i].sprite);
+        /*
+         * if user.limitbreak
+         *      options.Show(attack + user.limitbreak skills);
+         * else
+         *      SelectMove(user.attack);
+         */
+        // options.gameObject.SetActive(true);
+    }
+
+    public void ShowTactics()
+    {
+        ShowPanel(ui.tactics);
+        /*
+         * if allies.Count > 3
+         *      options.Show(defend + flee, swap1);
+         * if allies.Count > 3
+         *      options.Show(defend + flee, swap1, swap2);
+         * else
+         *      SelectMove(defend + flee);
+         */
+    }
+
+    public void ShowSkills()
+    {
+        ShowPanel(ui.skills);
+        /*
+         *      options.Show(user.skills);
+         */
+    }
+
+    public void ShowEquips()
+    {
+        ShowPanel(ui.equips);
+        /*
+         *      options.Show(user.equips);
+         */
+    }
+
+    public void ShowItems()
+    {
+        ShowPanel(ui.items);
+        /*
+         *      options.Show(user.items);
+         */
+    }
+
+    public void ShowMoveTooltip(int index, Vector2 position)
+    {
+        ui.moveTooltip.Show();
+    }
+
+    public void HideMoveTooltip()
+    {
+        ui.moveTooltip.Hide();
+    }
+
+    public void SelectMove(int index)
+    {
+        move = user.data.moves[index];
+        ui.moveTooltip.Hide();
+        ui.lastPanel.Hide();
+        ui.menu.Hide();
+        Debug.Log($"Selected: {move.name}");
     }
 
     public void CancelMove()
     {
-        Debug.Log($"Cancelled move");
         move = null;
-        // HideTargets();
-        // ShowMoves();
+        ui.lastPanel.Show();
+        ui.menu.Show();
+        Debug.Log($"Cancelled move");
     }
 
     public void SelectUser(Battler battler)

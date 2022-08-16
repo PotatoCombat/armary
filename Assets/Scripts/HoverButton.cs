@@ -13,9 +13,10 @@ public class HoverButton : MonoBehaviour
     , IPointerUpHandler
 {
     public bool interactable;
+    public int index;
 
     [Header("Graphics")]
-    public Graphic targetGraphic;
+    public Image targetImage;
     public Color normalColor;
     public Color hoverColor;
     public float fadeDuration;
@@ -27,6 +28,8 @@ public class HoverButton : MonoBehaviour
 
     [Space]
     public UnityEvent onClick;
+    public UnityEvent onHoverEnter;
+    public UnityEvent onHoverExit;
 
     private bool _withinGraphics;
 
@@ -49,6 +52,7 @@ public class HoverButton : MonoBehaviour
             return;
         }
         _withinGraphics = true;
+        onHoverEnter.Invoke();
         PlaySfx(hoverSfx);
         StartColorTween(hoverColor, fadeDuration);
     }
@@ -60,6 +64,7 @@ public class HoverButton : MonoBehaviour
             return;
         }
         _withinGraphics = false;
+        onHoverExit.Invoke();
         StartColorTween(normalColor, fadeDuration);
     }
 
@@ -92,11 +97,11 @@ public class HoverButton : MonoBehaviour
 
     private void StartColorTween(Color targetColor, float duration)
     {
-        if (!targetGraphic)
+        if (!targetImage)
         {
             return;
         }
-        targetGraphic.CrossFadeColor(targetColor, duration, true, true);
+        targetImage.CrossFadeColor(targetColor, duration, true, true);
     }
 
     private void PlaySfx(AudioClip sfx)
@@ -120,7 +125,7 @@ public class HoverButton : MonoBehaviour
 
     private void Reset()
     {
-        targetGraphic = GetComponent<Graphic>();
+        targetImage = GetComponent<Image>();
         targetAudio = GetComponent<AudioSource>();
     }
 #endif
