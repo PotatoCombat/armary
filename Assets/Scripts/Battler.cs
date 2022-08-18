@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Battler : MonoBehaviour
 {
@@ -10,7 +11,14 @@ public class Battler : MonoBehaviour
     public BattlerData data;
     public Faction faction;
 
-    public bool IsAlive => true;
+    public HoverButton picker;
+    public HoverButton target;
+
+    [Space]
+    public UnityEvent<Battler> onPick;
+    public UnityEvent<Battler> onTarget;
+
+    public bool isAlive;
     public int Actions => 0;
 
     private Coroutine _delayedAnimationRoutine;
@@ -52,6 +60,26 @@ public class Battler : MonoBehaviour
         actor.animator.Play("Paused");
         yield return new WaitForSeconds(delay);
         actor.animator.Play(anim);
+    }
+
+    public void Pick()
+    {
+        onPick.Invoke(this);
+    }
+
+    public void Target()
+    {
+        onTarget.Invoke(this);
+    }
+
+    public void ShowTooltip()
+    {
+
+    }
+
+    public void HideTooltip()
+    {
+
     }
 
     // public void Spin()

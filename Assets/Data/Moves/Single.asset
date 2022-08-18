@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 405ce503a74c4bfe9ccc7a2d2c3b2126, type: 3}
-  m_Name: Spin
+  m_Name: Single
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300424, guid: af8183249dd18734a9415f11af1f8471, type: 3}
+  sprite: {fileID: 21300264, guid: af8183249dd18734a9415f11af1f8471, type: 3}
   target:
-    type: 4
-    team: 0
+    type: 1
+    team: 2
     condition: 0
-  animation: Spin
+  animation: Shake
   effect: 

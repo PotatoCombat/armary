@@ -15,8 +15,8 @@ public class BattleUi
     public BattleMenu menu;
     public ButtonGroup lastPanel;
 
-    [Header("Targets")]
-    public BattleTargets targets;
+    // [Header("Targets")]
+    // public BattleTargets targets;
 
     [Header("Tooltips")]
     public MoveTooltip moveTooltip;
