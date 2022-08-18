@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -83,6 +82,11 @@ public class BattleManager : MonoBehaviour
         LoadWave(++wave);
     }
 
+    public void ShowAttacks()
+    {
+        ui.ShowAttacks();
+    }
+
     // public void SwapBattler(int index, BattlerData battlerData)
     // {
     //     if (currentAllies.Length < index)
@@ -110,79 +114,9 @@ public class BattleManager : MonoBehaviour
         // If user is silent
     }
 
-    public void HidePanel()
+    public void ShowTargets()
     {
-        ui.lastPanel.Hide();
-        ui.lastPanel = null;
-    }
-
-    private void ShowPanel(ButtonGroup panel, Action<HoverButton, int> setButton = null)
-    {
-        if (ui.lastPanel)
-        {
-            ui.lastPanel.Hide();
-        }
-        ui.lastPanel = panel;
-        panel.Show(setButton);
-    }
-
-    public void ShowAttacks()
-    {
-        ShowPanel(ui.attacks, (button, i) => button.targetImage.sprite = user.data.moves[i].sprite);
-        /*
-         * if user.limitbreak
-         *      options.Show(attack + user.limitbreak skills);
-         * else
-         *      SelectMove(user.attack);
-         */
-        // options.gameObject.SetActive(true);
-    }
-
-    public void ShowTactics()
-    {
-        ShowPanel(ui.tactics);
-        /*
-         * if allies.Count > 3
-         *      options.Show(defend + flee, swap1);
-         * if allies.Count > 3
-         *      options.Show(defend + flee, swap1, swap2);
-         * else
-         *      SelectMove(defend + flee);
-         */
-    }
-
-    public void ShowSkills()
-    {
-        ShowPanel(ui.skills);
-        /*
-         *      options.Show(user.skills);
-         */
-    }
-
-    public void ShowEquips()
-    {
-        ShowPanel(ui.equips);
-        /*
-         *      options.Show(user.equips);
-         */
-    }
-
-    public void ShowItems()
-    {
-        ShowPanel(ui.items);
-        /*
-         *      options.Show(user.items);
-         */
-    }
-
-    public void ShowMoveTooltip(int index, Vector2 position)
-    {
-        ui.moveTooltip.Show();
-    }
-
-    public void HideMoveTooltip()
-    {
-        ui.moveTooltip.Hide();
+        ui.targets.Show(move.target, user);
     }
 
     public void SelectMove(int index)
@@ -191,12 +125,14 @@ public class BattleManager : MonoBehaviour
         ui.moveTooltip.Hide();
         ui.lastPanel.Hide();
         ui.menu.Hide();
+        ui.targets.Show(move.target, user);
         Debug.Log($"Selected: {move.name}");
     }
 
     public void CancelMove()
     {
         move = null;
+        ui.targets.Hide();
         ui.lastPanel.Show();
         ui.menu.Show();
         Debug.Log($"Cancelled move");
@@ -263,7 +199,7 @@ public class BattleManager : MonoBehaviour
 
     public void PlayMoveEffect()
     {
-        PlayEffect(move.effect, move.target);
+        // PlayEffect(move.effect, move.target);
     }
 
     public void PlayEffect(string name, string targetting)

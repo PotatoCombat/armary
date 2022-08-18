@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 #if UNITY_EDITOR
 using System.Linq;
+using PotatoEditor;
 using UnityEditor;
 using UnityEditor.Events;
 #endif
@@ -15,14 +16,14 @@ public class ButtonGroup : MonoBehaviour
     public UnityEvent<int, Vector2> onHoverEnter;
     public UnityEvent<int, Vector2> onHoverExit;
 
-    public void Show(Action<HoverButton, int> reducer = null)
+    public void Show(Action<HoverButton, int> setButton = null)
     {
         gameObject.SetActive(true);
-        if (reducer != null)
+        if (setButton != null)
         {
             for (var i = 0; i < buttons.Count; i++)
             {
-                reducer.Invoke(buttons[i], i);
+                setButton.Invoke(buttons[i], i);
             }
         }
     }
@@ -48,16 +49,6 @@ public class ButtonGroup : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private void RemoveAllPersistentListeners(UnityEvent evt)
-    {
-        var numEvents = evt.GetPersistentEventCount();
-        while (numEvents > 0)
-        {
-            UnityEventTools.RemovePersistentListener(evt, 0);
-            numEvents--;
-        }
-    }
-
     [ContextMenu("Load Buttons")]
     private void LoadButtons()
     {
@@ -67,9 +58,9 @@ public class ButtonGroup : MonoBehaviour
             var button = buttons[i];
             button.index = i;
 
-            RemoveAllPersistentListeners(button.onClick);
-            RemoveAllPersistentListeners(button.onHoverEnter);
-            RemoveAllPersistentListeners(button.onHoverExit);
+            UnityEventExtensions.RemoveAllPersistentListeners(button.onClick);
+            UnityEventExtensions.RemoveAllPersistentListeners(button.onHoverEnter);
+            UnityEventExtensions.RemoveAllPersistentListeners(button.onHoverExit);
 
             UnityEventTools.AddObjectPersistentListener(button.onClick, Click, button);
             UnityEventTools.AddObjectPersistentListener(button.onHoverEnter, HoverEnter, button);

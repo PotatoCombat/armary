@@ -4,7 +4,7 @@ using UnityEngine;
 public class MoveData : ScriptableObject
 {
     public Sprite sprite;
-    public string target;
+    public TargetData target;
     // public string type;
     public string animation;
     public string effect;

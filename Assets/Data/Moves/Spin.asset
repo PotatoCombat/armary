@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Spin
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300424, guid: af8183249dd18734a9415f11af1f8471, type: 3}
-  target: 
+  target:
+    type: 4
+    team: 0
+    condition: 0
   animation: Spin
   effect: 

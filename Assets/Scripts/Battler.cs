@@ -8,6 +8,7 @@ public class Battler : MonoBehaviour
 
     public TextMeshProUGUI hpText;
     public BattlerData data;
+    public Faction faction;
 
     public bool IsAlive => true;
     public int Actions => 0;
@@ -16,7 +17,7 @@ public class Battler : MonoBehaviour
 
     private void Start()
     {
-        Hide();
+        // Hide();
     }
 
     public void Load(BattlerData data)
