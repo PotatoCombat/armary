@@ -13,7 +13,6 @@ public class HoverButton : MonoBehaviour
     , IPointerUpHandler
 {
     public bool interactable;
-    public int index;
 
     [Header("Graphics")]
     public Image targetImage;
@@ -21,15 +20,10 @@ public class HoverButton : MonoBehaviour
     public Color hoverColor;
     public float fadeDuration;
 
-    [Header("Audio")]
-    public AudioSource targetAudio;
-    public AudioClip hoverSfx;
-    public AudioClip clickSfx;
-
     [Space]
-    public UnityEvent onClick;
-    public UnityEvent onHoverEnter;
-    public UnityEvent onHoverExit;
+    public UnityEvent<PointerEventData> onClick;
+    public UnityEvent<PointerEventData> onHoverEnter;
+    public UnityEvent<PointerEventData> onHoverExit;
 
     private bool _withinGraphics;
 
@@ -52,8 +46,7 @@ public class HoverButton : MonoBehaviour
             return;
         }
         _withinGraphics = true;
-        onHoverEnter.Invoke();
-        PlaySfx(hoverSfx);
+        onHoverEnter.Invoke(eventData);
         StartColorTween(hoverColor, fadeDuration);
     }
 
@@ -64,7 +57,7 @@ public class HoverButton : MonoBehaviour
             return;
         }
         _withinGraphics = false;
-        onHoverExit.Invoke();
+        onHoverExit.Invoke(eventData);
         StartColorTween(normalColor, fadeDuration);
     }
 
@@ -74,7 +67,6 @@ public class HoverButton : MonoBehaviour
         {
             return;
         }
-        PlaySfx(clickSfx);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -87,7 +79,7 @@ public class HoverButton : MonoBehaviour
         {
             return;
         }
-        onClick.Invoke();
+        onClick.Invoke(eventData);
     }
 
     private bool IsInteractable()
@@ -104,15 +96,6 @@ public class HoverButton : MonoBehaviour
         targetImage.CrossFadeColor(targetColor, duration, true, true);
     }
 
-    private void PlaySfx(AudioClip sfx)
-    {
-        if (!targetAudio)
-        {
-            return;
-        }
-        targetAudio.PlayOneShot(sfx);
-    }
-
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -126,7 +109,6 @@ public class HoverButton : MonoBehaviour
     private void Reset()
     {
         targetImage = GetComponent<Image>();
-        targetAudio = GetComponent<AudioSource>();
     }
 #endif
 }

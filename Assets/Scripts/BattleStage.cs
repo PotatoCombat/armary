@@ -13,10 +13,9 @@ public class BattleStage : MonoBehaviour
         public string description;
     }
 
-    [Header("Entities")]
-    public Battler weather;
-    public List<Battler> players;
-    public List<Battler> npcs;
+    [Header("Teams")]
+    public Team playerTeam;
+    public Team npcTeam;
 
     [Header("Targets")]
     [SerializeField] private TargetGroup targetAll;
@@ -27,85 +26,28 @@ public class BattleStage : MonoBehaviour
     public UnityEvent<Battler> onPickBattler;
     public UnityEvent<List<Battler>> onTargetBattlers;
 
-    private List<Battler> _battlers;
-    public List<Battler> Battlers {
-        get
-        {
-            if (_battlers == null)
-            {
-                _battlers = new List<Battler>();
-                _battlers.AddRange(players);
-                _battlers.AddRange(npcs);
-            }
-            return _battlers;
-        }
-    }
-
-    // public void LoadPlayers(List<BattlerData> battlers)
-    // {
-    //     for (var i = 0; i < players.Count; i++)
-    //     {
-    //         if (i < battlers.Count)
-    //         {
-    //             // players[i].transform.localPosition = positions.GetAllyPosition(allies.Count, i);
-    //             players[i].Load(battlers[i]);
-    //             players[i].PlayAnimation("Intro");
-    //         }
-    //         else
-    //         {
-    //             players[i].Hide();
-    //         }
-    //     }
-    // }
-    //
-    // public void LoadNpcs(List<BattlerTemplate> templates)
-    // {
-    //     for (var i = 0; i < npcs.Count; i++)
-    //     {
-    //         if (i < templates.Count)
-    //         {
-    //             npcs[i].transform.localPosition = templates[i].position;
-    //             npcs[i].Load(templates[i].CreateBattlerData());
-    //             npcs[i].PlayDelayedAnimation("Intro", 0);
-    //         }
-    //         else
-    //         {
-    //             npcs[i].Hide();
-    //         }
-    //     }
-    // }
-
-    public void ShowPickers(Faction faction)
+    public void ShowPickers(Battler user, Team team)
     {
-        var allies = faction == Faction.Player ? players : npcs;
-        foreach (var ally in allies)
+        foreach (var battler in team.battlers)
         {
-            ShowSinglePicker(ally);
-        }
-    }
-
-    private void ShowSinglePicker(Battler battler)
-    {
-        if (battler.isAlive)
-        {
-            battler.picker.gameObject.SetActive(true);
+            battler.picker.gameObject.SetActive(battler.isAlive && battler != user);
         }
     }
 
     public void ShowTargets(Battler user, TargetData data)
     {
-        var allies = user.faction == Faction.Player ? players : npcs;
-        var foes = user.faction == Faction.Player ? npcs : players;
+        var allies = user.faction == Faction.Player ? playerTeam.battlers : npcTeam.battlers;
+        var foes = user.faction == Faction.Player ? npcTeam.battlers : playerTeam.battlers;
 
         var targetAllies = user.faction == Faction.Player ? targetPlayers : targetNpcs;
         var targetFoes = user.faction == Faction.Player ? targetNpcs : targetPlayers;
 
         switch (data.type)
         {
-            case TargetData.Type.Self:
+            case TargetType.Self:
                 ShowSingleTarget(user, data);
                 break;
-            case TargetData.Type.Single:
+            case TargetType.Single:
                 if (data.TargetAllies)
                 {
                     foreach (var ally in allies)
@@ -121,7 +63,7 @@ public class BattleStage : MonoBehaviour
                     }
                 }
                 break;
-            case TargetData.Type.Team:
+            case TargetType.Team:
                 if (data.TargetAllies)
                 {
                     ShowGroupTarget(targetAllies);
@@ -131,25 +73,25 @@ public class BattleStage : MonoBehaviour
                     ShowGroupTarget(targetFoes);
                 }
                 break;
-            case TargetData.Type.Mixed:
+            case TargetType.Mixed:
                 if (data.TargetAllies)
                 {
                     ShowGroupTarget(targetAllies);
-                    for (var i = 0; i < allies.Count; i++)
+                    foreach (var ally in allies)
                     {
-                        ShowSingleTarget(allies[i], data);
+                        ShowSingleTarget(ally, data);
                     }
                 }
                 if (data.TargetFoes)
                 {
                     ShowGroupTarget(targetFoes);
-                    for (var i = 0; i < foes.Count; i++)
+                    foreach (var foe in foes)
                     {
-                        ShowSingleTarget(foes[i], data);
+                        ShowSingleTarget(foe, data);
                     }
                 }
                 break;
-            case TargetData.Type.All:
+            case TargetType.All:
             default:
                 ShowGroupTarget(targetAll);
                 break;
@@ -170,17 +112,29 @@ public class BattleStage : MonoBehaviour
         targetGroup.target.gameObject.SetActive(true);
     }
 
+    public void HidePickers()
+    {
+        foreach (var battler in playerTeam.battlers)
+        {
+            battler.picker.gameObject.SetActive(false);
+        }
+        foreach (var battler in npcTeam.battlers)
+        {
+            battler.picker.gameObject.SetActive(false);
+        }
+    }
+
     public void HideTargets()
     {
         targetAll.target.gameObject.SetActive(false);
         targetPlayers.target.gameObject.SetActive(false);
         targetNpcs.target.gameObject.SetActive(false);
 
-        foreach (var battler in players)
+        foreach (var battler in playerTeam.battlers)
         {
             battler.target.gameObject.SetActive(false);
         }
-        foreach (var battler in npcs)
+        foreach (var battler in npcTeam.battlers)
         {
             battler.target.gameObject.SetActive(false);
         }
@@ -198,17 +152,20 @@ public class BattleStage : MonoBehaviour
 
     public void TargetPlayers()
     {
-        onTargetBattlers.Invoke(players);
+        onTargetBattlers.Invoke(playerTeam.battlers);
     }
 
     public void TargetNpcs()
     {
-        onTargetBattlers.Invoke(npcs);
+        onTargetBattlers.Invoke(npcTeam.battlers);
     }
 
     public void TargetAll()
     {
-        onTargetBattlers.Invoke(Battlers);
+        var battlers = new List<Battler>();
+        battlers.AddRange(playerTeam.battlers);
+        battlers.AddRange(npcTeam.battlers);
+        onTargetBattlers.Invoke(battlers);
     }
 
     // public void ShowPlayerTooltip(int i, Vector2 position)

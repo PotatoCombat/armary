@@ -3,36 +3,36 @@ using System;
 [Serializable]
 public class TargetData
 {
-    public Type type;
-    public Team team;
-    public Condition condition;
+    public TargetType type;
+    public TargetTeam team;
+    public TargetCondition condition;
 
-    public enum Type
-    {
-        Self,
-        Single,
-        Team,
-        Mixed,
-        All,
-    }
+    public bool TargetAllies => team != TargetTeam.Foes;
+    public bool TargetFoes => team != TargetTeam.Allies;
 
-    public enum Team
-    {
-        Any,
-        Allies,
-        Foes,
-    }
+    public bool TargetAlive => condition != TargetCondition.Dead;
+    public bool TargetDead => condition != TargetCondition.Alive;
+}
 
-    public enum Condition
-    {
-        Any,
-        Alive,
-        Dead,
-    }
+public enum TargetType
+{
+    Self,
+    Single,
+    Team,
+    Mixed,
+    All,
+}
 
-    public bool TargetAllies => team != Team.Foes;
-    public bool TargetFoes => team != Team.Allies;
+public enum TargetTeam
+{
+    Any,
+    Allies,
+    Foes,
+}
 
-    public bool TargetAlive => condition != Condition.Dead;
-    public bool TargetDead => condition != Condition.Alive;
+public enum TargetCondition
+{
+    Any,
+    Alive,
+    Dead,
 }

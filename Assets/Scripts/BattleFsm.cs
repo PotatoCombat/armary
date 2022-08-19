@@ -87,8 +87,8 @@ public class BattleFsm
             Manager.wave = 0;
             Manager.animating = new List<Actor>();
             Manager.Battlers = new List<Battler>();
-            Manager.Battlers.AddRange(Manager.stage.players);
-            Manager.Battlers.AddRange(Manager.stage.npcs);
+            // Manager.Battlers.AddRange(Manager.selection.players);
+            // Manager.Battlers.AddRange(Manager.selection.npcs);
         }
 
         public override void Next()
@@ -126,8 +126,8 @@ public class BattleFsm
         public override void Enter()
         {
             base.Enter();
-            Manager.Allies = Manager.stage.players;
-            Manager.Foes = Manager.stage.npcs;
+            // Manager.Allies = Manager.selection.players;
+            // Manager.Foes = Manager.selection.npcs;
             Manager.user = Manager.Allies.Find(battler => battler.Actions == 0);
             // Manager.ShowMoves();
         }
@@ -165,8 +165,8 @@ public class BattleFsm
         public override void Enter()
         {
             base.Enter();
-            Manager.Allies = Manager.stage.npcs;
-            Manager.Foes = Manager.stage.players;
+            // Manager.Allies = Manager.selection.npcs;
+            // Manager.Foes = Manager.selection.players;
         }
 
         public override void Next()

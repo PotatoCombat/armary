@@ -12,6 +12,8 @@ using UnityEditor.Events;
 public class ButtonGroup : MonoBehaviour
 {
     public List<HoverButton> buttons;
+
+    [Space]
     public UnityEvent<int> onClick;
     public UnityEvent<int, Vector2> onHoverEnter;
     public UnityEvent<int, Vector2> onHoverExit;
@@ -35,28 +37,28 @@ public class ButtonGroup : MonoBehaviour
 
     private void Click(HoverButton button)
     {
-        onClick.Invoke(button.index);
+        // onClick.Invoke(button.index);
     }
 
     private void HoverEnter(HoverButton button)
     {
-        onHoverEnter.Invoke(button.index, button.transform.position);
+        // onHoverEnter.Invoke(button.index, button.transform.position);
     }
 
     private void HoverExit(HoverButton button)
     {
-        onHoverExit.Invoke(button.index, button.transform.position);
+        // onHoverExit.Invoke(button.index, button.transform.position);
     }
 
 #if UNITY_EDITOR
-    [ContextMenu("Load Buttons")]
-    private void LoadButtons()
+    [ContextMenu("Fetch Buttons")]
+    private void FetchButtons()
     {
         buttons = GetComponentsInChildren<HoverButton>(true).ToList();
         for (var i = 0; i < buttons.Count; i++)
         {
             var button = buttons[i];
-            button.index = i;
+            // button.index = i;
 
             UnityEventExtensions.RemoveAllPersistentListeners(button.onClick);
             UnityEventExtensions.RemoveAllPersistentListeners(button.onHoverEnter);

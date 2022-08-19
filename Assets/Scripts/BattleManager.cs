@@ -8,8 +8,9 @@ public class BattleManager : MonoBehaviour
 
     public int wave;
 
-    public MoveData move;
+    public Team team;
     public Battler user;
+    public MoveData move;
 
     public int targetIndex;
     public List<Battler> targets;
@@ -19,6 +20,7 @@ public class BattleManager : MonoBehaviour
     [Header("Components")]
     public BattleFsm fsm;
     public BattleStage stage;
+    public BattleMenu menu;
     public BattleUi ui;
 
     // Accessors
@@ -37,12 +39,12 @@ public class BattleManager : MonoBehaviour
     {
         // fsm.Load(this);
         // fsm.Start();
-        stage.ShowPickers(Faction.Player);
+        StartTurn();
     }
 
     public bool SurpriseAttack => data.surpriseAttack;
-    public bool AllPlayersDead => stage.players.TrueForAll(battler => !battler.isAlive);
-    public bool AllNpcsDead => stage.npcs.TrueForAll(battler => !battler.isAlive);
+    public bool AllPlayersDead => stage.playerTeam.battlers.TrueForAll(battler => !battler.isAlive);
+    public bool AllNpcsDead => stage.npcTeam.battlers.TrueForAll(battler => !battler.isAlive);
     public bool TurnEnded => Allies.TrueForAll(battler => battler.Actions == 0);
     public bool FinalWave => (wave + 1) == data.encounter.waves.Count;
 
@@ -87,7 +89,7 @@ public class BattleManager : MonoBehaviour
 
     public void ShowAttacks()
     {
-        ui.ShowAttacks();
+        menu.ShowAttacks();
     }
 
     // public void SwapBattler(int index, BattlerData battlerData)
@@ -110,42 +112,44 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public void StartTurn()
+    {
+        SelectUser(team.battlers[0]);
+    }
+
     public void ShowMenu()
     {
-        ui.menu.Show();
+        menu.Show(user, team);
         // If user is numb
         // If user is silent
     }
 
-    public void ShowTargets()
+    public void SelectUser(Battler user)
     {
-        stage.ShowTargets(user, move.target);
+        this.user = user;
+        stage.ShowPickers(user, team);
+        menu.Show(user, team);
+        menu.ShowHistory();
+        Debug.Log($"Selected User: {user}");
     }
 
-    public void SelectMove(int index)
+    public void SelectMove(MoveData move)
     {
-        move = user.data.moves[index];
-        ui.moveTooltip.Hide();
-        ui.lastPanel.Hide();
-        ui.menu.Hide();
+        this.move = move;
+        // menu.moveTooltip.Hide();
+        menu.Hide();
+        stage.HidePickers();
         stage.ShowTargets(user, move.target);
         Debug.Log($"Selected Move: {move.name}");
     }
 
     public void CancelMove()
     {
-        move = null;
+        this.move = null;
         stage.HideTargets();
-        ui.lastPanel.Show();
-        ui.menu.Show();
+        stage.ShowPickers(user, team);
+        menu.Show(user, team);
         Debug.Log($"Cancelled move");
-    }
-
-    public void SelectUser(Battler battler)
-    {
-        Debug.Log($"Selected User: {battler}");
-        user = battler;
-        // ShowMoves();
     }
 
     public void SelectTarget(Battler battler)
@@ -155,13 +159,8 @@ public class BattleManager : MonoBehaviour
 
     public void SelectTargets(List<Battler> battlers)
     {
-        targets = battlers;
-        var debug = "Selected Targets: ";
-        foreach (var battler in battlers)
-        {
-            debug += $"{battler}, ";
-        }
-        Debug.Log(debug);
+        this.targets = battlers;
+        Debug.Log($"Selected Targets: {string.Join(", ", battlers)}");
         // PerformMove();
     }
 

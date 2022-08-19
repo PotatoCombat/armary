@@ -1,20 +1,8 @@
-using TMPro;
-using UnityEngine;
-
-public class MoveButton : MonoBehaviour
+public class MoveButton : CustomButton<MoveData>
 {
-    public TextMeshProUGUI text;
-    public MoveData data;
-
-    public void SetData(MoveData data)
+    protected override void SetData(MoveData data)
     {
-        this.data = data;
-        text.text = data.name;
-    }
-
-    public void ClearData()
-    {
-        this.data = null;
-        text.text = "";
+        base.SetData(data);
+        targetImage.sprite = data.sprite;
     }
 }

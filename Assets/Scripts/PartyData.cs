@@ -6,4 +6,7 @@ public class PartyData
 {
     public List<BattlerData> allies;
     public List<BattlerData> backup;
+
+    // Equips
+    // Items
 }
