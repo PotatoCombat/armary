@@ -17,5 +17,5 @@ MonoBehaviour:
     type: 3
     team: 2
     condition: 1
-  animation: Idle
+  animation: Attack
   effect: 

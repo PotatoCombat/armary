@@ -1,4 +1,6 @@
-public enum ActorEvent
+using UnityEngine;
+
+public abstract class ActorEvent : ScriptableObject
 {
-    Idle, Busy, Hit, Effect,
+    public abstract void Invoke(Actor actor, BattleManager manager);
 }

@@ -1,4 +1,4 @@
-using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,33 +7,35 @@ public class Actor : MonoBehaviour
     public Animator animator;
     public UnityEvent<Actor, ActorEvent> onAnimationEvent;
 
-    // Paused state
+    private Coroutine _animateRoutine;
 
-    public void Idle()
+    public void Animate(string anim, float delay = 0f)
     {
-        onAnimationEvent?.Invoke(this, ActorEvent.Idle);
+        if (_animateRoutine != null)
+        {
+            StopCoroutine(_animateRoutine);
+        }
+        if (delay == 0f)
+        {
+            animator.Play(anim, 0, 0f);
+        }
+        else
+        {
+            animator.Play("Paused");
+            _animateRoutine = StartCoroutine(AnimateRoutine(anim, delay));
+        }
     }
 
-    public void Busy()
+    private IEnumerator AnimateRoutine(string anim, float delay)
     {
-        onAnimationEvent?.Invoke(this, ActorEvent.Busy);
+        yield return new WaitForSeconds(delay);
+        animator.Play(anim, 0, 0f);
+        _animateRoutine = null;
     }
 
-    public void Hit()
+    public void Act(ActorEvent actorEvent)
     {
-        onAnimationEvent?.Invoke(this, ActorEvent.Hit);
-    }
-
-    public void Effect()
-    {
-        onAnimationEvent?.Invoke(this, ActorEvent.Effect);
-    }
-
-    public void Move(Vector2 position, float duration)
-    {
-        transform
-            .DOMove(position, duration)
-            .SetEase(Ease.Linear);
+        onAnimationEvent.Invoke(this, actorEvent);
     }
 
     private void Reset()

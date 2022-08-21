@@ -17,5 +17,5 @@ MonoBehaviour:
     type: 2
     team: 1
     condition: 0
-  animation: Flee
+  animation: Run
   effect: 

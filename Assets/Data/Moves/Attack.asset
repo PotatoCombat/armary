@@ -17,5 +17,5 @@ MonoBehaviour:
     type: 1
     team: 2
     condition: 1
-  animation: Shake
+  animation: Attack
   effect: 

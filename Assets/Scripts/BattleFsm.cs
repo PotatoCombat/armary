@@ -28,6 +28,7 @@ public class BattleFsm
     {
         ChangeState(State.Start);
         Next();
+        Next();
     }
 
     public void ChangeState(State state)
@@ -65,10 +66,10 @@ public class BattleFsm
         public virtual void Enter()
         {
             // Debug.Log($"State: {GetType().Name}");
-            Manager.move = null;
             Manager.user = null;
-            Manager.targets = null;
-            Manager.targetIndex = 0;
+            Manager.move = null;
+            Manager.targetBattler = null;
+            Manager.targetTeam = null;
         }
 
         public virtual void Next()
@@ -86,9 +87,6 @@ public class BattleFsm
             base.Enter();
             Manager.wave = 0;
             Manager.animating = new List<Actor>();
-            Manager.Battlers = new List<Battler>();
-            // Manager.Battlers.AddRange(Manager.selection.players);
-            // Manager.Battlers.AddRange(Manager.selection.npcs);
         }
 
         public override void Next()
@@ -128,7 +126,11 @@ public class BattleFsm
             base.Enter();
             // Manager.Allies = Manager.selection.players;
             // Manager.Foes = Manager.selection.npcs;
-            Manager.user = Manager.Allies.Find(battler => battler.Actions == 0);
+            // Manager.user = Manager.Allies.Find(battler => battler.Actions == 0);
+            Manager.stage.allyTeam = Manager.stage.playerTeam;
+            Manager.stage.foeTeam = Manager.stage.npcTeam;
+            Manager.SelectUser(Manager.stage.allyTeam.battlers[0]);
+
             // Manager.ShowMoves();
         }
 
@@ -165,8 +167,9 @@ public class BattleFsm
         public override void Enter()
         {
             base.Enter();
-            // Manager.Allies = Manager.selection.npcs;
-            // Manager.Foes = Manager.selection.players;
+            Manager.stage.allyTeam = Manager.stage.npcTeam;
+            Manager.stage.foeTeam = Manager.stage.playerTeam;
+            Manager.SelectUser(Manager.stage.allyTeam.battlers[0]);
         }
 
         public override void Next()
@@ -186,7 +189,7 @@ public class BattleFsm
             }
             else if (Manager.TurnEnded)
             {
-                Manager.fsm.ChangeState(State.Weather);
+                Manager.fsm.ChangeState(State.Player);
             }
             else
             {
@@ -202,8 +205,9 @@ public class BattleFsm
         public override void Enter()
         {
             base.Enter();
-            Manager.Allies = new List<Battler>(); //manager.stage.weather);
-            Manager.Foes = new List<Battler>(); //manager.stage.weather);
+            Manager.stage.allyTeam = Manager.stage.weatherTeam;
+            Manager.stage.foeTeam = Manager.stage.weatherTeam;
+            // Manager.SelectUser(Manager.stage.allyTeam.battlers[0]);
         }
 
         public override void Next()

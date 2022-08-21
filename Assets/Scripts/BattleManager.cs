@@ -8,12 +8,10 @@ public class BattleManager : MonoBehaviour
 
     public int wave;
 
-    public Team team;
     public Battler user;
     public MoveData move;
-
-    public int targetIndex;
-    public List<Battler> targets;
+    public Battler targetBattler;
+    public Team targetTeam;
 
     public List<Actor> animating;
 
@@ -24,28 +22,17 @@ public class BattleManager : MonoBehaviour
     public BattleUi ui;
 
     // Accessors
-    public List<Battler> Allies { get; set; }
-    public List<Battler> Foes { get; set; }
-    public List<Battler> Battlers { get; set; }
-
-    private void Start()
-    {
-        // Runs after enable
-        // battlerDB.Load();
-        // effectsDB.Load();
-    }
 
     private void OnEnable()
     {
-        // fsm.Load(this);
-        // fsm.Start();
-        StartTurn();
+        fsm.Load(this);
+        fsm.Start();
     }
 
     public bool SurpriseAttack => data.surpriseAttack;
     public bool AllPlayersDead => stage.playerTeam.battlers.TrueForAll(battler => !battler.isAlive);
     public bool AllNpcsDead => stage.npcTeam.battlers.TrueForAll(battler => !battler.isAlive);
-    public bool TurnEnded => Allies.TrueForAll(battler => battler.Actions == 0);
+    public bool TurnEnded => stage.allyTeam.battlers.TrueForAll(battler => battler.actions == 0);
     public bool FinalWave => (wave + 1) == data.encounter.waves.Count;
 
     public void ShowPlayers()
@@ -102,7 +89,7 @@ public class BattleManager : MonoBehaviour
 
     public void SpawnBattler(BattlerTemplate battlerTemplate)
     {
-        foreach (var ally in Allies)
+        foreach (var ally in stage.allyTeam.battlers)
         {
             if (ally.data == null)
             {
@@ -112,24 +99,13 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void StartTurn()
-    {
-        SelectUser(team.battlers[0]);
-    }
-
-    public void ShowMenu()
-    {
-        menu.Show(user, team);
-        // If user is numb
-        // If user is silent
-    }
-
     public void SelectUser(Battler user)
     {
         this.user = user;
-        stage.ShowPickers(user, team);
-        menu.Show(user, team);
+        menu.Show(user, stage.allyTeam);
         menu.ShowHistory();
+        stage.ShowPickers(stage.allyTeam);
+        user.ShowPicker(false);
         Debug.Log($"Selected User: {user}");
     }
 
@@ -146,22 +122,43 @@ public class BattleManager : MonoBehaviour
     public void CancelMove()
     {
         this.move = null;
+        menu.Show(user, stage.allyTeam);
         stage.HideTargets();
-        stage.ShowPickers(user, team);
-        menu.Show(user, team);
+        stage.ShowPickers(stage.allyTeam);
+        user.ShowPicker(false);
         Debug.Log($"Cancelled move");
     }
 
-    public void SelectTarget(Battler battler)
+    public void TargetBattler(Battler battler)
     {
-        SelectTargets(new List<Battler>(){battler});
+        this.targetBattler = battler;
+        PerformMove();
+        Debug.Log($"Target Battler: {battler}");
     }
 
-    public void SelectTargets(List<Battler> battlers)
+    public void TargetTeam(Team team)
     {
-        this.targets = battlers;
-        Debug.Log($"Selected Targets: {string.Join(", ", battlers)}");
-        // PerformMove();
+        this.targetTeam = team;
+        PerformMove();
+        Debug.Log($"Target Team: {team}");
+    }
+
+    private void PerformMove()
+    {
+        menu.Hide();
+        stage.HideTargets();
+        user.model.Animate(move.animation);
+        // var hit = move.power * user.damage;
+        // if (move.target == single)
+        // {
+        //     targets[].Hit(hit);
+        // }
+    }
+
+    public void PerformAction(Actor actor, ActorEvent actorEvent)
+    {
+        Debug.Log($"{actor}, {actorEvent}");
+        actorEvent.Invoke(actor, this);
     }
 
     public void NotifyIdleActor(Actor actor)
@@ -176,64 +173,5 @@ public class BattleManager : MonoBehaviour
     public void NotifyBusyActor(Actor actor)
     {
         animating.Add(actor);
-    }
-
-    public void PerformMove()
-    {
-        if (move && user && targets != null)
-        {
-            // var hit = move.power * user.damage;
-            // if (move.target == single)
-            // {
-            //     targets[].Hit(hit);
-            // }
-        }
-    }
-
-    public void PerformHit()
-    {
-        // var hit = move.power * user.damage;
-        // if (move.target == single)
-        // {
-        //     targets[].Hit(hit);
-        // }
-    }
-
-    public void PlayWeaponEffect()
-    {
-        // PlayEffect(user.weapon.effect, move.target);
-    }
-
-    public void PlayMoveEffect()
-    {
-        // PlayEffect(move.effect, move.target);
-    }
-
-    public void PlayEffect(string name, string targetting)
-    {
-        // var effect = Instantiate(effectsDB[name], stage.transform);
-        // effect.actor.onAnimationEvent.AddListener(HandleAnimationEvent);
-        // effect.actor.Busy();
-    }
-
-    public void HandleAnimationEvent(Actor actor, ActorEvent evt)
-    {
-        Debug.Log($"Animation Event ({evt}): {actor}");
-        switch (evt)
-        {
-            case ActorEvent.Idle:
-                NotifyIdleActor(actor);
-                break;
-            case ActorEvent.Busy:
-                NotifyBusyActor(actor);
-                break;
-            case ActorEvent.Hit:
-                PerformHit();
-                PlayWeaponEffect();
-                break;
-            case ActorEvent.Effect:
-                PlayMoveEffect();
-                break;
-        }
     }
 }

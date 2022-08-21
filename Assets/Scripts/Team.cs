@@ -1,17 +1,30 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using System.Linq;
-using UnityEditor;
-#endif
+using UnityEngine.Events;
 
 public class Team : MonoBehaviour
 {
     public Faction faction;
+    public HoverButton target;
+
     public List<Battler> battlers;
+
+    public Events events;
+
+    [Serializable]
+    public class Events
+    {
+        public UnityEvent<Team> onTarget;
+    }
 
     // Equips
     // Items
+
+    public void ShowTarget(bool visible)
+    {
+        target.gameObject.SetActive(visible);
+    }
 
     public void Load(PartyData data)
     {
@@ -29,18 +42,18 @@ public class Team : MonoBehaviour
 
     public void Show()
     {
-        foreach (var battler in battlers)
-        {
-            battler.PlayAnimation("Intro");
-        }
+        // foreach (var battler in battlers)
+        // {
+        //     battler.PlayAnimation("Intro");
+        // }
     }
 
     public void Hide()
     {
-        foreach (var battler in battlers)
-        {
-            battler.PlayAnimation("Flee");
-        }
+        // foreach (var battler in battlers)
+        // {
+        //     battler.PlayAnimation("Flee");
+        // }
     }
 
     private void LoadBattlers(List<BattlerData> battlerDatas)
@@ -53,7 +66,7 @@ public class Team : MonoBehaviour
             }
             else
             {
-                battlers[i].Hide();
+                // battlers[i].Hide();
             }
         }
     }
@@ -68,7 +81,7 @@ public class Team : MonoBehaviour
             }
             else
             {
-                battlers[i].Hide();
+                // battlers[i].Hide();
             }
         }
     }
@@ -107,17 +120,8 @@ public class Team : MonoBehaviour
     //     }
     // }
 
-#if UNITY_EDITOR
-    [ContextMenu("Fetch Battlers")]
-    private void FetchBattlers()
+    public void Target()
     {
-        battlers = GetComponentsInChildren<Battler>(true).ToList();
-        foreach (var battler in battlers)
-        {
-            battler.faction = faction;
-            EditorUtility.SetDirty(battler);
-        }
-        EditorUtility.SetDirty(this);
+        events.onTarget.Invoke(this);
     }
-#endif
 }

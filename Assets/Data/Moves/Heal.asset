@@ -17,5 +17,5 @@ MonoBehaviour:
     type: 3
     team: 0
     condition: 1
-  animation: Shake
+  animation: Die
   effect: 

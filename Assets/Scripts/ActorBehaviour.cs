@@ -1,22 +1,27 @@
 using UnityEngine;
 
-public abstract class ActorBehaviour : StateMachineBehaviour
+public class ActorBehaviour : StateMachineBehaviour
 {
-    protected Actor Actor;
+    [SerializeField] private ActorEvent onEnter;
+    [SerializeField] private ActorEvent onExit;
+
+    private Actor _actor;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         LoadActor(animator);
+        _actor.Act(onEnter);
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         LoadActor(animator);
+        _actor.Act(onExit);
     }
 
     private void LoadActor(Animator animator)
     {
-        if (!Actor && !animator.TryGetComponent(out Actor))
+        if (!_actor && !animator.TryGetComponent(out _actor))
         {
             Debug.LogWarning($"{animator.gameObject} must have a parent with an {nameof(Actor)} component");
         }
