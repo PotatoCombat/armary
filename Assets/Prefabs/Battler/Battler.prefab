@@ -243,7 +243,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6669507187417339198}
         m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: Pick
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -66,15 +66,7 @@ public class BattleFsm
         public virtual void Enter()
         {
             // Debug.Log($"State: {GetType().Name}");
-            Manager.LoadContext(new BattleContext()
-            {
-                allyTeam = null,
-                foeTeam = null,
-                user = null,
-                move = null,
-                targetBattler = null,
-                targetTeam = null,
-            });
+            Manager.ResetContext();
         }
 
         public virtual void Next()
@@ -129,14 +121,9 @@ public class BattleFsm
         public override void Enter()
         {
             base.Enter();
-            // Manager.Allies = Manager.selection.players;
-            // Manager.Foes = Manager.selection.npcs;
-            // Manager.user = Manager.Allies.Find(battler => battler.Actions == 0);
-            Manager.context.allyTeam = Manager.stage.playerTeam;
-            Manager.stage.foeTeam = Manager.stage.npcTeam;
-            Manager.SelectUser(Manager.stage.allyTeam.battlers[0]);
-
-            // Manager.ShowMoves();
+            Manager.AllyTeam = Manager.PlayerTeam;
+            Manager.FoeTeam = Manager.NpcTeam;
+            Manager.SelectUser(Manager.AllyTeam.battlers.Find(battler => battler.actions == 0));
         }
 
         public override void Next()
@@ -172,9 +159,9 @@ public class BattleFsm
         public override void Enter()
         {
             base.Enter();
-            Manager.stage.allyTeam = Manager.stage.npcTeam;
-            Manager.stage.foeTeam = Manager.stage.playerTeam;
-            Manager.SelectUser(Manager.stage.allyTeam.battlers[0]);
+            Manager.AllyTeam = Manager.NpcTeam;
+            Manager.FoeTeam = Manager.PlayerTeam;
+            Manager.SelectUser(Manager.AllyTeam.battlers.Find(battler => battler.actions == 0));
         }
 
         public override void Next()
@@ -210,9 +197,8 @@ public class BattleFsm
         public override void Enter()
         {
             base.Enter();
-            Manager.stage.allyTeam = Manager.stage.weatherTeam;
-            Manager.stage.foeTeam = Manager.stage.weatherTeam;
-            // Manager.SelectUser(Manager.stage.allyTeam.battlers[0]);
+            Manager.AllyTeam = Manager.WeatherTeam;
+            Manager.FoeTeam = Manager.WeatherTeam;
         }
 
         public override void Next()

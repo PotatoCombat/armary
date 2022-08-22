@@ -14,7 +14,7 @@ public class MoveButton : MonoBehaviour
     public UnityEvent<MoveData> onHoverEnter;
     public UnityEvent<MoveData> onHoverExit;
 
-    public void SetData(MoveData data)
+    public void LoadData(MoveData data)
     {
         this.data = data;
         this.button.image.sprite = data.sprite;

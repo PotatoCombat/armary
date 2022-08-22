@@ -5,19 +5,13 @@ public class MoveTooltip : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI moveName;
 
-    public string MoveName
+    public void LoadData(MoveData move)
     {
-        get => moveName.text;
-        set => moveName.text = value;
+        moveName.text = move.name;
     }
 
-    public void Show()
+    public void SetVisible(bool visible)
     {
-        gameObject.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
+        gameObject.SetActive(visible);
     }
 }

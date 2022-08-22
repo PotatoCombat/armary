@@ -12,7 +12,7 @@ public class AttacksPanel : BattleMenuPanel
         {
             if (i < numMoves)
             {
-                buttons[i].SetData(user.data.moves[i]);
+                buttons[i].LoadData(user.data.moves[i]);
                 buttons[i].Show(true);
             }
             else

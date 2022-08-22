@@ -3,18 +3,17 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    [Header("Runtime")]
     public BattleData data;
-
     public int wave;
     public List<Actor> animating;
-
     public BattleContext context;
+
+    [Header("Components")]
     public BattleFsm fsm;
     public BattleStage stage;
     public BattleMenu menu;
     public BattleUi ui;
-
-    // Accessors
 
     private void OnEnable()
     {
@@ -22,17 +21,47 @@ public class BattleManager : MonoBehaviour
         fsm.Start();
     }
 
-    public MoveData Move => context.move;
+    // The following properties have no side-effects.
 
-    public Battler User => context.user;
-    public Battler TargetBattler => context.targetBattler;
+    public MoveData Move
+    {
+        get => context.move;
+        set => context.move = value;
+    }
+
+    public Battler User
+    {
+        get => context.user;
+        set => context.user = value;
+    }
+
+    public Battler TargetBattler
+    {
+        get => context.targetBattler;
+        set => context.targetBattler = value;
+    }
+
+    public Team TargetTeam
+    {
+        get => context.targetTeam;
+        set => context.targetTeam = value;
+    }
+
+    public Team AllyTeam
+    {
+        get => context.allyTeam;
+        set => context.allyTeam = value;
+    }
+
+    public Team FoeTeam
+    {
+        get => context.foeTeam;
+        set => context.foeTeam = value;
+    }
 
     public Team PlayerTeam => stage.playerTeam;
     public Team NpcTeam => stage.npcTeam;
     public Team WeatherTeam => stage.weatherTeam;
-    public Team AllyTeam => context.allyTeam;
-    public Team FoeTeam => context.foeTeam;
-    public Team TargetTeam => context.targetTeam;
 
     public bool SurpriseAttack => data.surpriseAttack;
     public bool AllPlayersDead => PlayerTeam.battlers.TrueForAll(battler => !battler.isAlive);
@@ -89,65 +118,71 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void LoadContext(BattleContext context)
+    // The following methods trigger UI side effects.
+
+    public void ResetContext()
     {
-        this.context = context;
+        context = new BattleContext();
     }
 
     public void SelectUser(Battler user)
     {
-        context.user = user;
-        menu.LoadContext(context.user, context.allyTeam);
-        menu.Show(true);
+        User = user;
+        stage.LoadContext(AllyTeam, FoeTeam);
         stage.ShowPickers();
-        context.user.ShowPicker(false);
-        Debug.Log($"Selected User: {context.user}");
+        User.ShowPicker(false);
+        menu.LoadContext(User, AllyTeam);
+        menu.SelectDefaultPanel();
+        menu.ShowPanel(true);
+        menu.ShowButtons(true);
+        Debug.Log($"Selected User: {User}");
     }
 
     public void SelectMove(MoveData move)
     {
-        context.move = move;
-        // menu.moveTooltip.Hide();
-        menu.Show(false);
+        Move = move;
         stage.HidePickers();
-        stage.ShowTargets(context.user, context.move.target);
-        Debug.Log($"Selected Move: {context.move.name}");
+        stage.ShowTargets(User, Move.target);
+        menu.HideTooltip();
+        menu.ShowPanel(false);
+        menu.ShowButtons(false);
+        menu.ShowCancelButton(true);
+        Debug.Log($"Selected Move: {Move.name}");
     }
 
     public void CancelMove()
     {
-        context.move = null;
-        menu.Show(true);
+        Move = null;
         stage.HideTargets();
         stage.ShowPickers();
-        context.user.ShowPicker(false);
+        User.ShowPicker(false);
+        menu.ShowPanel(true);
+        menu.ShowButtons(true);
+        menu.ShowCancelButton(false);
         Debug.Log($"Cancelled move");
     }
 
     public void SelectTarget(Battler battler)
     {
-        context.targetBattler = battler;
+        TargetBattler = battler;
         PerformMove();
         Debug.Log($"Target Battler: {battler}");
     }
 
     public void SelectTarget(Team team)
     {
-        context.targetTeam = team;
+        TargetTeam = team;
         PerformMove();
         Debug.Log($"Target Team: {team}");
     }
 
     private void PerformMove()
     {
-        // menu.Hide();
+        menu.ShowCancelButton(false);
+        menu.ShowPanel(false);
+        menu.ShowButtons(false);
         stage.HideTargets();
-        context.user.model.Animate(context.move.animation);
-        // var hit = move.power * user.damage;
-        // if (move.target == single)
-        // {
-        //     targets[].Hit(hit);
-        // }
+        User.model.Animate(Move.animation);
     }
 
     public void PerformAction(Actor actor, ActorEvent actorEvent)

@@ -9,6 +9,8 @@ public class BattleMenu : MonoBehaviour
     public BattleMenuPanel currentPanel;
 
     [Header("Components")]
+    public GameObject buttons;
+    public GameObject cancelButton;
     public BattleMenuPanel defaultPanel;
     public MoveTooltip moveTooltip;
 
@@ -19,23 +21,38 @@ public class BattleMenu : MonoBehaviour
     {
         this.user = user;
         this.team = team;
-        this.currentPanel = defaultPanel;
     }
 
-    public void Show(bool visible)
+    public void ShowButtons(bool visible)
     {
-        gameObject.SetActive(visible);
+        buttons.SetActive(visible);
+    }
+
+    public void ShowPanel(bool visible)
+    {
         if (currentPanel)
         {
-            if (visible)
-            {
-                currentPanel.LoadContext(user, team);
-            }
             currentPanel.Show(visible);
         }
     }
 
-    public void ShowPanel(BattleMenuPanel panel)
+    public void ShowCancelButton(bool visible)
+    {
+        cancelButton.SetActive(visible);
+    }
+
+    public void ShowTooltip(MoveData move)
+    {
+        moveTooltip.LoadData(move);
+        moveTooltip.SetVisible(true);
+    }
+
+    public void HideTooltip()
+    {
+        moveTooltip.SetVisible(false);
+    }
+
+    public void SelectPanel(BattleMenuPanel panel)
     {
         if (currentPanel)
         {
@@ -46,14 +63,9 @@ public class BattleMenu : MonoBehaviour
         currentPanel.Show(true);
     }
 
-    public void ShowMoveTooltip(MoveData move)
+    public void SelectDefaultPanel()
     {
-        moveTooltip.Show();
-    }
-
-    public void HideMoveTooltip(MoveData move)
-    {
-        moveTooltip.Hide();
+        SelectPanel(defaultPanel);
     }
 
     public void SelectMove(MoveData move)

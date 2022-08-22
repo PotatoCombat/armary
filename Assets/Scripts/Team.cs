@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class Team : MonoBehaviour
 {
     public Faction faction;
-    public HoverButton target;
+    public SimpleButton target;
 
     public List<Battler> battlers;
 

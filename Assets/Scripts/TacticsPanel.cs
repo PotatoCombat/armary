@@ -13,11 +13,11 @@ public class TacticsPanel : BattleMenuPanel
     public override void LoadContext(Battler user, Team team)
     {
         base.LoadContext(user, team);
-        buttons[0].SetData(defend);
-        buttons[1].SetData(scan);
-        buttons[2].SetData(skip);
-        buttons[3].SetData(flee); // if Battler.canFlee
-        buttons[4].SetData(swap1);
-        buttons[5].SetData(swap2);
+        buttons[0].LoadData(defend);
+        buttons[1].LoadData(scan);
+        buttons[2].LoadData(skip);
+        buttons[3].LoadData(flee); // if Battler.canFlee
+        buttons[4].LoadData(swap1);
+        buttons[5].LoadData(swap2);
     }
 }
