@@ -10,14 +10,14 @@ public class TacticsPanel : BattleMenuPanel
     public MoveData swap1;
     public MoveData swap2;
 
-    public override void Show(Battler user, Team team)
+    public override void LoadContext(Battler user, Team team)
     {
-        base.Show(user, team);
-        buttons[0].Data = defend;
-        buttons[1].Data = scan;
-        buttons[2].Data = skip;
-        buttons[3].Data = flee;
-        buttons[4].Data = swap1;
-        buttons[5].Data = swap2;
+        base.LoadContext(user, team);
+        buttons[0].SetData(defend);
+        buttons[1].SetData(scan);
+        buttons[2].SetData(skip);
+        buttons[3].SetData(flee); // if Battler.canFlee
+        buttons[4].SetData(swap1);
+        buttons[5].SetData(swap2);
     }
 }

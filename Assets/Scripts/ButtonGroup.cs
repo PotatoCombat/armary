@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-#if UNITY_EDITOR
-using System.Linq;
-using PotatoEditor;
-using UnityEditor;
-using UnityEditor.Events;
-#endif
+// #if UNITY_EDITOR
+// using System.Linq;
+// using PotatoEditor;
+// using UnityEditor;
+// using UnityEditor.Events;
+// #endif
 
 public class ButtonGroup : MonoBehaviour
 {
@@ -50,27 +50,27 @@ public class ButtonGroup : MonoBehaviour
         // onHoverExit.Invoke(button.index, button.transform.position);
     }
 
-#if UNITY_EDITOR
-    [ContextMenu("Fetch Buttons")]
-    private void FetchButtons()
-    {
-        buttons = GetComponentsInChildren<HoverButton>(true).ToList();
-        for (var i = 0; i < buttons.Count; i++)
-        {
-            var button = buttons[i];
-            // button.index = i;
-
-            UnityEventExtensions.RemoveAllPersistentListeners(button.onClick);
-            UnityEventExtensions.RemoveAllPersistentListeners(button.onHoverEnter);
-            UnityEventExtensions.RemoveAllPersistentListeners(button.onHoverExit);
-
-            UnityEventTools.AddObjectPersistentListener(button.onClick, Click, button);
-            UnityEventTools.AddObjectPersistentListener(button.onHoverEnter, HoverEnter, button);
-            UnityEventTools.AddObjectPersistentListener(button.onHoverExit, HoverExit, button);
-
-            EditorUtility.SetDirty(button);
-        }
-        EditorUtility.SetDirty(this);
-    }
-#endif
+// #if UNITY_EDITOR
+//     [ContextMenu("Fetch Buttons")]
+//     private void FetchButtons()
+//     {
+//         buttons = GetComponentsInChildren<HoverButton>(true).ToList();
+//         for (var i = 0; i < buttons.Count; i++)
+//         {
+//             var button = buttons[i];
+//             // button.index = i;
+//
+//             UnityEventExtensions.RemoveAllPersistentListeners(button.onClick);
+//             UnityEventExtensions.RemoveAllPersistentListeners(button.onHoverEnter);
+//             UnityEventExtensions.RemoveAllPersistentListeners(button.onHoverExit);
+//
+//             UnityEventTools.AddObjectPersistentListener(button.onClick, Click, button);
+//             UnityEventTools.AddObjectPersistentListener(button.onHoverEnter, HoverEnter, button);
+//             UnityEventTools.AddObjectPersistentListener(button.onHoverExit, HoverExit, button);
+//
+//             EditorUtility.SetDirty(button);
+//         }
+//         EditorUtility.SetDirty(this);
+//     }
+// #endif
 }

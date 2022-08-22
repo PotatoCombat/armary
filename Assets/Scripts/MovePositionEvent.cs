@@ -21,15 +21,15 @@ public class MovePositionEvent : ActorEvent
         {
             case Type.Target:
                 Transform target;
-                if (manager.targetBattler)
+                if (manager.TargetBattler)
                 {
-                    target = manager.targetBattler.transform;
+                    target = manager.TargetBattler.transform;
                     nextPosition *= target.localScale.x;
                     nextPosition += (Vector2)target.position;
                 }
-                else if (manager.targetTeam)
+                else if (manager.TargetTeam)
                 {
-                    target = manager.targetTeam.battlers[0].transform;
+                    target = manager.TargetTeam.battlers[0].transform;
                     nextPosition *= target.localScale.x;
                     nextPosition += (Vector2)target.position;
                 }

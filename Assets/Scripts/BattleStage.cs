@@ -1,73 +1,81 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public class BattleStage : MonoBehaviour
 {
-    [Header("Teams")]
+    [Header("Runtime")]
+    public Team allyTeam;
+    public Team foeTeam;
+
+    [Header("Components")]
     public Team playerTeam;
     public Team npcTeam;
     public Team weatherTeam;
 
-    public Team allyTeam;
-    public Team foeTeam;
-
-    public void ShowPickers(Team team)
+    public void LoadContext(Team allyTeam, Team foeTeam)
     {
-        foreach (var battler in team.battlers)
+        this.allyTeam = allyTeam;
+        this.foeTeam = foeTeam;
+    }
+
+    public void ShowPickers()
+    {
+        foreach (var battler in allyTeam.battlers)
         {
             battler.ShowPicker(battler.isAlive);
         }
     }
 
-    public void ShowTargets(Battler user, TargetData data)
+    public void ShowTargets(Battler user, TargetData target)
     {
-        switch (data.type)
+        switch (target.type)
         {
             case TargetType.Self:
-                ShowSingleTarget(user, data);
+                ShowSingleTarget(user, target);
                 break;
             case TargetType.Single:
-                if (data.TargetAllies)
+                if (target.TargetAllies)
                 {
                     foreach (var ally in allyTeam.battlers)
                     {
-                        ShowSingleTarget(ally, data);
+                        ShowSingleTarget(ally, target);
                     }
                 }
-                if (data.TargetFoes)
+                if (target.TargetFoes)
                 {
                     foreach (var foe in foeTeam.battlers)
                     {
-                        ShowSingleTarget(foe, data);
+                        ShowSingleTarget(foe, target);
                     }
                 }
                 break;
             case TargetType.Team:
-                if (data.TargetAllies)
+                if (target.TargetAllies)
                 {
                     allyTeam.ShowTarget(true);
                 }
-                if (data.TargetFoes)
+                if (target.TargetFoes)
                 {
                     foeTeam.ShowTarget(true);
                 }
                 break;
             case TargetType.Mixed:
-                if (data.TargetAllies)
+                if (target.TargetAllies)
                 {
                     allyTeam.ShowTarget(true);
                     foreach (var ally in allyTeam.battlers)
                     {
-                        ShowSingleTarget(ally, data);
+                        ShowSingleTarget(ally, target);
                     }
                 }
-                if (data.TargetFoes)
+                if (target.TargetFoes)
                 {
                     foeTeam.ShowTarget(true);
                     foreach (var foe in foeTeam.battlers)
                     {
-                        ShowSingleTarget(foe, data);
+                        ShowSingleTarget(foe, target);
                     }
                 }
                 break;

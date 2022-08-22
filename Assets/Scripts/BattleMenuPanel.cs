@@ -1,16 +1,16 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public abstract class BattleMenuPanel : MonoBehaviour
 {
+    [SerializeField] protected SimpleButton menuButton;
 
-    public virtual void Show(Battler user, Team team)
+    public virtual void LoadContext(Battler user, Team team)
     {
-        gameObject.SetActive(true);
+
     }
 
-    public virtual void Hide()
+    public virtual void Show(bool visible)
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(visible);
     }
 }

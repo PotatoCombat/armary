@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 public class EquipsPanel : BattleMenuPanel
 {
-    public override void Show(Battler user, Team team)
+    public override void LoadContext(Battler user, Team team)
     {
-        base.Show(user, team);
+        base.LoadContext(user, team);
     }
 }

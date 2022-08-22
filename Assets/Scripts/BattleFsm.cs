@@ -66,10 +66,15 @@ public class BattleFsm
         public virtual void Enter()
         {
             // Debug.Log($"State: {GetType().Name}");
-            Manager.user = null;
-            Manager.move = null;
-            Manager.targetBattler = null;
-            Manager.targetTeam = null;
+            Manager.LoadContext(new BattleContext()
+            {
+                allyTeam = null,
+                foeTeam = null,
+                user = null,
+                move = null,
+                targetBattler = null,
+                targetTeam = null,
+            });
         }
 
         public virtual void Next()
@@ -127,7 +132,7 @@ public class BattleFsm
             // Manager.Allies = Manager.selection.players;
             // Manager.Foes = Manager.selection.npcs;
             // Manager.user = Manager.Allies.Find(battler => battler.Actions == 0);
-            Manager.stage.allyTeam = Manager.stage.playerTeam;
+            Manager.context.allyTeam = Manager.stage.playerTeam;
             Manager.stage.foeTeam = Manager.stage.npcTeam;
             Manager.SelectUser(Manager.stage.allyTeam.battlers[0]);
 

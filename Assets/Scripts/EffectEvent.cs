@@ -21,13 +21,13 @@ public class EffectEvent : ActorEvent
     public override void Invoke(Actor actor, BattleManager manager)
     {
         var battlers = new List<Battler>();
-        if (manager.targetBattler)
+        if (manager.context.targetBattler)
         {
-            battlers.Add(manager.targetBattler);
+            battlers.Add(manager.context.targetBattler);
         }
-        if (manager.targetTeam)
+        if (manager.context.targetTeam)
         {
-            battlers.AddRange(manager.targetTeam.battlers);
+            battlers.AddRange(manager.context.targetTeam.battlers);
         }
         var delta = 0f;
         foreach (var battler in battlers)
