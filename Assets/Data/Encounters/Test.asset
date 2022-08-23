@@ -15,11 +15,11 @@ MonoBehaviour:
   waves:
   - foes:
     - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
-      level: 0
+      level: 1
       position: {x: 175, y: 100}
-    - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
-      level: 0
+    - type: {fileID: 11400000, guid: 59cb90f2fbc84465da2677f2fad69874, type: 2}
+      level: 1
       position: {x: 240, y: 0}
-    - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
-      level: 0
+    - type: {fileID: 11400000, guid: b3a7de62fda764ec9b88986fc73f352d, type: 2}
+      level: 1
       position: {x: 300, y: -100}

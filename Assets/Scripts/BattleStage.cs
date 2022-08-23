@@ -23,7 +23,7 @@ public class BattleStage : MonoBehaviour
     {
         foreach (var battler in allyTeam.battlers)
         {
-            battler.ShowPicker(battler.isAlive);
+            battler.ShowPicker(battler.IsAlive);
         }
     }
 
@@ -87,7 +87,7 @@ public class BattleStage : MonoBehaviour
 
     private void ShowSingleTarget(Battler battler, TargetData data)
     {
-        if ((battler.isAlive && data.TargetAlive) || (!battler.isAlive && data.TargetDead))
+        if ((battler.IsAlive && data.TargetAlive) || (!battler.IsAlive && data.TargetDead))
         {
             battler.ShowTarget(true);
         }

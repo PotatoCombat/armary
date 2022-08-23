@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class Battler : MonoBehaviour
 {
     public Faction faction;
-    public bool isAlive;
     public int actions = 0;
 
     public Actor model;
@@ -25,7 +24,10 @@ public class Battler : MonoBehaviour
     {
         public UnityEvent<Battler> onSelect;
         public UnityEvent<Battler> onTarget;
+        public UnityEvent<Battler, HitEvent> onHit;
     }
+
+    public bool IsAlive => data.hp > 0;
 
     public void ShowPicker(bool visible)
     {
@@ -57,5 +59,37 @@ public class Battler : MonoBehaviour
     public void Target()
     {
         events.onTarget.Invoke(this);
+    }
+
+    public void Hit(HitEvent hitEvent)
+    {
+        events.onHit.Invoke(this, hitEvent);
+    }
+
+    public void ReceiveDamage(DamageData damage)
+    {
+        // hpText.text = damage.value.ToString();
+        var prevHp = data.hp;
+        data.hp = Mathf.Clamp(data.hp + damage.value, 0, data.maxHp);
+        if (data.hp == prevHp)
+        {
+            return;
+        }
+        if (data.hp == 0)
+        {
+            model.Animate("Die");
+        }
+        else if (prevHp == 0)
+        {
+            model.Animate("Revive");
+        }
+        else if (data.hp < prevHp)
+        {
+            model.Animate("Hit");
+        }
+        else if (data.hp > prevHp)
+        {
+            model.Animate("Heal");
+        }
     }
 }

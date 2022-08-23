@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 26179694882519811}
   - component: {fileID: 26179694882519810}
   - component: {fileID: 26179694882519813}
-  - component: {fileID: 2900187092073208418}
+  - component: {fileID: 6586057175724872688}
   m_Layer: 0
   m_Name: Skills
   m_TagString: Untagged
@@ -68,13 +68,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 26179694882519810}
-  onHit:
-    m_PersistentCalls:
-      m_Calls: []
   onAction:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2900187092073208418
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6586057175724872688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 26179694882519815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e4bc1a22d0443286eef8ac68543a9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 175b10bc559f49ce84155c7841da14a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onHit:

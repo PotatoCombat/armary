@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f47d465bc54626958b912f97dab37e, type: 3}
   m_Name: Spheal
   m_EditorClassIdentifier: 
-  hp: 500
-  moves: []
+  hp: 10
+  moves:
+  - {fileID: 11400000, guid: 4088733c4d1c349d08e1e60177a4b7ab, type: 2}
+  - {fileID: 11400000, guid: 2457e8c9025ca482fb5ddb2c3e413f55, type: 2}

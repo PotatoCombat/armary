@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f47d465bc54626958b912f97dab37e, type: 3}
   m_Name: Wooper
   m_EditorClassIdentifier: 
-  hp: 300
-  moves: []
+  hp: 100
+  moves:
+  - {fileID: 11400000, guid: dd9cffa8218f44734bf95534eedfc769, type: 2}
+  - {fileID: 11400000, guid: 3049e4895ed85410cb2fda84bad4d29f, type: 2}

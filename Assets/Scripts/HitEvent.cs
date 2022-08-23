@@ -1,13 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
-public class HitEvent : ScriptableObject
+public abstract class HitEvent : ScriptableObject
 {
-    public int damageModifier;
+    public virtual void Invoke(Battler battler, BattleManager manager) { }
 
-    public void Execute(List<Battler> battlers, BattleManager manager)
+    public virtual void Invoke(Team team, BattleManager manager)
     {
-
+        foreach (var battler in team.battlers)
+        {
+            Invoke(battler, manager);
+        }
     }
 }

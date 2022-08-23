@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class Actor : MonoBehaviour
 {
     public Animator animator;
-    public UnityEvent<Actor, ActorEvent> onAnimationEvent;
+    public UnityEvent<Actor, ActorEvent> onAction;
 
     private Coroutine _animateRoutine;
 
@@ -35,7 +35,7 @@ public class Actor : MonoBehaviour
 
     public void Act(ActorEvent actorEvent)
     {
-        onAnimationEvent.Invoke(this, actorEvent);
+        onAction.Invoke(this, actorEvent);
     }
 
     private void Reset()

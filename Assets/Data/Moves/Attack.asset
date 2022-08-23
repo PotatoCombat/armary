@@ -17,5 +17,6 @@ MonoBehaviour:
     type: 1
     team: 2
     condition: 1
+  power: 10
   animation: Attack
   effect: 

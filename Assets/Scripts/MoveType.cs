@@ -5,6 +5,7 @@ public class MoveType : ScriptableObject
 {
     public Sprite sprite;
     public TargetData target;
+    public int power;
     // public string type;
     public string animation;
     public string effect;

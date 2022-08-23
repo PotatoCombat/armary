@@ -13,7 +13,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattleFsm fsm;
     [SerializeField] private BattleStage stage;
     [SerializeField] private BattleMenu menu;
-    [SerializeField] private BattleUi ui;
+    [SerializeField] private BattleInfo info;
 
     private void Start()
     {
@@ -65,8 +65,8 @@ public class BattleManager : MonoBehaviour
     public Team WeatherTeam => stage.weatherTeam;
 
     public bool SurpriseAttack => data.surpriseAttack;
-    public bool AllPlayersDead => PlayerTeam.battlers.TrueForAll(battler => !battler.isAlive);
-    public bool AllNpcsDead => NpcTeam.battlers.TrueForAll(battler => !battler.isAlive);
+    public bool AllPlayersDead => PlayerTeam.battlers.TrueForAll(battler => !battler.IsAlive);
+    public bool AllNpcsDead => NpcTeam.battlers.TrueForAll(battler => !battler.IsAlive);
     public bool TurnEnded => AllyTeam.battlers.TrueForAll(battler => battler.actions == 0);
     public bool FinalWave => (wave + 1) == data.encounter.waves.Count;
 
@@ -192,8 +192,20 @@ public class BattleManager : MonoBehaviour
 
     public void PerformAction(Actor actor, ActorEvent actorEvent)
     {
-        Debug.Log($"{actor}, {actorEvent}");
+        Debug.Log($"Perform {actorEvent}: {actor}");
         actorEvent.Invoke(actor, this);
+    }
+
+    public void PerformHit(Battler battler, HitEvent hitEvent)
+    {
+        Debug.Log($"Perform {hitEvent}: {battler}");
+        hitEvent.Invoke(battler, this);
+    }
+
+    public void PerformHit(Team team, HitEvent hitEvent)
+    {
+        Debug.Log($"Perform {hitEvent}: {team}");
+        hitEvent.Invoke(team, this);
     }
 
     public void NotifyIdleActor(Actor actor)

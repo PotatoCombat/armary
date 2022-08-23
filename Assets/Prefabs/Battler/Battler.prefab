@@ -137,11 +137,16 @@ MonoBehaviour:
     type: {fileID: 0}
     attack: {fileID: 11400000, guid: 50c67e589ed54487bafdf90423bd933c, type: 2}
     moves: []
+    hp: 0
+    maxHp: 0
   events:
     onSelect:
       m_PersistentCalls:
         m_Calls: []
     onTarget:
+      m_PersistentCalls:
+        m_Calls: []
+    onHit:
       m_PersistentCalls:
         m_Calls: []
 --- !u!1 &4692785761882094319
@@ -479,6 +484,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7652983973759738615, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652983973759738615, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652983973759738615, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6669507187417339198}
+    - target: {fileID: 7652983973759738615, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652983973759738615, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652983973759738615, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Battler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652983973759738615, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7c4f85ee6474c9db7936a02031dc87, type: 3}
 --- !u!114 &1371517710029910855 stripped
@@ -551,6 +584,34 @@ PrefabInstance:
     - target: {fileID: 26179694882519815, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
       propertyPath: m_Name
       value: Skills
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586057175724872688, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586057175724872688, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586057175724872688, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6669507187417339198}
+    - target: {fileID: 6586057175724872688, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586057175724872688, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586057175724872688, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Battler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586057175724872688, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+      propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
