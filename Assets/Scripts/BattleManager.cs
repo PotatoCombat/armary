@@ -4,24 +4,25 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     [Header("Runtime")]
-    public BattleData data;
-    public int wave;
-    public List<Actor> animating;
-    public BattleContext context;
+    [SerializeField] private BattleData data;
+    [SerializeField] private int wave;
+    [SerializeField] private List<Actor> animating;
+    [SerializeField] private BattleContext context;
 
     [Header("Components")]
-    public BattleFsm fsm;
-    public BattleStage stage;
-    public BattleMenu menu;
-    public BattleUi ui;
+    [SerializeField] private BattleFsm fsm;
+    [SerializeField] private BattleStage stage;
+    [SerializeField] private BattleMenu menu;
+    [SerializeField] private BattleUi ui;
 
-    private void OnEnable()
+    private void Start()
     {
-        fsm.Load(this);
-        fsm.Start();
+        StartBattle();
     }
 
     // The following properties have no side-effects.
+
+    public int Wave => wave;
 
     public MoveData Move
     {
@@ -120,6 +121,18 @@ public class BattleManager : MonoBehaviour
 
     // The following methods trigger UI side effects.
 
+    public void StartBattle()
+    {
+        fsm.Load(this);
+        fsm.Start();
+    }
+
+    public void ResetVariables()
+    {
+        wave = 0;
+        animating = new List<Actor>();
+    }
+
     public void ResetContext()
     {
         context = new BattleContext();
@@ -133,8 +146,7 @@ public class BattleManager : MonoBehaviour
         User.ShowPicker(false);
         menu.LoadContext(User, AllyTeam);
         menu.SelectDefaultPanel();
-        menu.ShowPanel(true);
-        menu.ShowButtons(true);
+        menu.Show();
         Debug.Log($"Selected User: {User}");
     }
 
@@ -143,10 +155,6 @@ public class BattleManager : MonoBehaviour
         Move = move;
         stage.HidePickers();
         stage.ShowTargets(User, Move.target);
-        menu.HideTooltip();
-        menu.ShowPanel(false);
-        menu.ShowButtons(false);
-        menu.ShowCancelButton(true);
         Debug.Log($"Selected Move: {Move.name}");
     }
 
@@ -156,9 +164,6 @@ public class BattleManager : MonoBehaviour
         stage.HideTargets();
         stage.ShowPickers();
         User.ShowPicker(false);
-        menu.ShowPanel(true);
-        menu.ShowButtons(true);
-        menu.ShowCancelButton(false);
         Debug.Log($"Cancelled move");
     }
 
@@ -178,10 +183,8 @@ public class BattleManager : MonoBehaviour
 
     private void PerformMove()
     {
-        menu.ShowCancelButton(false);
-        menu.ShowPanel(false);
-        menu.ShowButtons(false);
         stage.HideTargets();
+        menu.Hide();
         User.model.Animate(Move.animation);
     }
 

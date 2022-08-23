@@ -17,12 +17,11 @@ public class MoveButton : MonoBehaviour
     public void LoadData(MoveData data)
     {
         this.data = data;
-        this.button.image.sprite = data.sprite;
     }
 
-    public void Show(bool visible)
+    public void LoadSprite(Sprite sprite)
     {
-        gameObject.SetActive(visible);
+        button.image.sprite = sprite;
     }
 
     public void Click()

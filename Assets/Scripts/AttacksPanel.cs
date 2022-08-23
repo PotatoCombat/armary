@@ -13,11 +13,12 @@ public class AttacksPanel : BattleMenuPanel
             if (i < numMoves)
             {
                 buttons[i].LoadData(user.data.moves[i]);
-                buttons[i].Show(true);
+                buttons[i].LoadSprite(user.data.moves[i].sprite);
+                buttons[i].gameObject.SetActive(true);
             }
             else
             {
-                buttons[i].Show(false);
+                buttons[i].gameObject.SetActive(false);
             }
         }
     }

@@ -1,26 +1,38 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class BattleFsm
+public class BattleFsm : MonoBehaviour
 {
     [SerializeField]
     private State state;
     private Dictionary<State, Transition>  _transitions;
 
+    public enum State
+    {
+        Start,
+        Wave,
+        Player,
+        Npc,
+        Weather,
+        Victory,
+        Gameover,
+        Flee,
+        End,
+    }
+
     public void Load(BattleManager manager)
     {
         _transitions = new Dictionary<State, Transition>
         {
-            { State.Start, new StartBattle(manager) },
-            { State.Wave, new LoadWave(manager) },
-            { State.Player, new PlayerTurn(manager) },
-            { State.Npc, new NpcTurn(manager) },
-            { State.Weather, new WeatherTurn(manager) },
-            { State.Victory, new Victory(manager) },
-            { State.Gameover, new Gameover(manager) },
-            { State.End, new EndBattle(manager) },
+            { State.Start, new StartBattle(this, manager) },
+            { State.Wave, new LoadWave(this, manager) },
+            { State.Player, new PlayerTurn(this, manager) },
+            { State.Npc, new NpcTurn(this, manager) },
+            { State.Weather, new WeatherTurn(this, manager) },
+            { State.Victory, new Victory(this, manager) },
+            { State.Gameover, new Gameover(this, manager) },
+            { State.Flee, new FleeBattle(this, manager) },
+            { State.End, new EndBattle(this, manager) },
         };
     }
 
@@ -42,24 +54,14 @@ public class BattleFsm
         _transitions[this.state].Next();
     }
 
-    public enum State
+    private abstract class Transition
     {
-        Start,
-        Wave,
-        Player,
-        Npc,
-        Weather,
-        Victory,
-        Gameover,
-        Flee,
-        End,
-    }
-
-    public abstract class Transition
-    {
+        protected BattleFsm Fsm;
         protected BattleManager Manager;
-        protected Transition(BattleManager manager)
+
+        protected Transition(BattleFsm fsm, BattleManager manager)
         {
+            Fsm = fsm;
             Manager = manager;
         }
 
@@ -75,32 +77,31 @@ public class BattleFsm
         }
     }
 
-    public class StartBattle : Transition
+    private class StartBattle : Transition
     {
-        public StartBattle(BattleManager manager) : base(manager) { }
+        public StartBattle(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
 
         public override void Enter()
         {
             base.Enter();
-            Manager.wave = 0;
-            Manager.animating = new List<Actor>();
+            Manager.ResetVariables();
         }
 
         public override void Next()
         {
             base.Next();
-            Manager.fsm.ChangeState(State.Wave);
+            Fsm.ChangeState(State.Wave);
         }
     }
 
-    public class LoadWave : Transition
+    private class LoadWave : Transition
     {
-        public LoadWave(BattleManager manager) : base(manager) { }
+        public LoadWave(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
 
         public override void Enter()
         {
             base.Enter();
-            if (Manager.wave == 0)
+            if (Manager.Wave == 0)
             {
                 Manager.ShowPlayers();
             }
@@ -110,19 +111,116 @@ public class BattleFsm
         public override void Next()
         {
             base.Next();
-            Manager.fsm.ChangeState(Manager.SurpriseAttack ? State.Npc : State.Player);
+            Fsm.ChangeState(Manager.SurpriseAttack ? State.Npc : State.Player);
         }
     }
 
-    public class PlayerTurn : Transition
+    private class Victory : Transition
     {
-        public PlayerTurn(BattleManager manager) : base(manager) { }
+        public Victory(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
 
         public override void Enter()
         {
             base.Enter();
-            Manager.AllyTeam = Manager.PlayerTeam;
-            Manager.FoeTeam = Manager.NpcTeam;
+        }
+
+        public override void Next()
+        {
+            base.Next();
+            Fsm.ChangeState(State.End);
+        }
+    }
+
+    private class Gameover : Transition
+    {
+        public Gameover(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
+
+        public override void Enter()
+        {
+            base.Enter();
+        }
+
+        public override void Next()
+        {
+            base.Next();
+            Fsm.ChangeState(State.End);
+        }
+    }
+
+    private class FleeBattle : Transition
+    {
+        public FleeBattle(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
+
+        public override void Enter()
+        {
+            base.Enter();
+        }
+
+        public override void Next()
+        {
+            base.Next();
+        }
+    }
+
+    private class EndBattle : Transition
+    {
+        public EndBattle(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
+
+        public override void Enter()
+        {
+            base.Enter();
+        }
+
+        public override void Next()
+        {
+            base.Next();
+        }
+    }
+
+    private class PlayerTurn : Turn
+    {
+        public PlayerTurn(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
+
+        protected override Team AllyTeam => Manager.PlayerTeam;
+        protected override Team FoeTeam => Manager.NpcTeam;
+        protected override State CurrentTurn => State.Player;
+        protected override State NextTurn => State.Npc;
+    }
+
+    private class NpcTurn : Turn
+    {
+        public NpcTurn(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
+
+        protected override Team AllyTeam => Manager.NpcTeam;
+        protected override Team FoeTeam => Manager.PlayerTeam;
+        protected override State CurrentTurn => State.Npc;
+        protected override State NextTurn => State.Player;
+    }
+
+    private class WeatherTurn : Turn
+    {
+        public WeatherTurn(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
+
+        protected override Team AllyTeam => Manager.WeatherTeam;
+        protected override Team FoeTeam => Manager.WeatherTeam;
+        protected override State CurrentTurn => State.Weather;
+        protected override State NextTurn => State.Player;
+    }
+
+    private abstract class Turn : Transition
+    {
+        protected Turn(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
+
+        protected abstract Team AllyTeam { get; }
+        protected abstract Team FoeTeam { get; }
+        protected abstract State CurrentTurn { get; }
+        protected abstract State NextTurn { get; }
+
+        public override void Enter()
+        {
+            base.Enter();
+            Manager.AllyTeam = AllyTeam;
+            Manager.FoeTeam = FoeTeam;
             Manager.SelectUser(Manager.AllyTeam.battlers.Find(battler => battler.actions == 0));
         }
 
@@ -131,146 +229,24 @@ public class BattleFsm
             base.Next();
             if (Manager.AllPlayersDead)
             {
-                Manager.fsm.ChangeState(State.Gameover);
+                Fsm.ChangeState(State.Gameover);
             }
             else if (Manager.FinalWave && Manager.AllNpcsDead)
             {
-                Manager.fsm.ChangeState(State.Victory);
+                Fsm.ChangeState(State.Victory);
             }
             else if (Manager.AllNpcsDead)
             {
-                Manager.fsm.ChangeState(State.Wave);
+                Fsm.ChangeState(State.Wave);
             }
             else if (Manager.TurnEnded)
             {
-                Manager.fsm.ChangeState(State.Npc);
+                Fsm.ChangeState(NextTurn);
             }
             else
             {
-                Manager.fsm.ChangeState(State.Player);
+                Fsm.ChangeState(CurrentTurn);
             }
-        }
-    }
-
-    public class NpcTurn : Transition
-    {
-        public NpcTurn(BattleManager manager) : base(manager) { }
-
-        public override void Enter()
-        {
-            base.Enter();
-            Manager.AllyTeam = Manager.NpcTeam;
-            Manager.FoeTeam = Manager.PlayerTeam;
-            Manager.SelectUser(Manager.AllyTeam.battlers.Find(battler => battler.actions == 0));
-        }
-
-        public override void Next()
-        {
-            base.Next();
-            if (Manager.AllPlayersDead)
-            {
-                Manager.fsm.ChangeState(State.Gameover);
-            }
-            else if (Manager.FinalWave && Manager.AllNpcsDead)
-            {
-                Manager.fsm.ChangeState(State.Victory);
-            }
-            else if (Manager.AllNpcsDead)
-            {
-                Manager.fsm.ChangeState(State.Wave);
-            }
-            else if (Manager.TurnEnded)
-            {
-                Manager.fsm.ChangeState(State.Player);
-            }
-            else
-            {
-                Manager.fsm.ChangeState(State.Npc);
-            }
-        }
-    }
-
-    public class WeatherTurn : Transition
-    {
-        public WeatherTurn(BattleManager manager) : base(manager) { }
-
-        public override void Enter()
-        {
-            base.Enter();
-            Manager.AllyTeam = Manager.WeatherTeam;
-            Manager.FoeTeam = Manager.WeatherTeam;
-        }
-
-        public override void Next()
-        {
-            base.Next();
-            if (Manager.AllPlayersDead)
-            {
-                Manager.fsm.ChangeState(State.Gameover);
-            }
-            else if (Manager.FinalWave && Manager.AllNpcsDead)
-            {
-                Manager.fsm.ChangeState(State.Victory);
-            }
-            else if (Manager.AllNpcsDead)
-            {
-                Manager.fsm.ChangeState(State.Wave);
-            }
-            else if (Manager.TurnEnded)
-            {
-                Manager.fsm.ChangeState(State.Player);
-            }
-            else
-            {
-                Manager.fsm.ChangeState(State.Weather);
-            }
-        }
-    }
-
-    public class Victory : Transition
-    {
-        public Victory(BattleManager manager) : base(manager) { }
-
-        public override void Enter()
-        {
-            base.Enter();
-        }
-
-        public override void Next()
-        {
-            base.Next();
-            Manager.fsm.ChangeState(State.End);
-        }
-    }
-
-    public class Gameover : Transition
-    {
-        public Gameover(BattleManager manager) : base(manager) { }
-
-        public override void Enter()
-        {
-            base.Enter();
-        }
-
-        public override void Next()
-        {
-            base.Next();
-            Manager.fsm.ChangeState(State.End);
-        }
-    }
-
-    public class EndBattle : Transition
-    {
-        public EndBattle(BattleManager manager) : base(manager) { }
-
-        public override void Enter()
-        {
-            base.Enter();
-        }
-
-        public override void Next()
-        {
-            base.Next();
         }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,13 +20,13 @@ public class EffectEvent : ActorEvent
     public override void Invoke(Actor actor, BattleManager manager)
     {
         var battlers = new List<Battler>();
-        if (manager.context.targetBattler)
+        if (manager.TargetBattler)
         {
-            battlers.Add(manager.context.targetBattler);
+            battlers.Add(manager.TargetBattler);
         }
-        if (manager.context.targetTeam)
+        if (manager.TargetTeam)
         {
-            battlers.AddRange(manager.context.targetTeam.battlers);
+            battlers.AddRange(manager.TargetTeam.battlers);
         }
         var delta = 0f;
         foreach (var battler in battlers)

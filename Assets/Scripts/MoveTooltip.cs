@@ -9,9 +9,4 @@ public class MoveTooltip : MonoBehaviour
     {
         moveName.text = move.name;
     }
-
-    public void SetVisible(bool visible)
-    {
-        gameObject.SetActive(visible);
-    }
 }
