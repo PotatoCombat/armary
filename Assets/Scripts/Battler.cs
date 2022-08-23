@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,8 +14,8 @@ public class Battler : MonoBehaviour
 
     public TextMeshProUGUI hpText;
 
-    public HoverButton picker;
-    public HoverButton target;
+    public SimpleButton picker;
+    public SimpleButton target;
 
     public BattlerData data;
     public Events events;

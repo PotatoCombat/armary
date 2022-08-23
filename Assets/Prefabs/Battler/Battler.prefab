@@ -131,8 +131,8 @@ MonoBehaviour:
   model: {fileID: 1371517710029910855}
   effects: {fileID: 3289796483517800733}
   hpText: {fileID: 0}
-  picker: {fileID: 6846909675072964261}
-  target: {fileID: 383969288336082249}
+  picker: {fileID: 3772833485051386077}
+  target: {fileID: 7749872277314606753}
   data:
     type: {fileID: 0}
     attack: {fileID: 11400000, guid: 50c67e589ed54487bafdf90423bd933c, type: 2}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 7572376347587772059}
   - component: {fileID: 4473878677972128923}
   - component: {fileID: 7103523008682757989}
-  - component: {fileID: 6846909675072964261}
+  - component: {fileID: 3772833485051386077}
   m_Layer: 5
   m_Name: Picker (Player)
   m_TagString: Untagged
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6846909675072964261
+--- !u!114 &3772833485051386077
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,13 +230,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4692785761882094319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85e1957ec93f4db386f14613198ac2f2, type: 3}
+  m_Script: {fileID: 11500000, guid: bde5f0e6686a4f928be5b94e10b25774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactable: 1
-  targetImage: {fileID: 7103523008682757989}
+  image: {fileID: 7103523008682757989}
   normalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
   hoverColor: {r: 1, g: 0, b: 0, a: 0.39215687}
+  disabledColor: {r: 0, g: 0, b: 0, a: 0}
   fadeDuration: 0
   onClick:
     m_PersistentCalls:
@@ -259,22 +260,22 @@ MonoBehaviour:
       - m_Target: {fileID: 6669507187417339198}
         m_TargetAssemblyTypeName: Battler, Assembly-CSharp
         m_MethodName: ShowTooltip
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   onHoverExit:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6669507187417339198}
         m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: HideTooltip
-        m_Mode: 1
+        m_MethodName: ShowTooltip
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -294,7 +295,7 @@ GameObject:
   - component: {fileID: 5737021109695396568}
   - component: {fileID: 7838517446371394536}
   - component: {fileID: 8387022633771748744}
-  - component: {fileID: 383969288336082249}
+  - component: {fileID: 7749872277314606753}
   m_Layer: 5
   m_Name: Target (Player)
   m_TagString: Untagged
@@ -360,7 +361,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &383969288336082249
+--- !u!114 &7749872277314606753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -369,13 +370,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9220671226612320224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85e1957ec93f4db386f14613198ac2f2, type: 3}
+  m_Script: {fileID: 11500000, guid: bde5f0e6686a4f928be5b94e10b25774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactable: 1
-  targetImage: {fileID: 8387022633771748744}
+  image: {fileID: 8387022633771748744}
   normalColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0.39215687}
   hoverColor: {r: 1, g: 0, b: 0, a: 0.39215687}
+  disabledColor: {r: 0, g: 0, b: 0, a: 0}
   fadeDuration: 0
   onClick:
     m_PersistentCalls:
@@ -398,22 +400,22 @@ MonoBehaviour:
       - m_Target: {fileID: 6669507187417339198}
         m_TargetAssemblyTypeName: Battler, Assembly-CSharp
         m_MethodName: ShowTooltip
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   onHoverExit:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6669507187417339198}
         m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: HideTooltip
-        m_Mode: 1
+        m_MethodName: ShowTooltip
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
