@@ -3,12 +3,12 @@ using System.Collections.Generic;
 public class TacticsPanel : BattleMenuPanel
 {
     public List<MoveButton> buttons;
-    public MoveData defend;
-    public MoveData scan;
-    public MoveData skip;
-    public MoveData flee;
-    public MoveData swap1;
-    public MoveData swap2;
+    public MoveType defend;
+    public MoveType scan;
+    public MoveType skip;
+    public MoveType flee;
+    public MoveType swap1;
+    public MoveType swap2;
 
     public override void LoadContext(Battler user, Team team)
     {

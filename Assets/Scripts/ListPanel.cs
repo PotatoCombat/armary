@@ -11,11 +11,11 @@ public class ListPanel : BattleMenuPanel
 
     [Header("Alternatives")]
     [SerializeField] private MoveButton attackAlt;
-    public MoveData attackMove;
+    public MoveType attackMove;
 
     public override void LoadContext(Battler user, Team team)
     {
-        var useAlternativeAttack = user.data.moves.Length <= 0;
+        var useAlternativeAttack = user.data.moves.Count <= 1;
         attack.gameObject.SetActive(!useAlternativeAttack);
         attackAlt.gameObject.SetActive(useAlternativeAttack);
         attackAlt.LoadData(attackMove);

@@ -5,7 +5,7 @@ public class MoveTooltip : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI moveName;
 
-    public void LoadData(MoveData move)
+    public void LoadData(MoveType move)
     {
         moveName.text = move.name;
     }

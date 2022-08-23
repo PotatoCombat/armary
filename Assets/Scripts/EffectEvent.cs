@@ -31,8 +31,11 @@ public class EffectEvent : ActorEvent
         var delta = 0f;
         foreach (var battler in battlers)
         {
-            battler.effects.Animate(name, delta);
-            delta += interval;
+            if (battler.isActiveAndEnabled)
+            {
+                battler.effects.Animate(name, delta);
+                delta += interval;
+            }
         }
 
         // switch (target)

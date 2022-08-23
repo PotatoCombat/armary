@@ -84,7 +84,8 @@ public class BattleFsm : MonoBehaviour
         public override void Enter()
         {
             base.Enter();
-            Manager.ResetVariables();
+            Manager.LoadParty();
+            Manager.ShowPlayers();
         }
 
         public override void Next()
@@ -101,11 +102,8 @@ public class BattleFsm : MonoBehaviour
         public override void Enter()
         {
             base.Enter();
-            if (Manager.Wave == 0)
-            {
-                Manager.ShowPlayers();
-            }
             Manager.LoadNextWave();
+            Manager.ShowNpcs();
         }
 
         public override void Next()

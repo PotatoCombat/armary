@@ -7,14 +7,14 @@ using UnityEditor.Events;
 
 public class MoveButton : MonoBehaviour
 {
-    public MoveData data;
+    public MoveType data;
     public SimpleButton button;
 
-    public UnityEvent<MoveData> onClick;
-    public UnityEvent<MoveData> onHoverEnter;
-    public UnityEvent<MoveData> onHoverExit;
+    public UnityEvent<MoveType> onClick;
+    public UnityEvent<MoveType> onHoverEnter;
+    public UnityEvent<MoveType> onHoverExit;
 
-    public void LoadData(MoveData data)
+    public void LoadData(MoveType data)
     {
         this.data = data;
     }

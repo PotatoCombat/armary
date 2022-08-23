@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class MoveData : ScriptableObject
+public class MoveType : ScriptableObject
 {
     public Sprite sprite;
     public TargetData target;

@@ -1150,7 +1150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &66158965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8862,17 +8862,25 @@ MonoBehaviour:
   party:
     allies:
     - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
-      attack: {fileID: 0}
+      attack: {fileID: 11400000, guid: 50c67e589ed54487bafdf90423bd933c, type: 2}
       moves:
-      - {fileID: 0}
+      - {fileID: 11400000, guid: dd9cffa8218f44734bf95534eedfc769, type: 2}
+      - {fileID: 11400000, guid: 2457e8c9025ca482fb5ddb2c3e413f55, type: 2}
+      hp: 10
+      maxHp: 100
     - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
-      attack: {fileID: 0}
+      attack: {fileID: 11400000, guid: 50c67e589ed54487bafdf90423bd933c, type: 2}
       moves:
-      - {fileID: 0}
+      - {fileID: 11400000, guid: deeac90d1a93244f89f5332c81276087, type: 2}
+      hp: 20
+      maxHp: 100
     - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
-      attack: {fileID: 0}
+      attack: {fileID: 11400000, guid: 50c67e589ed54487bafdf90423bd933c, type: 2}
       moves:
-      - {fileID: 0}
+      - {fileID: 11400000, guid: deeac90d1a93244f89f5332c81276087, type: 2}
+      - {fileID: 11400000, guid: 1346d6389c6c5483daaca5c930c76f35, type: 2}
+      hp: 30
+      maxHp: 999
     backup: []
   surpriseAttack: 0
 --- !u!4 &618033154
@@ -21261,7 +21269,7 @@ RectTransform:
   m_GameObject: {fileID: 1668558288}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1074310196}
@@ -21272,11 +21280,11 @@ RectTransform:
   m_Father: {fileID: 2025056293}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1600, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 420, y: 290}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1668558290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21759,26 +21767,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6669507187417339198, guid: b6f66696377654f56b96b84091ad407e, type: 3}
-      propertyPath: data.moves.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6669507187417339198, guid: b6f66696377654f56b96b84091ad407e, type: 3}
-      propertyPath: data.moves.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: dd9cffa8218f44734bf95534eedfc769, type: 2}
-    - target: {fileID: 6669507187417339198, guid: b6f66696377654f56b96b84091ad407e, type: 3}
-      propertyPath: data.moves.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: deeac90d1a93244f89f5332c81276087, type: 2}
-    - target: {fileID: 6669507187417339198, guid: b6f66696377654f56b96b84091ad407e, type: 3}
-      propertyPath: data.moves.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 3049e4895ed85410cb2fda84bad4d29f, type: 2}
-    - target: {fileID: 6669507187417339198, guid: b6f66696377654f56b96b84091ad407e, type: 3}
-      propertyPath: data.moves.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1346d6389c6c5483daaca5c930c76f35, type: 2}
     - target: {fileID: 6669507187417339198, guid: b6f66696377654f56b96b84091ad407e, type: 3}
       propertyPath: onPick.m_PersistentCalls.m_Calls.Array.size
       value: 1

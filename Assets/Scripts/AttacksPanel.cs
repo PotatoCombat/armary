@@ -7,7 +7,7 @@ public class AttacksPanel : BattleMenuPanel
     public override void LoadContext(Battler user, Team team)
     {
         base.LoadContext(user, team);
-        var numMoves = user.data.moves.Length;
+        var numMoves = user.data.moves.Count;
         for (var i = 0; i < buttons.Count; i++)
         {
             if (i < numMoves)
@@ -15,6 +15,10 @@ public class AttacksPanel : BattleMenuPanel
                 buttons[i].LoadData(user.data.moves[i]);
                 buttons[i].LoadSprite(user.data.moves[i].sprite);
                 buttons[i].gameObject.SetActive(true);
+                /*
+                 * var cooldown = user.GetMoveCooldown(move);
+                 * if (cooldown > 0) buttons[i].ShowCooldown(cooldown);
+                 */
             }
             else
             {

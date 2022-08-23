@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f47d465bc54626958b912f97dab37e, type: 3}
   m_Name: Swinub
   m_EditorClassIdentifier: 
-  moves:
-  - {fileID: 11400000, guid: 1346d6389c6c5483daaca5c930c76f35, type: 2}
+  hp: 400
+  moves: []

@@ -42,7 +42,7 @@ public class Battler : MonoBehaviour
 
     }
 
-    public void Load(BattlerData data)
+    public void LoadData(BattlerData data)
     {
         // Model and AI
         this.data = data;

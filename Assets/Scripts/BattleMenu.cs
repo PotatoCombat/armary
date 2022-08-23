@@ -15,7 +15,7 @@ public class BattleMenu : MonoBehaviour
     public MoveTooltip moveTooltip;
 
     [Header("Events")]
-    public UnityEvent<MoveData> onSelectMove;
+    public UnityEvent<MoveType> onSelectMove;
     public UnityEvent onCancelMove;
 
     public void LoadContext(Battler user, Team team)
@@ -42,7 +42,7 @@ public class BattleMenu : MonoBehaviour
         ShowCancelButton(false);
     }
 
-    public void ShowTooltip(MoveData move)
+    public void ShowTooltip(MoveType move)
     {
         moveTooltip.LoadData(move);
         moveTooltip.gameObject.SetActive(true);
@@ -69,7 +69,7 @@ public class BattleMenu : MonoBehaviour
         this.panel.gameObject.SetActive(true);
     }
 
-    public void SelectMove(MoveData move)
+    public void SelectMove(MoveType move)
     {
         onSelectMove.Invoke(move);
         ShowInterface(false);

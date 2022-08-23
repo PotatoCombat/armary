@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
 
     public int Wave => wave;
 
-    public MoveData Move
+    public MoveType Move
     {
         get => context.move;
         set => context.move = value;
@@ -70,14 +70,9 @@ public class BattleManager : MonoBehaviour
     public bool TurnEnded => AllyTeam.battlers.TrueForAll(battler => battler.actions == 0);
     public bool FinalWave => (wave + 1) == data.encounter.waves.Count;
 
-    public void ShowPlayers()
+    public void LoadParty()
     {
-        // stage.LoadPlayers(data.party.allies);
-    }
-
-    public void ShowNpcs()
-    {
-        // stage.LoadPlayers(data.party.allies);
+        this.PlayerTeam.Load(data.party);
     }
 
     public void LoadWave(int wave)
@@ -86,7 +81,8 @@ public class BattleManager : MonoBehaviour
         {
             return;
         }
-        // stage.LoadNpcs(data.encounter.waves[wave].foes);
+        this.wave = wave;
+        this.NpcTeam.Load(data.encounter.waves[wave]);
     }
 
     public void LoadPreviousWave()
@@ -97,6 +93,16 @@ public class BattleManager : MonoBehaviour
     public void LoadNextWave()
     {
         LoadWave(++wave);
+    }
+
+    public void ShowPlayers()
+    {
+        // stage.LoadData(data);
+    }
+
+    public void ShowNpcs()
+    {
+        // stage.LoadPlayers(data.party.allies);
     }
 
     // public void SwapBattler(int index, BattlerData battlerData)
@@ -113,7 +119,7 @@ public class BattleManager : MonoBehaviour
         {
             if (ally.data == null)
             {
-                ally.Load(battlerTemplate.CreateBattlerData());
+                ally.LoadData(battlerTemplate.CreateBattlerData());
                 return;
             }
         }
@@ -123,14 +129,10 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
+        wave = -1;
+        animating = new List<Actor>();
         fsm.Load(this);
         fsm.Start();
-    }
-
-    public void ResetVariables()
-    {
-        wave = 0;
-        animating = new List<Actor>();
     }
 
     public void ResetContext()
@@ -150,7 +152,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log($"Selected User: {User}");
     }
 
-    public void SelectMove(MoveData move)
+    public void SelectMove(MoveType move)
     {
         Move = move;
         stage.HidePickers();

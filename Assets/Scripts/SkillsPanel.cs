@@ -7,7 +7,7 @@ public class SkillsPanel : BattleMenuPanel
     public override void LoadContext(Battler user, Team team)
     {
         base.LoadContext(user, team);
-        var numMoves = user.data.moves.Length;
+        var numMoves = user.data.moves.Count;
         for (var i = 0; i < buttons.Count; i++)
         {
             if (i < numMoves)

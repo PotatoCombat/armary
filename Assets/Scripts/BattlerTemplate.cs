@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -12,6 +13,11 @@ public class BattlerTemplate
 
     public BattlerData CreateBattlerData()
     {
-        return new BattlerData();
+        return new BattlerData()
+        {
+            hp = type.hp * level,
+            maxHp = type.hp * level,
+            moves = new List<MoveType>(type.moves),
+        };
     }
 }

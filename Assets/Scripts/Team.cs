@@ -58,30 +58,34 @@ public class Team : MonoBehaviour
 
     private void LoadBattlers(List<BattlerData> battlerDatas)
     {
-        for (var i = 0; i < battlerDatas.Count; i++)
+        var numBattlers = battlerDatas.Count;
+        for (var i = 0; i < battlers.Count; i++)
         {
-            if (i < battlers.Count)
+            if (i < numBattlers)
             {
-                battlers[i].Load(battlerDatas[i]);
+                battlers[i].LoadData(battlerDatas[i]);
+                battlers[i].gameObject.SetActive(true);
             }
             else
             {
-                // battlers[i].Hide();
+                battlers[i].gameObject.SetActive(false);
             }
         }
     }
 
     private void LoadBattlers(List<BattlerTemplate> battlerTemplates)
     {
-        for (var i = 0; i < battlerTemplates.Count; i++)
+        var numBattlers = battlerTemplates.Count;
+        for (var i = 0; i < battlers.Count; i++)
         {
-            if (i < battlers.Count)
+            if (i < numBattlers)
             {
-                battlers[i].Load(battlerTemplates[i].CreateBattlerData());
+                battlers[i].LoadData(battlerTemplates[i].CreateBattlerData());
+                battlers[i].gameObject.SetActive(true);
             }
             else
             {
-                // battlers[i].Hide();
+                battlers[i].gameObject.SetActive(false);
             }
         }
     }
