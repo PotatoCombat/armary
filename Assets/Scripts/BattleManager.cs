@@ -10,10 +10,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattleContext context;
 
     [Header("Components")]
-    [SerializeField] private BattleFsm fsm;
     [SerializeField] private BattleStage stage;
-    [SerializeField] private BattleMenu menu;
     [SerializeField] private BattleInfo info;
+    [SerializeField] private BattleMenu menu;
+    [SerializeField] private BattleFsm fsm;
 
     private void Start()
     {
@@ -22,7 +22,11 @@ public class BattleManager : MonoBehaviour
 
     // The following properties have no side-effects.
 
-    public int Wave => wave;
+    public int Wave
+    {
+        get => wave;
+        private set => wave = value;
+    }
 
     public MoveType Move
     {
@@ -72,7 +76,21 @@ public class BattleManager : MonoBehaviour
 
     public void LoadParty()
     {
-        this.PlayerTeam.Load(data.party);
+        PlayerTeam.Load(data.party);
+        for (var i = 0; i < PlayerTeam.battlers.Count; i++)
+        {
+            var battler = PlayerTeam.battlers[i];
+            var healthBar = info.players[i];
+            if (battler.isActiveAndEnabled)
+            {
+                healthBar.ShowHp(battler.data.hp, battler.data.maxHp);
+                healthBar.gameObject.SetActive(true);
+            }
+            else
+            {
+                healthBar.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void LoadWave(int wave)
@@ -81,8 +99,22 @@ public class BattleManager : MonoBehaviour
         {
             return;
         }
-        this.wave = wave;
-        this.NpcTeam.Load(data.encounter.waves[wave]);
+        Wave = wave;
+        NpcTeam.Load(data.encounter.waves[wave]);
+        for (var i = 0; i < NpcTeam.battlers.Count; i++)
+        {
+            var battler = NpcTeam.battlers[i];
+            var healthBar = info.npcs[i];
+            if (battler.isActiveAndEnabled)
+            {
+                healthBar.ShowHp(battler.data.hp, battler.data.maxHp);
+                healthBar.gameObject.SetActive(true);
+            }
+            else
+            {
+                healthBar.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void LoadPreviousWave()
@@ -132,7 +164,7 @@ public class BattleManager : MonoBehaviour
         wave = -1;
         animating = new List<Actor>();
         fsm.Load(this);
-        fsm.Start();
+        fsm.Init();
     }
 
     public void ResetContext()

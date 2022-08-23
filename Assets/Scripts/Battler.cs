@@ -25,6 +25,7 @@ public class Battler : MonoBehaviour
         public UnityEvent<Battler> onSelect;
         public UnityEvent<Battler> onTarget;
         public UnityEvent<Battler, HitEvent> onHit;
+        public UnityEvent<Battler> onHpChanged;
     }
 
     public bool IsAlive => data.hp > 0;

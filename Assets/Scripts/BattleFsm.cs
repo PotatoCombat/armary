@@ -36,7 +36,7 @@ public class BattleFsm : MonoBehaviour
         };
     }
 
-    public void Start()
+    public void Init()
     {
         ChangeState(State.Start);
         Next();
@@ -219,7 +219,7 @@ public class BattleFsm : MonoBehaviour
             base.Enter();
             Manager.AllyTeam = AllyTeam;
             Manager.FoeTeam = FoeTeam;
-            Manager.SelectUser(Manager.AllyTeam.battlers.Find(battler => battler.actions == 0));
+            Manager.SelectUser(Manager.AllyTeam.battlers.Find(battler => battler.IsAlive && battler.actions == 0));
         }
 
         public override void Next()
