@@ -7,7 +7,7 @@ public class BasicDamageEvent : HitEvent
     {
         if (battler.isActiveAndEnabled)
         {
-            battler.ReceiveDamage(new DamageData()
+            battler.Damage(new DamageData()
             {
                 value = -manager.Move.power,
             });

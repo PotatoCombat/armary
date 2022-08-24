@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 4861271612435046079}
-  hpLabel: {fileID: 2839886513926324501}
+  hpText: {fileID: 2839886513926324501}
   hpBar: {fileID: 3049420035605494}
   cpBar: {fileID: 3464360455497547758}
 --- !u!223 &7300532597257953490

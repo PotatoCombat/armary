@@ -11100,8 +11100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa19b3113c34cfd9708d0aca2ef7b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wave: {fileID: 1305523896}
-  maxWave: {fileID: 0}
+  waveText: {fileID: 1305523896}
 --- !u!114 &786219178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25562,15 +25561,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f10ae1d67644c3ca50c53411123daf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wave: {fileID: 786219177}
-  weather: {fileID: 9011696633996001384}
-  players:
+  playerTeam: {fileID: 510527339}
+  npcTeam: {fileID: 1610474485}
+  weatherTeam: {fileID: 1805043555}
+  waveInfo: {fileID: 786219177}
+  weatherInfo: {fileID: 9011696633996001384}
+  playerInfos:
   - {fileID: 1396797133}
   - {fileID: 1302784879}
   - {fileID: 294949815}
   - {fileID: 1164770733}
   - {fileID: 1902264494}
-  npcs:
+  npcInfos:
   - {fileID: 1074310199}
   - {fileID: 2145212331}
   - {fileID: 580306246}

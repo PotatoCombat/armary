@@ -25,7 +25,6 @@ public class Battler : MonoBehaviour
         public UnityEvent<Battler> onSelect;
         public UnityEvent<Battler> onTarget;
         public UnityEvent<Battler, HitEvent> onHit;
-        public UnityEvent<Battler> onHpChanged;
     }
 
     public bool IsAlive => data.hp > 0;
@@ -67,7 +66,7 @@ public class Battler : MonoBehaviour
         events.onHit.Invoke(this, hitEvent);
     }
 
-    public void ReceiveDamage(DamageData damage)
+    public void Damage(DamageData damage)
     {
         // hpText.text = damage.value.ToString();
         var prevHp = data.hp;

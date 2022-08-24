@@ -77,44 +77,20 @@ public class BattleManager : MonoBehaviour
     public void LoadParty()
     {
         PlayerTeam.Load(data.party);
-        for (var i = 0; i < PlayerTeam.battlers.Count; i++)
-        {
-            var battler = PlayerTeam.battlers[i];
-            var healthBar = info.players[i];
-            if (battler.isActiveAndEnabled)
-            {
-                healthBar.ShowHp(battler.data.hp, battler.data.maxHp);
-                healthBar.gameObject.SetActive(true);
-            }
-            else
-            {
-                healthBar.gameObject.SetActive(false);
-            }
-        }
+        info.UpdatePlayerInfos();
     }
 
     public void LoadWave(int wave)
     {
-        if (wave < 0 || wave >= data.encounter.waves.Count)
+        var maxWaves = data.encounter.waves.Count;
+        if (wave < 0 || wave >= maxWaves)
         {
             return;
         }
         Wave = wave;
         NpcTeam.Load(data.encounter.waves[wave]);
-        for (var i = 0; i < NpcTeam.battlers.Count; i++)
-        {
-            var battler = NpcTeam.battlers[i];
-            var healthBar = info.npcs[i];
-            if (battler.isActiveAndEnabled)
-            {
-                healthBar.ShowHp(battler.data.hp, battler.data.maxHp);
-                healthBar.gameObject.SetActive(true);
-            }
-            else
-            {
-                healthBar.gameObject.SetActive(false);
-            }
-        }
+        info.UpdateNpcInfos();
+        info.UpdateWaveInfo(wave + 1, maxWaves);
     }
 
     public void LoadPreviousWave()
@@ -232,12 +208,16 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log($"Perform {hitEvent}: {battler}");
         hitEvent.Invoke(battler, this);
+        info.UpdatePlayerInfos();
+        info.UpdateNpcInfos();
     }
 
     public void PerformHit(Team team, HitEvent hitEvent)
     {
         Debug.Log($"Perform {hitEvent}: {team}");
         hitEvent.Invoke(team, this);
+        info.UpdatePlayerInfos();
+        info.UpdateNpcInfos();
     }
 
     public void NotifyIdleActor(Actor actor)

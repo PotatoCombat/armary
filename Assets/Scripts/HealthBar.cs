@@ -6,7 +6,7 @@ public class HealthBar : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI hpLabel;
+    [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private Image hpBar;
     [SerializeField] private Image cpBar;
 
@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour
 
     public void ShowHp(int hp, int maxHp)
     {
-        hpLabel.text = $"{hp} / {maxHp}";
+        hpText.text = $"{hp} / {maxHp}";
         hpBar.fillAmount = (float)hp / maxHp;
     }
 }
