@@ -73,12 +73,21 @@ public class Battler : MonoBehaviour
         // onHit.Raise(this, hitData);
         // events.onHit.Invoke(this, hitEvent);
     // }
+    public void Damage(int value)
+    {
+        Hit(-value);
+    }
 
-    public void Damage(DamageData damage)
+    public void Heal(int value)
+    {
+        Hit(value);
+    }
+
+    private void Hit(int value)
     {
         // hpText.text = damage.value.ToString();
         var prevHp = data.hp;
-        data.hp = Mathf.Clamp(data.hp + damage.value, 0, data.maxHp);
+        data.hp = Mathf.Clamp(data.hp + value, 0, data.maxHp);
         if (data.hp == prevHp)
         {
             return;

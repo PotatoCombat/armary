@@ -207,8 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23546b88187747af8311968287c0b652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnter: {fileID: 11400000, guid: ad2f0f7c422804a7f8915ca0faa38a62, type: 2}
-  onExit: {fileID: 11400000, guid: 37aad61e38a674e80b40927b99642f8a, type: 2}
+  onEnter: {fileID: 11400000, guid: 631b56cffe8a5424eaea26d3a1457a4e, type: 2}
+  onExit: {fileID: 11400000, guid: afa233105b4e44ec1829642dfa3f5d9e, type: 2}
 --- !u!1102 &-506760667193365096
 AnimatorState:
   serializedVersion: 6

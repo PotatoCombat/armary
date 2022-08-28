@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattleContext context;
     [SerializeField] private BattleFsm fsm;
     [SerializeField] private BattleEvents events;
+    [SerializeField] private BattlePosition positions;
     [SerializeField] private BattleStage stage;
     [SerializeField] private BattleInfo info;
     [SerializeField] private BattleMenu menu;
@@ -195,10 +196,13 @@ public class BattleManager : MonoBehaviour
 
     private void PerformMove()
     {
-        hits = context.Move.logic.CreateHits(context);
-        context.User.model.Animate(context.Move.animation);
         stage.HideTargets();
         menu.Hide();
+        positions.UpdateTeamPositions();
+        positions.UpdateUserPosition();
+        positions.UpdateTargetPositions();
+        hits = context.Move.logic.CreateHits(context);
+        context.User.model.Animate(context.Move.animation);
     }
 
     public void PerformFx()
@@ -208,8 +212,9 @@ public class BattleManager : MonoBehaviour
 
     public void PerformHit()
     {
-        hits[0].Execute();
+        hits[0].Execute(); // Try Execute to interrupt if foe is dead, Repeat flag for multihits
         hits.RemoveAt(0);
+        positions.UpdateTargetPositions();
         info.UpdatePlayerInfos();
         info.UpdateNpcInfos();
     }

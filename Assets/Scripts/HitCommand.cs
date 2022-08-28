@@ -7,17 +7,19 @@ public abstract class HitCommand
 }
 
 [Serializable]
-public class BasicHitCommand : HitCommand
+public class BasicDamageCommand : HitCommand
 {
-    public float value;
+    public Battler battler;
+    public int value;
 
-    public BasicHitCommand(float value)
+    public BasicDamageCommand(Battler battler, int value)
     {
+        this.battler = battler;
         this.value = value;
     }
 
     public override void Execute()
     {
-
+        battler.Damage(value);
     }
 }

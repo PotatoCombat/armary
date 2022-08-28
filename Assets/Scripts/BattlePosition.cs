@@ -2,45 +2,35 @@ using UnityEngine;
 
 public class BattlePosition : MonoBehaviour
 {
+    [SerializeField] private BattleContext context;
+
+    [Header("Positions")]
     [SerializeField] private Vector3Value allyTeam;
     [SerializeField] private Vector3Value foeTeam;
     [SerializeField] private Vector3Value user;
     [SerializeField] private Vector3Value targetBattler;
     [SerializeField] private Vector3Value targetTeam;
 
-    // TODO: Check if Start works
-    private void Awake()
+    public void UpdateTeamPositions()
     {
-        User = Vector3.one;
+        allyTeam.Value = context.AllyTeam.transform.position;
+        foeTeam.Value = context.FoeTeam.transform.position;
     }
 
-    public Vector3 AllyTeam
+    public void UpdateUserPosition()
     {
-        get => allyTeam.Value;
-        set => allyTeam.Value = value;
+        user.Value = context.User.transform.position;
     }
 
-    public Vector3 FoeTeam
+    public void UpdateTargetPositions()
     {
-        get => foeTeam.Value;
-        set => foeTeam.Value = value;
-    }
-
-    public Vector3 User
-    {
-        get => user.Value;
-        set => user.Value = value;
-    }
-
-    public Vector3 TargetBattler
-    {
-        get => targetBattler.Value;
-        set => targetBattler.Value = value;
-    }
-
-    public Vector3 TargetTeam
-    {
-        get => targetTeam.Value;
-        set => targetTeam.Value = value;
+        if (context.TargetBattler)
+        {
+            targetBattler.Value = context.TargetBattler.transform.position;
+        }
+        if (context.TargetTeam)
+        {
+            targetTeam.Value = context.TargetTeam.transform.position;
+        }
     }
 }

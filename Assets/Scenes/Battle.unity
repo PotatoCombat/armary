@@ -1549,8 +1549,8 @@ GameObject:
   - component: {fileID: 117926852}
   - component: {fileID: 117926851}
   - component: {fileID: 117926856}
-  - component: {fileID: 117926855}
   - component: {fileID: 117926854}
+  - component: {fileID: 117926855}
   - component: {fileID: 117926853}
   m_Layer: 0
   m_Name: Battle Manager
@@ -1577,6 +1577,7 @@ MonoBehaviour:
   context: {fileID: 117926856}
   fsm: {fileID: 117926854}
   events: {fileID: 117926855}
+  positions: {fileID: 1534046646}
   stage: {fileID: 1534046642}
   info: {fileID: 2025056300}
   menu: {fileID: 908482682}
@@ -7167,56 +7168,6 @@ MonoBehaviour:
   - {fileID: 1829623881}
   - {fileID: 688459486}
   - {fileID: 1274824383}
---- !u!1 &532145313
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 532145314}
-  - component: {fileID: 532145315}
-  m_Layer: 0
-  m_Name: Positions
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &532145314
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532145313}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 90, y: 90, z: 90}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1392281539}
-  m_Father: {fileID: 1534046645}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &532145315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532145313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7874e90c077e44b8b6f0c133a3393682, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allyTeam: {fileID: 0}
-  foeTeam: {fileID: 0}
-  user: {fileID: 11400000, guid: df11ebce3e2174eb68f2ab31942bf1d2, type: 2}
-  targetBattler: {fileID: 0}
-  targetTeam: {fileID: 0}
 --- !u!1001 &539868501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19246,37 +19197,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387396162}
   m_CullTransparentMesh: 0
---- !u!1 &1392281538
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1392281539}
-  m_Layer: 0
-  m_Name: Player Team
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1392281539
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392281538}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 532145314}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1393890649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20197,6 +20117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1534046645}
   - component: {fileID: 1534046642}
+  - component: {fileID: 1534046646}
   - component: {fileID: 1534046644}
   - component: {fileID: 1534046643}
   m_Layer: 0
@@ -20269,7 +20190,6 @@ RectTransform:
   - {fileID: 1126069771}
   - {fileID: 42356772}
   - {fileID: 1141107727}
-  - {fileID: 532145314}
   m_Father: {fileID: 1599615869}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20278,6 +20198,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1534046646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534046637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7874e90c077e44b8b6f0c133a3393682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
+  allyTeam: {fileID: 11400000, guid: 76f348667b49c4721a138e058e3a8f93, type: 2}
+  foeTeam: {fileID: 11400000, guid: 4b4af37a2f82f48f2847f5babdf6884d, type: 2}
+  user: {fileID: 11400000, guid: df11ebce3e2174eb68f2ab31942bf1d2, type: 2}
+  targetBattler: {fileID: 11400000, guid: cd4d355c62ee14c7aa0e4880127b3373, type: 2}
+  targetTeam: {fileID: 11400000, guid: 87282478e450b44bbadd02a49dceb1e0, type: 2}
 --- !u!1 &1545408225
 GameObject:
   m_ObjectHideFlags: 0

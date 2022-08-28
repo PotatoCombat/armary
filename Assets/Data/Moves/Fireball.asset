@@ -19,4 +19,5 @@ MonoBehaviour:
     condition: 1
   power: 20
   animation: Attack
-  effect: 
+  fx: Spin
+  logic: {fileID: 11400000, guid: 292472f7ad86c4521bd7d0d7078f6aec, type: 2}

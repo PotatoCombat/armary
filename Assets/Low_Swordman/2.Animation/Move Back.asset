@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cb93bfc68274aa78b748fec9f7e56b6, type: 3}
-  m_Name: Move
+  m_Name: Move Back
   m_EditorClassIdentifier: 
-  position: {fileID: 11400000, guid: cd4d355c62ee14c7aa0e4880127b3373, type: 2}
-  offset: {x: -1.2, y: 0, z: 0}
-  duration: 15
+  position: {fileID: 11400000, guid: df11ebce3e2174eb68f2ab31942bf1d2, type: 2}
+  offset: {x: 0, y: 0, z: 0}
+  duration: 5
   frameRate: 60
   ease: 1

@@ -2243,7 +2243,14 @@ AnimationClip:
   - time: 0.41666666
     functionName: Fx
     data: 
-    objectReferenceParameter: {fileID: 11400000, guid: c944be34a9528419ea2d863b161555dc, type: 2}
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: Execute
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 3f8b8dcfae5164067ab8c1b317c30c2d, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
