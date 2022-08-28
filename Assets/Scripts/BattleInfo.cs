@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class BattleInfo : MonoBehaviour
 {
-    public Team playerTeam;
-    public Team npcTeam;
-    public Team weatherTeam;
+    [SerializeField] private BattleContext context;
 
     public WeatherInfo weatherInfo;
     public WaveInfo waveInfo;
@@ -24,12 +22,12 @@ public class BattleInfo : MonoBehaviour
 
     public void UpdatePlayerInfos()
     {
-        UpdateHealthBars(playerTeam, playerInfos);
+        UpdateHealthBars(context.PlayerTeam, playerInfos);
     }
 
     public void UpdateNpcInfos()
     {
-        UpdateHealthBars(npcTeam, npcInfos);
+        UpdateHealthBars(context.NpcTeam, npcInfos);
     }
 
     private void UpdateHealthBars(Team team, List<HealthBar> healthBars)

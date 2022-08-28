@@ -210,8 +210,8 @@ public class BattleManager : MonoBehaviour
     {
         hits[0].Execute();
         hits.RemoveAt(0);
-        // info.UpdatePlayerInfos();
-        // info.UpdateNpcInfos();
+        info.UpdatePlayerInfos();
+        info.UpdateNpcInfos();
     }
 
     public void NotifyIdle(GameObject obj)

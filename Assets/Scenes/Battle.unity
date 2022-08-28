@@ -1572,6 +1572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 618033153}
+  wave: 0
+  animating: []
   context: {fileID: 117926856}
   fsm: {fileID: 117926854}
   events: {fileID: 117926855}
@@ -25634,9 +25636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f10ae1d67644c3ca50c53411123daf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTeam: {fileID: 510527339}
-  npcTeam: {fileID: 1610474485}
-  weatherTeam: {fileID: 1805043555}
+  context: {fileID: 117926856}
   weatherInfo: {fileID: 9011696633996001384}
   waveInfo: {fileID: 786219177}
   playerInfos:
