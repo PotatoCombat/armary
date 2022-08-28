@@ -1548,9 +1548,10 @@ GameObject:
   m_Component:
   - component: {fileID: 117926852}
   - component: {fileID: 117926851}
+  - component: {fileID: 117926856}
+  - component: {fileID: 117926855}
   - component: {fileID: 117926854}
   - component: {fileID: 117926853}
-  - component: {fileID: 117926855}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -1571,19 +1572,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 618033153}
-  wave: 0
-  animating: []
-  context:
-    allyTeam: {fileID: 0}
-    foeTeam: {fileID: 0}
-    user: {fileID: 0}
-    move: {fileID: 0}
-    targetBattler: {fileID: 0}
-    targetTeam: {fileID: 0}
+  context: {fileID: 117926856}
+  fsm: {fileID: 117926854}
+  events: {fileID: 117926855}
   stage: {fileID: 1534046642}
   info: {fileID: 2025056300}
   menu: {fileID: 908482682}
-  fsm: {fileID: 117926854}
 --- !u!4 &117926852
 Transform:
   m_ObjectHideFlags: 0
@@ -1633,96 +1627,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 117926850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39426b0fd39248b793a95b4c3ee15275, type: 3}
+  m_Script: {fileID: 11500000, guid: f0ff04d4da1449b68cb3a442edd18afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battlerEvents:
-  - <Name>k__BackingField: Command-SelectUser
-    <Event>k__BackingField: {fileID: 11400000, guid: 5dc02e18b1ef94435af925cb1cc2a15f, type: 2}
-    <Response>k__BackingField:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: SelectUser
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - <Name>k__BackingField: Command-SelectTargetBattler
-    <Event>k__BackingField: {fileID: 11400000, guid: 962309a8cf91c47539120f81b0beade0, type: 2}
-    <Response>k__BackingField:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: SelectTarget
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - <Name>k__BackingField: Tooltip-ShowBattler
-    <Event>k__BackingField: {fileID: 11400000, guid: a14a5bfa62c544c1cb1d384761ded123, type: 2}
-    <Response>k__BackingField:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926850}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - <Name>k__BackingField: Tooltip-HideBattler
-    <Event>k__BackingField: {fileID: 11400000, guid: 3e7be971c352a4dbb9837a9d59483cbb, type: 2}
-    <Response>k__BackingField:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926850}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  teamEvents:
-  - <Name>k__BackingField: Command-SelectTargetTeam
-    <Event>k__BackingField: {fileID: 11400000, guid: dbc984af28b81442689a0fcacb01d25d, type: 2}
-    <Response>k__BackingField:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: SelectTarget
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  manager: {fileID: 117926851}
+  onIdle: {fileID: 11400000, guid: 631b56cffe8a5424eaea26d3a1457a4e, type: 2}
+  onBusy: {fileID: 11400000, guid: afa233105b4e44ec1829642dfa3f5d9e, type: 2}
+  onFx: {fileID: 11400000, guid: 8bc697ecd781a4e20953eb84536280f9, type: 2}
+  onHit: {fileID: 11400000, guid: a995016a61f2342419e61154b61c18b6, type: 2}
+  onSelectUser: {fileID: 11400000, guid: 5dc02e18b1ef94435af925cb1cc2a15f, type: 2}
+  onSelectMove: {fileID: 11400000, guid: e02d98320ea8c4c268ea39c8e9a1e60f, type: 2}
+  onCancelMove: {fileID: 11400000, guid: 294c440a8cf6b4109825162e7c7580b8, type: 2}
+  onTargetBattler: {fileID: 11400000, guid: 962309a8cf91c47539120f81b0beade0, type: 2}
+  onTargetTeam: {fileID: 11400000, guid: dbc984af28b81442689a0fcacb01d25d, type: 2}
+--- !u!114 &117926856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117926850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb00004486c04078865fe855d76c2e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <SurpriseAttack>k__BackingField: 0
+  <FinalWave>k__BackingField: 0
+  <PlayerTeam>k__BackingField: {fileID: 510527339}
+  <NpcTeam>k__BackingField: {fileID: 1610474485}
+  <WeatherTeam>k__BackingField: {fileID: 1805043555}
+  <AllyTeam>k__BackingField: {fileID: 0}
+  <FoeTeam>k__BackingField: {fileID: 0}
+  <User>k__BackingField: {fileID: 0}
+  <Move>k__BackingField: {fileID: 0}
+  <TargetBattler>k__BackingField: {fileID: 0}
+  <TargetTeam>k__BackingField: {fileID: 0}
 --- !u!1 &123512415
 GameObject:
   m_ObjectHideFlags: 0
@@ -6895,21 +6835,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    onHit:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: PerformHit
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &516796697
 GameObject:
   m_ObjectHideFlags: 0
@@ -7240,6 +7165,56 @@ MonoBehaviour:
   - {fileID: 1829623881}
   - {fileID: 688459486}
   - {fileID: 1274824383}
+--- !u!1 &532145313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532145314}
+  - component: {fileID: 532145315}
+  m_Layer: 0
+  m_Name: Positions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &532145314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532145313}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 90, y: 90, z: 90}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1392281539}
+  m_Father: {fileID: 1534046645}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &532145315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532145313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7874e90c077e44b8b6f0c133a3393682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allyTeam: {fileID: 0}
+  foeTeam: {fileID: 0}
+  user: {fileID: 11400000, guid: df11ebce3e2174eb68f2ab31942bf1d2, type: 2}
+  targetBattler: {fileID: 0}
+  targetTeam: {fileID: 0}
 --- !u!1001 &539868501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19269,6 +19244,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387396162}
   m_CullTransparentMesh: 0
+--- !u!1 &1392281538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1392281539}
+  m_Layer: 0
+  m_Name: Player Team
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1392281539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392281538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 532145314}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1393890649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20265,6 +20271,7 @@ RectTransform:
   - {fileID: 1126069771}
   - {fileID: 42356772}
   - {fileID: 1141107727}
+  - {fileID: 532145314}
   m_Father: {fileID: 1599615869}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20680,21 +20687,6 @@ MonoBehaviour:
         - m_Target: {fileID: 117926851}
           m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
           m_MethodName: SelectTarget
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    onHit:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: PerformHit
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -23437,21 +23429,6 @@ MonoBehaviour:
         - m_Target: {fileID: 117926851}
           m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
           m_MethodName: SelectTarget
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    onHit:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: PerformHit
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

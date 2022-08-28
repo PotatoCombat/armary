@@ -1,30 +1,26 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameEvent : ScriptableObject
 {
-    public interface IListener
-    {
-        void Notify();
-    }
-
-    private List<IListener> _listeners = new();
+    private List<Action> _listeners = new();
 
     public void Raise()
     {
         foreach (var listener in _listeners)
         {
-            listener.Notify();
+            listener.Invoke();
         }
     }
 
-    public void AddListener(IListener listener)
+    public void AddListener(Action listener)
     {
         _listeners.Remove(listener);
         _listeners.Add(listener);
     }
 
-    public void RemoveListener(IListener listener)
+    public void RemoveListener(Action listener)
     {
         _listeners.Remove(listener);
     }
@@ -32,28 +28,23 @@ public abstract class GameEvent : ScriptableObject
 
 public abstract class GameEvent<T0> : ScriptableObject
 {
-    public interface IListener
-    {
-        void Notify(T0 obj);
-    }
-
-    private List<IListener> _listeners = new();
+    private List<Action<T0>> _listeners = new();
 
     public void Raise(T0 obj)
     {
         foreach (var listener in _listeners)
         {
-            listener.Notify(obj);
+            listener.Invoke(obj);
         }
     }
 
-    public void AddListener(IListener listener)
+    public void AddListener(Action<T0> listener)
     {
         _listeners.Remove(listener);
         _listeners.Add(listener);
     }
 
-    public void RemoveListener(IListener listener)
+    public void RemoveListener(Action<T0> listener)
     {
         _listeners.Remove(listener);
     }
@@ -61,28 +52,23 @@ public abstract class GameEvent<T0> : ScriptableObject
 
 public abstract class GameEvent<T0, T1> : ScriptableObject
 {
-    public interface IListener
-    {
-        void Notify(T0 obj, T1 obj1);
-    }
-
-    private List<IListener> _listeners = new();
+    private List<Action<T0, T1>> _listeners = new();
 
     public void Raise(T0 obj, T1 obj1)
     {
         foreach (var listener in _listeners)
         {
-            listener.Notify(obj, obj1);
+            listener.Invoke(obj, obj1);
         }
     }
 
-    public void AddListener(IListener listener)
+    public void AddListener(Action<T0, T1> listener)
     {
         _listeners.Remove(listener);
         _listeners.Add(listener);
     }
 
-    public void RemoveListener(IListener listener)
+    public void RemoveListener(Action<T0, T1> listener)
     {
         _listeners.Remove(listener);
     }

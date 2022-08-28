@@ -3,5 +3,5 @@ using UnityEngine;
 
 public abstract class MoveLogic : ScriptableObject
 {
-    public abstract List<HitCommand> CreateHits(BattleManager manager);
+    public abstract List<HitCommand> CreateHits(BattleContext context);
 }

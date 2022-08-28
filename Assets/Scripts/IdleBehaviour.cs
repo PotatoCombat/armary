@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class SignalEventBehaviour : StateMachineBehaviour
+public class IdleBehaviour : StateMachineBehaviour
 {
-    [SerializeField] private SignalEvent onEnter;
-    [SerializeField] private SignalEvent onExit;
+    [SerializeField] private GameObjectEvent onEnter;
+    [SerializeField] private GameObjectEvent onExit;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

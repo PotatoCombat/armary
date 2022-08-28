@@ -109,7 +109,7 @@ public class BattleFsm : MonoBehaviour
         public override void Next()
         {
             base.Next();
-            Fsm.ChangeState(Manager.SurpriseAttack ? State.Npc : State.Player);
+            Fsm.ChangeState(Manager.Context.SurpriseAttack ? State.Npc : State.Player);
         }
     }
 
@@ -179,8 +179,8 @@ public class BattleFsm : MonoBehaviour
     {
         public PlayerTurn(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
 
-        protected override Team AllyTeam => Manager.PlayerTeam;
-        protected override Team FoeTeam => Manager.NpcTeam;
+        protected override Team AllyTeam => Manager.Context.PlayerTeam;
+        protected override Team FoeTeam => Manager.Context.NpcTeam;
         protected override State CurrentTurn => State.Player;
         protected override State NextTurn => State.Npc;
     }
@@ -189,8 +189,8 @@ public class BattleFsm : MonoBehaviour
     {
         public NpcTurn(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
 
-        protected override Team AllyTeam => Manager.NpcTeam;
-        protected override Team FoeTeam => Manager.PlayerTeam;
+        protected override Team AllyTeam => Manager.Context.NpcTeam;
+        protected override Team FoeTeam => Manager.Context.PlayerTeam;
         protected override State CurrentTurn => State.Npc;
         protected override State NextTurn => State.Player;
     }
@@ -199,8 +199,8 @@ public class BattleFsm : MonoBehaviour
     {
         public WeatherTurn(BattleFsm fsm, BattleManager manager) : base(fsm, manager) { }
 
-        protected override Team AllyTeam => Manager.WeatherTeam;
-        protected override Team FoeTeam => Manager.WeatherTeam;
+        protected override Team AllyTeam => Manager.Context.WeatherTeam;
+        protected override Team FoeTeam => Manager.Context.WeatherTeam;
         protected override State CurrentTurn => State.Weather;
         protected override State NextTurn => State.Player;
     }
@@ -217,27 +217,27 @@ public class BattleFsm : MonoBehaviour
         public override void Enter()
         {
             base.Enter();
-            Manager.AllyTeam = AllyTeam;
-            Manager.FoeTeam = FoeTeam;
-            Manager.SelectUser(Manager.AllyTeam.battlers.Find(battler => battler.IsAlive && battler.actions == 0));
+            Manager.Context.AllyTeam = AllyTeam;
+            Manager.Context.FoeTeam = FoeTeam;
+            Manager.SelectUser(Manager.Context.AllyTeam.battlers.Find(battler => battler.IsAlive && battler.actions == 0));
         }
 
         public override void Next()
         {
             base.Next();
-            if (Manager.AllPlayersDead)
+            if (Manager.Context.AllPlayersDead)
             {
                 Fsm.ChangeState(State.Gameover);
             }
-            else if (Manager.FinalWave && Manager.AllNpcsDead)
+            else if (Manager.Context.FinalWave && Manager.Context.AllNpcsDead)
             {
                 Fsm.ChangeState(State.Victory);
             }
-            else if (Manager.AllNpcsDead)
+            else if (Manager.Context.AllNpcsDead)
             {
                 Fsm.ChangeState(State.Wave);
             }
-            else if (Manager.TurnEnded)
+            else if (Manager.Context.TurnEnded)
             {
                 Fsm.ChangeState(NextTurn);
             }

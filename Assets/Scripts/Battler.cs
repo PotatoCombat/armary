@@ -7,6 +7,8 @@ public class Battler : MonoBehaviour
 {
     public Faction faction;
     public int actions = 0;
+    // TODO: Bool flag to indicate hit foes / foes that can counter
+    // public bool hit = false;
 
     public Actor model;
     public Actor effects;

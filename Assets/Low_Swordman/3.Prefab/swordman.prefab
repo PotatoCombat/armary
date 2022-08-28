@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95898481864777010}
-  fxEvent: {fileID: 11400000, guid: bac773f678f8941b3af8bdca5f5e2c6b, type: 2}
-  hitEvent: {fileID: 11400000, guid: dab5a61d16c5242d5a80e064a9fdf0d8, type: 2}
+  fxEvent: {fileID: 11400000, guid: 8bc697ecd781a4e20953eb84536280f9, type: 2}
+  hitEvent: {fileID: 11400000, guid: a995016a61f2342419e61154b61c18b6, type: 2}
 --- !u!1 &1315759352830414
 GameObject:
   m_ObjectHideFlags: 0

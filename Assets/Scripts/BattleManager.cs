@@ -1,105 +1,33 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    [Header("Runtime")]
     [SerializeField] private BattleData data;
-    [SerializeField] private int wave;
-    [SerializeField] private List<HitCommand> hits;
-    [SerializeField] private List<GameObject> animating;
-    [SerializeField] private BattleContext context;
 
-    [Header("Components")]
+    // Runtime
+    public int Wave { get; private set; }
+    private List<GameObject> _animating;
+    private List<HitCommand> _hits;
+
+    // Components
+    [SerializeField] private BattleContext context;
+    [SerializeField] private BattleFsm fsm;
+    [SerializeField] private BattleEvents events;
     [SerializeField] private BattleStage stage;
     [SerializeField] private BattleInfo info;
     [SerializeField] private BattleMenu menu;
-    [SerializeField] private BattleFsm fsm;
 
-    [SerializeField] private Events events;
-
-    [Serializable]
-    public class Events
-    {
-        // Could be battle event listeners instead
-        public SignalEventListener onIdle;
-        public SignalEventListener onBusy;
-        public SignalEventListener onFx;
-        public SignalEventListener onHit;
-    }
-
-    // public BattlerEventListener selectUser;
-    // public SkillEventListener selectMove;
-    // public ItemEventListener selectItem;
-    // public EquipEventListener selectEquip;
-    // public BattlerEventListener selectTargetBattler;
-    // public TeamEventListener selectTargetTeam;
-    // public ActorEventListener notifyIdle;
-    // public ActorEventListener notifyBusy;
+    public BattleContext Context => context;
 
     private void Start()
     {
         StartBattle();
     }
 
-    // The following properties have no side-effects.
-
-    public int Wave
-    {
-        get => wave;
-        private set => wave = value;
-    }
-
-    public MoveType Move
-    {
-        get => context.move;
-        set => context.move = value;
-    }
-
-    public Battler User
-    {
-        get => context.user;
-        set => context.user = value;
-    }
-
-    public Battler TargetBattler
-    {
-        get => context.targetBattler;
-        set => context.targetBattler = value;
-    }
-
-    public Team TargetTeam
-    {
-        get => context.targetTeam;
-        set => context.targetTeam = value;
-    }
-
-    public Team AllyTeam
-    {
-        get => context.allyTeam;
-        set => context.allyTeam = value;
-    }
-
-    public Team FoeTeam
-    {
-        get => context.foeTeam;
-        set => context.foeTeam = value;
-    }
-
-    public Team PlayerTeam => stage.playerTeam;
-    public Team NpcTeam => stage.npcTeam;
-    public Team WeatherTeam => stage.weatherTeam;
-
-    public bool SurpriseAttack => data.surpriseAttack;
-    public bool AllPlayersDead => PlayerTeam.battlers.TrueForAll(battler => !battler.IsAlive);
-    public bool AllNpcsDead => NpcTeam.battlers.TrueForAll(battler => !battler.IsAlive);
-    public bool TurnEnded => AllyTeam.battlers.TrueForAll(battler => battler.actions == 0);
-    public bool FinalWave => (wave + 1) == data.encounter.waves.Count;
-
     public void LoadParty()
     {
-        PlayerTeam.Load(data.party);
+        context.PlayerTeam.Load(data.party);
         info.UpdatePlayerInfos();
     }
 
@@ -111,19 +39,19 @@ public class BattleManager : MonoBehaviour
             return;
         }
         Wave = wave;
-        NpcTeam.Load(data.encounter.waves[wave]);
+        context.NpcTeam.Load(data.encounter.waves[wave]);
         info.UpdateNpcInfos();
         info.UpdateWaveInfo(wave + 1, maxWaves);
     }
 
     public void LoadPreviousWave()
     {
-        LoadWave(--wave);
+        LoadWave(--Wave);
     }
 
     public void LoadNextWave()
     {
-        LoadWave(++wave);
+        LoadWave(++Wave);
     }
 
     public void ShowPlayers()
@@ -160,84 +88,137 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
-        wave = -1;
-        animating = new List<GameObject>();
+        Wave = -1;
+        _animating = new List<GameObject>();
+        _hits = new List<HitCommand>();
         fsm.Load(this);
         fsm.Init();
     }
 
     public void ResetContext()
     {
-        context = new BattleContext();
+        context.AllyTeam = null;
+        context.FoeTeam = null;
+        context.User = null;
+        context.Move = null;
+        context.TargetBattler = null;
+        context.TargetTeam = null;
+    }
+
+    private void ApplyDecision(BattleDecision decision)
+    {
+        context.User = decision.User;
+        context.Move = decision.Move;
+        context.TargetBattler = decision.TargetBattler;
+        context.TargetTeam = decision.TargetTeam;
     }
 
     public void SelectUser(Battler user)
     {
-        User = user;
-        stage.LoadContext(AllyTeam, FoeTeam);
+        Debug.Log($"Selected User: {user}");
+        context.User = user;
+        if (user.IsAlive)
+        {
+            ShowUi(user);
+        }
+        else
+        {
+            PerformAiTurn(user);
+        }
+    }
+
+    public void ShowUi(Battler user)
+    {
+        Debug.Log($"Show Ui: {user}");
+        stage.LoadContext(context.AllyTeam, context.FoeTeam);
         stage.ShowPickers();
-        User.ShowPicker(false);
-        menu.LoadContext(User, AllyTeam);
+        context.User.ShowPicker(false);
+        menu.LoadContext(context.User, context.AllyTeam);
         menu.SelectDefaultPanel();
         menu.Show();
-        Debug.Log($"Selected User: {User}");
     }
 
     public void SelectMove(MoveType move)
     {
-        Move = move;
+        Debug.Log($"Selected Move: {move.name}");
+        context.Move = move;
         stage.HidePickers();
-        stage.ShowTargets(User, Move.target);
-        Debug.Log($"Selected Move: {Move.name}");
+        stage.ShowTargets(context.User, context.Move.target);
     }
 
     public void CancelMove()
     {
-        Move = null;
+        Debug.Log($"Cancelled move");
+        context.Move = null;
         stage.HideTargets();
         stage.ShowPickers();
-        User.ShowPicker(false);
-        Debug.Log($"Cancelled move");
+        context.User.ShowPicker(false);
     }
 
     public void SelectTarget(Battler battler)
     {
-        TargetBattler = battler;
-        PerformMove();
         Debug.Log($"Target Battler: {battler}");
+        context.TargetBattler = battler;
+        PerformMove();
     }
 
     public void SelectTarget(Team team)
     {
-        TargetTeam = team;
-        PerformMove();
         Debug.Log($"Target Team: {team}");
+        context.TargetTeam = team;
+        PerformMove();
+    }
+
+    public void PerformAiTurn(Battler user)
+    {
+        Debug.Log($"Run Ai: {user}");
+        var decision = context.User.data.type.ai.GetTurnDecision(context); // TODO: reduce dot chain
+        if (decision == null)
+        {
+            fsm.Next();
+            return;
+        }
+        ApplyDecision(decision);
+        PerformMove();
+    }
+
+    public void PerformAiCounter(Battler user)
+    {
+        Debug.Log($"Run Ai: {user}");
+        var decision = context.User.data.type.ai.GetCounterDecision(context); // TODO: reduce dot chain
+        if (decision == null)
+        {
+            fsm.Next();
+            return;
+        }
+        ApplyDecision(decision);
+        PerformMove();
     }
 
     private void PerformMove()
     {
+        _hits = context.Move.logic.CreateHits(context);
+        context.User.model.Animate(context.Move.animation);
         stage.HideTargets();
         menu.Hide();
-        hits = Move.logic.CreateHits(this);
-        User.model.Animate(Move.animation);
     }
 
     public void PerformFx()
     {
-        User.effects.Animate(Move.fx);
+        context.User.effects.Animate(context.Move.fx);
     }
 
     public void PerformHit()
     {
-        hits[0].Execute();
-        hits.RemoveAt(0);
+        _hits[0].Execute();
+        _hits.RemoveAt(0);
         // info.UpdatePlayerInfos();
         // info.UpdateNpcInfos();
     }
 
     public void NotifyIdle(GameObject obj)
     {
-        var completedAnimations = animating.Remove(obj) && animating.Count <= 0;
+        var completedAnimations = _animating.Remove(obj) && _animating.Count <= 0;
         if (completedAnimations)
         {
             fsm.Next();
@@ -246,6 +227,6 @@ public class BattleManager : MonoBehaviour
 
     public void NotifyBusy(GameObject obj)
     {
-        animating.Add(obj);
+        _animating.Add(obj);
     }
 }

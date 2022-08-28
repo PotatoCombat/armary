@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41e5dab4b7424468b66b74b2023e704e, type: 3}
-  m_Name: EffectsDB
+  m_Script: {fileID: 11500000, guid: e02f88163c324a2db68349efa2ae5dc1, type: 3}
+  m_Name: Battle-TargetTeam
   m_EditorClassIdentifier: 
-  items: []

@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e5fe6a45008425fa2a5dff2569b46c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 910f35b7add441d5bfa8bfbf002421a5, type: 3}
   m_Name: Battle-PerformFx
   m_EditorClassIdentifier: 

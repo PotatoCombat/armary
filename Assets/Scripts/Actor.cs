@@ -6,8 +6,8 @@ public class Actor : MonoBehaviour
     public Animator animator;
 
     [Header("Events")]
-    public SignalEvent fxEvent;
-    public SignalEvent hitEvent;
+    public BattleEvent fxEvent;
+    public BattleEvent hitEvent;
 
     private Coroutine _animateRoutine;
 
@@ -42,12 +42,12 @@ public class Actor : MonoBehaviour
 
     public void Fx()
     {
-        fxEvent.Raise(gameObject);
+        fxEvent.Raise();
     }
 
     public void Hit()
     {
-        hitEvent.Raise(gameObject);
+        hitEvent.Raise();
     }
 
     private void Reset()
