@@ -20216,11 +20216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53d1a9cbed44fcaafc198c103cbf9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyTeam: {fileID: 0}
-  foeTeam: {fileID: 0}
-  playerTeam: {fileID: 510527339}
-  npcTeam: {fileID: 1610474485}
-  weatherTeam: {fileID: 1805043555}
+  context: {fileID: 117926856}
 --- !u!114 &1534046643
 MonoBehaviour:
   m_ObjectHideFlags: 0

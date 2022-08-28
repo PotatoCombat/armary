@@ -5,12 +5,12 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] private BattleData data;
 
-    // Runtime
-    public int Wave { get; private set; }
-    private List<GameObject> _animating;
-    private List<HitCommand> _hits;
+    [Header("Runtime")]
+    [SerializeField] private int wave;
+    [SerializeField] private List<GameObject> animating;
+    [SerializeField] private List<HitCommand> hits;
 
-    // Components
+    [Header("Components")]
     [SerializeField] private BattleContext context;
     [SerializeField] private BattleFsm fsm;
     [SerializeField] private BattleEvents events;
@@ -38,7 +38,7 @@ public class BattleManager : MonoBehaviour
         {
             return;
         }
-        Wave = wave;
+        this.wave = wave;
         context.NpcTeam.Load(data.encounter.waves[wave]);
         info.UpdateNpcInfos();
         info.UpdateWaveInfo(wave + 1, maxWaves);
@@ -46,12 +46,12 @@ public class BattleManager : MonoBehaviour
 
     public void LoadPreviousWave()
     {
-        LoadWave(--Wave);
+        LoadWave(--wave);
     }
 
     public void LoadNextWave()
     {
-        LoadWave(++Wave);
+        LoadWave(++wave);
     }
 
     public void ShowPlayers()
@@ -74,7 +74,7 @@ public class BattleManager : MonoBehaviour
 
     public void SpawnBattler(BattlerTemplate battlerTemplate)
     {
-        foreach (var ally in stage.allyTeam.battlers)
+        foreach (var ally in context.AllyTeam.battlers)
         {
             if (ally.data == null)
             {
@@ -88,9 +88,9 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
-        Wave = -1;
-        _animating = new List<GameObject>();
-        _hits = new List<HitCommand>();
+        wave = -1;
+        animating = new List<GameObject>();
+        hits = new List<HitCommand>();
         fsm.Load(this);
         fsm.Init();
     }
@@ -130,9 +130,7 @@ public class BattleManager : MonoBehaviour
     public void ShowUi(Battler user)
     {
         Debug.Log($"Show Ui: {user}");
-        stage.LoadContext(context.AllyTeam, context.FoeTeam);
         stage.ShowPickers();
-        context.User.ShowPicker(false);
         menu.LoadContext(context.User, context.AllyTeam);
         menu.SelectDefaultPanel();
         menu.Show();
@@ -143,7 +141,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log($"Selected Move: {move.name}");
         context.Move = move;
         stage.HidePickers();
-        stage.ShowTargets(context.User, context.Move.target);
+        stage.ShowTargets();
     }
 
     public void CancelMove()
@@ -197,7 +195,7 @@ public class BattleManager : MonoBehaviour
 
     private void PerformMove()
     {
-        _hits = context.Move.logic.CreateHits(context);
+        hits = context.Move.logic.CreateHits(context);
         context.User.model.Animate(context.Move.animation);
         stage.HideTargets();
         menu.Hide();
@@ -210,15 +208,15 @@ public class BattleManager : MonoBehaviour
 
     public void PerformHit()
     {
-        _hits[0].Execute();
-        _hits.RemoveAt(0);
+        hits[0].Execute();
+        hits.RemoveAt(0);
         // info.UpdatePlayerInfos();
         // info.UpdateNpcInfos();
     }
 
     public void NotifyIdle(GameObject obj)
     {
-        var completedAnimations = _animating.Remove(obj) && _animating.Count <= 0;
+        var completedAnimations = animating.Remove(obj) && animating.Count <= 0;
         if (completedAnimations)
         {
             fsm.Next();
@@ -227,6 +225,6 @@ public class BattleManager : MonoBehaviour
 
     public void NotifyBusy(GameObject obj)
     {
-        _animating.Add(obj);
+        animating.Add(obj);
     }
 }

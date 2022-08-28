@@ -4,32 +4,23 @@ using UnityEngine;
 [Serializable]
 public class BattleStage : MonoBehaviour
 {
-    [Header("Runtime")]
-    public Team allyTeam;
-    public Team foeTeam;
-
-    [Header("Components")]
-    public Team playerTeam;
-    public Team npcTeam;
-    public Team weatherTeam;
-
-    public void LoadContext(Team allyTeam, Team foeTeam)
-    {
-        this.allyTeam = allyTeam;
-        this.foeTeam = foeTeam;
-    }
+    [SerializeField] private BattleContext context;
 
     public void ShowPickers()
     {
-        foreach (var battler in allyTeam.battlers)
+        foreach (var battler in context.AllyTeam.battlers)
         {
             battler.ShowPicker(battler.IsAlive);
         }
+        context.User.ShowPicker(false);
     }
 
-    public void ShowTargets(Battler user, TargetData target)
+    public void ShowTargets()
     {
-        switch (target.type)
+        var user = context.User;
+        var target = context.Move.target;
+
+        switch (context.Move.target.type)
         {
             case TargetType.Self:
                 ShowSingleTarget(user, target);
@@ -37,14 +28,14 @@ public class BattleStage : MonoBehaviour
             case TargetType.Single:
                 if (target.TargetAllies)
                 {
-                    foreach (var ally in allyTeam.battlers)
+                    foreach (var ally in context.AllyTeam.battlers)
                     {
                         ShowSingleTarget(ally, target);
                     }
                 }
                 if (target.TargetFoes)
                 {
-                    foreach (var foe in foeTeam.battlers)
+                    foreach (var foe in context.FoeTeam.battlers)
                     {
                         ShowSingleTarget(foe, target);
                     }
@@ -53,26 +44,26 @@ public class BattleStage : MonoBehaviour
             case TargetType.Team:
                 if (target.TargetAllies)
                 {
-                    allyTeam.ShowTarget(true);
+                    context.AllyTeam.ShowTarget(true);
                 }
                 if (target.TargetFoes)
                 {
-                    foeTeam.ShowTarget(true);
+                    context.FoeTeam.ShowTarget(true);
                 }
                 break;
             case TargetType.Mixed:
                 if (target.TargetAllies)
                 {
-                    allyTeam.ShowTarget(true);
-                    foreach (var ally in allyTeam.battlers)
+                    context.AllyTeam.ShowTarget(true);
+                    foreach (var ally in context.AllyTeam.battlers)
                     {
                         ShowSingleTarget(ally, target);
                     }
                 }
                 if (target.TargetFoes)
                 {
-                    foeTeam.ShowTarget(true);
-                    foreach (var foe in foeTeam.battlers)
+                    context.FoeTeam.ShowTarget(true);
+                    foreach (var foe in context.FoeTeam.battlers)
                     {
                         ShowSingleTarget(foe, target);
                     }
@@ -80,7 +71,7 @@ public class BattleStage : MonoBehaviour
                 break;
             case TargetType.All:
             default:
-                weatherTeam.ShowTarget(true);
+                context.WeatherTeam.ShowTarget(true);
                 break;
         }
     }
@@ -95,11 +86,11 @@ public class BattleStage : MonoBehaviour
 
     public void HidePickers()
     {
-        foreach (var battler in playerTeam.battlers)
+        foreach (var battler in context.AllyTeam.battlers)
         {
             battler.ShowPicker(false);
         }
-        foreach (var battler in npcTeam.battlers)
+        foreach (var battler in context.NpcTeam.battlers)
         {
             battler.ShowPicker(false);
         }
@@ -107,15 +98,15 @@ public class BattleStage : MonoBehaviour
 
     public void HideTargets()
     {
-        playerTeam.ShowTarget(false);
-        npcTeam.ShowTarget(false);
-        weatherTeam.ShowTarget(false);
+        context.AllyTeam.ShowTarget(false);
+        context.FoeTeam.ShowTarget(false);
+        context.WeatherTeam.ShowTarget(false);
 
-        foreach (var battler in playerTeam.battlers)
+        foreach (var battler in context.AllyTeam.battlers)
         {
             battler.ShowTarget(false);
         }
-        foreach (var battler in npcTeam.battlers)
+        foreach (var battler in context.FoeTeam.battlers)
         {
             battler.ShowTarget(false);
         }
