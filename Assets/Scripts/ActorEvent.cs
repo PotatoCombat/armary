@@ -1,6 +1,6 @@
-using UnityEngine;
+using System;
 
-public abstract class ActorEvent : ScriptableObject
-{
-    public abstract void Invoke(Actor actor, BattleManager manager);
-}
+public class ActorEvent : GameEvent<Actor, ActorCommand> { }
+
+[Serializable]
+public class ActorEventListener : GameEventListener<ActorEvent, Actor, ActorCommand> { }

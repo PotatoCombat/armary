@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Actor : MonoBehaviour
 {
     public Animator animator;
-    public UnityEvent<Actor, ActorEvent> onAction;
+
+    [Header("Events")]
+    public SignalEvent fxEvent;
+    public SignalEvent hitEvent;
 
     private Coroutine _animateRoutine;
 
@@ -33,9 +35,19 @@ public class Actor : MonoBehaviour
         _animateRoutine = null;
     }
 
-    public void Act(ActorEvent actorEvent)
+    public void Execute(ActorCommand command)
     {
-        onAction.Invoke(this, actorEvent);
+        command.Invoke(this);
+    }
+
+    public void Fx()
+    {
+        fxEvent.Raise(gameObject);
+    }
+
+    public void Hit()
+    {
+        hitEvent.Raise(gameObject);
     }
 
     private void Reset()

@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
-  isAlive: 1
   actions: 0
   model: {fileID: 1371517710029910855}
   effects: {fileID: 3289796483517800733}
@@ -247,13 +246,13 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6669507187417339198}
-        m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: Select
-        m_Mode: 1
+      - m_Target: {fileID: 11400000, guid: 5dc02e18b1ef94435af925cb1cc2a15f, type: 2}
+        m_TargetAssemblyTypeName: BattlerEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6669507187417339198}
+          m_ObjectArgumentAssemblyTypeName: Battler, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -262,13 +261,13 @@ MonoBehaviour:
   onHoverEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6669507187417339198}
-        m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: ShowTooltip
-        m_Mode: 6
+      - m_Target: {fileID: 11400000, guid: a14a5bfa62c544c1cb1d384761ded123, type: 2}
+        m_TargetAssemblyTypeName: BattlerEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6669507187417339198}
+          m_ObjectArgumentAssemblyTypeName: Battler, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -277,13 +276,13 @@ MonoBehaviour:
   onHoverExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6669507187417339198}
-        m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: ShowTooltip
-        m_Mode: 6
+      - m_Target: {fileID: 11400000, guid: 3e7be971c352a4dbb9837a9d59483cbb, type: 2}
+        m_TargetAssemblyTypeName: BattlerEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6669507187417339198}
+          m_ObjectArgumentAssemblyTypeName: Battler, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -387,13 +386,13 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6669507187417339198}
-        m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: Target
-        m_Mode: 1
+      - m_Target: {fileID: 11400000, guid: 962309a8cf91c47539120f81b0beade0, type: 2}
+        m_TargetAssemblyTypeName: GameEvent`1[[Battler, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6669507187417339198}
+          m_ObjectArgumentAssemblyTypeName: Battler, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -402,13 +401,13 @@ MonoBehaviour:
   onHoverEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6669507187417339198}
-        m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: ShowTooltip
-        m_Mode: 6
+      - m_Target: {fileID: 11400000, guid: a14a5bfa62c544c1cb1d384761ded123, type: 2}
+        m_TargetAssemblyTypeName: GameEvent`1[[Battler, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6669507187417339198}
+          m_ObjectArgumentAssemblyTypeName: Battler, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -417,13 +416,13 @@ MonoBehaviour:
   onHoverExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6669507187417339198}
-        m_TargetAssemblyTypeName: Battler, Assembly-CSharp
-        m_MethodName: ShowTooltip
-        m_Mode: 6
+      - m_Target: {fileID: 11400000, guid: 3e7be971c352a4dbb9837a9d59483cbb, type: 2}
+        m_TargetAssemblyTypeName: GameEvent`1[[Battler, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6669507187417339198}
+          m_ObjectArgumentAssemblyTypeName: Battler, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

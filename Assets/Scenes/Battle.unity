@@ -1550,6 +1550,7 @@ GameObject:
   - component: {fileID: 117926851}
   - component: {fileID: 117926854}
   - component: {fileID: 117926853}
+  - component: {fileID: 117926855}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -1623,6 +1624,105 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+--- !u!114 &117926855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117926850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39426b0fd39248b793a95b4c3ee15275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battlerEvents:
+  - <Name>k__BackingField: Command-SelectUser
+    <Event>k__BackingField: {fileID: 11400000, guid: 5dc02e18b1ef94435af925cb1cc2a15f, type: 2}
+    <Response>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 117926851}
+          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+          m_MethodName: SelectUser
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - <Name>k__BackingField: Command-SelectTargetBattler
+    <Event>k__BackingField: {fileID: 11400000, guid: 962309a8cf91c47539120f81b0beade0, type: 2}
+    <Response>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 117926851}
+          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+          m_MethodName: SelectTarget
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - <Name>k__BackingField: Tooltip-ShowBattler
+    <Event>k__BackingField: {fileID: 11400000, guid: a14a5bfa62c544c1cb1d384761ded123, type: 2}
+    <Response>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 117926850}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - <Name>k__BackingField: Tooltip-HideBattler
+    <Event>k__BackingField: {fileID: 11400000, guid: 3e7be971c352a4dbb9837a9d59483cbb, type: 2}
+    <Response>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 117926850}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  teamEvents:
+  - <Name>k__BackingField: Command-SelectTargetTeam
+    <Event>k__BackingField: {fileID: 11400000, guid: dbc984af28b81442689a0fcacb01d25d, type: 2}
+    <Response>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 117926851}
+          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+          m_MethodName: SelectTarget
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &123512415
 GameObject:
   m_ObjectHideFlags: 0
@@ -25564,8 +25664,8 @@ MonoBehaviour:
   playerTeam: {fileID: 510527339}
   npcTeam: {fileID: 1610474485}
   weatherTeam: {fileID: 1805043555}
-  waveInfo: {fileID: 786219177}
   weatherInfo: {fileID: 9011696633996001384}
+  waveInfo: {fileID: 786219177}
   playerInfos:
   - {fileID: 1396797133}
   - {fileID: 1302784879}
@@ -26725,8 +26825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 386947998}
-  weather: {fileID: 1545408227}
-  data: {fileID: 0}
+  weatherText: {fileID: 0}
 --- !u!114 &9011696633996001385
 MonoBehaviour:
   m_ObjectHideFlags: 0

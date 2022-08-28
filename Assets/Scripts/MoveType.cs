@@ -8,11 +8,15 @@ public class MoveType : ScriptableObject
     public int power;
     // public string type;
     public string animation;
-    public string effect;
+    public string fx;
     // public string element;
     // public string crit;
     // public string variance;
     // public string power;
     // public string accuracy;
     // public string statuses;
+
+    // info
+    // graphics
+    public MoveLogic logic;
 }

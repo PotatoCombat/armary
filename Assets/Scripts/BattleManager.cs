@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ public class BattleManager : MonoBehaviour
     [Header("Runtime")]
     [SerializeField] private BattleData data;
     [SerializeField] private int wave;
-    [SerializeField] private List<Actor> animating;
+    [SerializeField] private List<HitCommand> hits;
+    [SerializeField] private List<GameObject> animating;
     [SerializeField] private BattleContext context;
 
     [Header("Components")]
@@ -14,6 +16,27 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattleInfo info;
     [SerializeField] private BattleMenu menu;
     [SerializeField] private BattleFsm fsm;
+
+    [SerializeField] private Events events;
+
+    [Serializable]
+    public class Events
+    {
+        // Could be battle event listeners instead
+        public SignalEventListener onIdle;
+        public SignalEventListener onBusy;
+        public SignalEventListener onFx;
+        public SignalEventListener onHit;
+    }
+
+    // public BattlerEventListener selectUser;
+    // public SkillEventListener selectMove;
+    // public ItemEventListener selectItem;
+    // public EquipEventListener selectEquip;
+    // public BattlerEventListener selectTargetBattler;
+    // public TeamEventListener selectTargetTeam;
+    // public ActorEventListener notifyIdle;
+    // public ActorEventListener notifyBusy;
 
     private void Start()
     {
@@ -138,7 +161,7 @@ public class BattleManager : MonoBehaviour
     public void StartBattle()
     {
         wave = -1;
-        animating = new List<Actor>();
+        animating = new List<GameObject>();
         fsm.Load(this);
         fsm.Init();
     }
@@ -195,42 +218,34 @@ public class BattleManager : MonoBehaviour
     {
         stage.HideTargets();
         menu.Hide();
+        hits = Move.logic.CreateHits(this);
         User.model.Animate(Move.animation);
     }
 
-    public void PerformAction(Actor actor, ActorEvent actorEvent)
+    public void PerformFx()
     {
-        Debug.Log($"Perform {actorEvent}: {actor}");
-        actorEvent.Invoke(actor, this);
+        User.effects.Animate(Move.fx);
     }
 
-    public void PerformHit(Battler battler, HitEvent hitEvent)
+    public void PerformHit()
     {
-        Debug.Log($"Perform {hitEvent}: {battler}");
-        hitEvent.Invoke(battler, this);
-        info.UpdatePlayerInfos();
-        info.UpdateNpcInfos();
+        hits[0].Execute();
+        hits.RemoveAt(0);
+        // info.UpdatePlayerInfos();
+        // info.UpdateNpcInfos();
     }
 
-    public void PerformHit(Team team, HitEvent hitEvent)
+    public void NotifyIdle(GameObject obj)
     {
-        Debug.Log($"Perform {hitEvent}: {team}");
-        hitEvent.Invoke(team, this);
-        info.UpdatePlayerInfos();
-        info.UpdateNpcInfos();
-    }
-
-    public void NotifyIdleActor(Actor actor)
-    {
-        var completedAnimations = animating.Remove(actor) && animating.Count <= 0;
+        var completedAnimations = animating.Remove(obj) && animating.Count <= 0;
         if (completedAnimations)
         {
             fsm.Next();
         }
     }
 
-    public void NotifyBusyActor(Actor actor)
+    public void NotifyBusy(GameObject obj)
     {
-        animating.Add(actor);
+        animating.Add(obj);
     }
 }

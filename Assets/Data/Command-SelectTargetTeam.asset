@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb93bfc68274aa78b748fec9f7e56b6, type: 3}
-  m_Name: Move
+  m_Script: {fileID: 11500000, guid: 480be9812ca648568fc27cd69adc98b8, type: 3}
+  m_Name: Command-SelectTargetTeam
   m_EditorClassIdentifier: 
-  position: {fileID: 0}
-  offset: {x: -1.2, y: 0, z: 0}
-  duration: 15
-  frameRate: 60
-  ease: 1

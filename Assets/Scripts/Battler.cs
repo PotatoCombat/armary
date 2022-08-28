@@ -24,8 +24,13 @@ public class Battler : MonoBehaviour
     {
         public UnityEvent<Battler> onSelect;
         public UnityEvent<Battler> onTarget;
-        public UnityEvent<Battler, HitEvent> onHit;
+        // public UnityEvent<Battler, HitEvent> onHit;
     }
+
+    // private void OnEnable()
+    // {
+    //     hitReceiver.onHit.AddListener(() => onHit.Raise(this));
+    // }
 
     public bool IsAlive => data.hp > 0;
 
@@ -61,10 +66,11 @@ public class Battler : MonoBehaviour
         events.onTarget.Invoke(this);
     }
 
-    public void Hit(HitEvent hitEvent)
-    {
-        events.onHit.Invoke(this, hitEvent);
-    }
+    // public void Hit(HitData hitData)
+    // {
+        // onHit.Raise(this, hitData);
+        // events.onHit.Invoke(this, hitEvent);
+    // }
 
     public void Damage(DamageData damage)
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class EffectEvent : ActorEvent
+public class ActorEffectCommand : ScriptableObject
 {
     private enum Type
     {
@@ -17,26 +17,26 @@ public class EffectEvent : ActorEvent
     [SerializeField] private Type target;
     [SerializeField] private float interval;
 
-    public override void Invoke(Actor actor, BattleManager manager)
-    {
-        var battlers = new List<Battler>();
-        if (manager.TargetBattler)
-        {
-            battlers.Add(manager.TargetBattler);
-        }
-        if (manager.TargetTeam)
-        {
-            battlers.AddRange(manager.TargetTeam.battlers);
-        }
-        var delta = 0f;
-        foreach (var battler in battlers)
-        {
-            if (battler.isActiveAndEnabled)
-            {
-                battler.effects.Animate(name, delta);
-                delta += interval;
-            }
-        }
+    // public override void Invoke(Actor actor, BattleManager context)
+    // {
+        // var battlers = new List<Battler>();
+        // if (context.TargetBattler)
+        // {
+        //     battlers.Add(context.TargetBattler);
+        // }
+        // if (context.TargetTeam)
+        // {
+        //     battlers.AddRange(context.TargetTeam.battlers);
+        // }
+        // var delta = 0f;
+        // foreach (var battler in battlers)
+        // {
+        //     if (battler.isActiveAndEnabled)
+        //     {
+        //         battler.effects.Animate(name, delta);
+        //         delta += interval;
+        //     }
+        // }
 
         // switch (target)
         // {
@@ -59,5 +59,5 @@ public class EffectEvent : ActorEvent
             // default:
             //     break;
         // }
-    }
+    // }
 }

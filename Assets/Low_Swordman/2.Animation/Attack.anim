@@ -2234,14 +2234,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: Act
+    functionName: Execute
     data: 
     objectReferenceParameter: {fileID: 11400000, guid: c5ee5ba73ba0144f9bbfaacdb62bdd3a, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.41666666
-    functionName: Act
+    functionName: Fx
     data: 
     objectReferenceParameter: {fileID: 11400000, guid: c944be34a9528419ea2d863b161555dc, type: 2}
     floatParameter: 0

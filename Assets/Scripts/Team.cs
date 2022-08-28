@@ -16,7 +16,7 @@ public class Team : MonoBehaviour
     public class Events
     {
         public UnityEvent<Team> onTarget;
-        public UnityEvent<Team, HitEvent> onHit;
+        // public UnityEvent<Team, HitEvent> onHit;
     }
 
     // Equips
@@ -130,8 +130,8 @@ public class Team : MonoBehaviour
         events.onTarget.Invoke(this);
     }
 
-    public void Hit(HitEvent hitEvent)
-    {
-        events.onHit.Invoke(this, hitEvent);
-    }
+    // public void Hit(HitEvent hitEvent)
+    // {
+        // events.onHit.Invoke(this, hitEvent);
+    // }
 }
