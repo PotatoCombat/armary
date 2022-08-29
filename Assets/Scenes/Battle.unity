@@ -320,13 +320,13 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1610474485}
-        m_TargetAssemblyTypeName: Team, Assembly-CSharp
-        m_MethodName: Target
-        m_Mode: 1
+      - m_Target: {fileID: 11400000, guid: dbc984af28b81442689a0fcacb01d25d, type: 2}
+        m_TargetAssemblyTypeName: GameEvent`1[[Team, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1610474485}
+          m_ObjectArgumentAssemblyTypeName: Team, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1660,9 +1660,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SurpriseAttack>k__BackingField: 0
   <FinalWave>k__BackingField: 0
-  <PlayerTeam>k__BackingField: {fileID: 510527339}
-  <NpcTeam>k__BackingField: {fileID: 1610474485}
-  <WeatherTeam>k__BackingField: {fileID: 1805043555}
   <AllyTeam>k__BackingField: {fileID: 0}
   <FoeTeam>k__BackingField: {fileID: 0}
   <User>k__BackingField: {fileID: 0}
@@ -1670,6 +1667,9 @@ MonoBehaviour:
   <TargetUser>k__BackingField: {fileID: 0}
   <TargetBattler>k__BackingField: {fileID: 0}
   <TargetTeam>k__BackingField: {fileID: 0}
+  <PlayerTeam>k__BackingField: {fileID: 510527339}
+  <NpcTeam>k__BackingField: {fileID: 1610474485}
+  <WeatherTeam>k__BackingField: {fileID: 1805043555}
 --- !u!1 &123512415
 GameObject:
   m_ObjectHideFlags: 0
@@ -6778,6 +6778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 0
+  effects: {fileID: 1751350490}
   target: {fileID: 966254189}
   battlers:
   - {fileID: 30134796}
@@ -6785,22 +6786,6 @@ MonoBehaviour:
   - {fileID: 542384964}
   - {fileID: 1593854956}
   - {fileID: 1876433152}
-  events:
-    onTarget:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: SelectTarget
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &516796697
 GameObject:
   m_ObjectHideFlags: 0
@@ -12716,6 +12701,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8893025671621244774, guid: b6f66696377654f56b96b84091ad407e, type: 3}
   m_PrefabInstance: {fileID: 834909779}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &843160160 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 26179694882519813, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+  m_PrefabInstance: {fileID: 602810300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696b5ea4150b43119dd85181ade48d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &855686380
 GameObject:
   m_ObjectHideFlags: 0
@@ -14129,13 +14125,13 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 510527339}
-        m_TargetAssemblyTypeName: Team, Assembly-CSharp
-        m_MethodName: Target
-        m_Mode: 1
+      - m_Target: {fileID: 11400000, guid: dbc984af28b81442689a0fcacb01d25d, type: 2}
+        m_TargetAssemblyTypeName: GameEvent`1[[Team, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 510527339}
+          m_ObjectArgumentAssemblyTypeName: Team, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14624,13 +14620,13 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1805043555}
-        m_TargetAssemblyTypeName: Team, Assembly-CSharp
-        m_MethodName: Target
-        m_Mode: 1
+      - m_Target: {fileID: 11400000, guid: dbc984af28b81442689a0fcacb01d25d, type: 2}
+        m_TargetAssemblyTypeName: GameEvent`1[[Team, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1805043555}
+          m_ObjectArgumentAssemblyTypeName: Team, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -20559,6 +20555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+  effects: {fileID: 1651951024}
   target: {fileID: 22572083}
   battlers:
   - {fileID: 1913705962}
@@ -20566,22 +20563,6 @@ MonoBehaviour:
   - {fileID: 1665974891}
   - {fileID: 1146064648}
   - {fileID: 1772586448}
-  events:
-    onTarget:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: SelectTarget
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1630495575
 GameObject:
   m_ObjectHideFlags: 0
@@ -21170,6 +21151,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 26179694882519811, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
   m_PrefabInstance: {fileID: 1651951022}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1651951024 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 26179694882519813, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+  m_PrefabInstance: {fileID: 1651951022}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696b5ea4150b43119dd85181ade48d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1665974891 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6669507187417339198, guid: b6f66696377654f56b96b84091ad407e, type: 3}
@@ -23055,6 +23047,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 26179694882519811, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
   m_PrefabInstance: {fileID: 1751350488}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1751350490 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 26179694882519813, guid: 6c14b077c017843439aad622f89c2a5f, type: 3}
+  m_PrefabInstance: {fileID: 1751350488}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696b5ea4150b43119dd85181ade48d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1765684095
 GameObject:
   m_ObjectHideFlags: 0
@@ -23297,6 +23300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 2
+  effects: {fileID: 843160160}
   target: {fileID: 1045581711}
   battlers:
   - {fileID: 30134796}
@@ -23309,22 +23313,6 @@ MonoBehaviour:
   - {fileID: 1665974891}
   - {fileID: 1146064648}
   - {fileID: 1772586448}
-  events:
-    onTarget:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 117926851}
-          m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-          m_MethodName: SelectTarget
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1001 &1813260977
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -213,7 +213,14 @@ public class BattleManager : MonoBehaviour
 
     public void PerformFx()
     {
-        context.User.effects.Animate(context.Move.fx);
+        if (context.TargetBattler)
+        {
+            context.TargetBattler.effects.Animate(context.Move.fx);
+        }
+        else if (context.TargetTeam)
+        {
+            context.TargetTeam.effects.Animate(context.Move.fx);
+        }
     }
 
     public void PerformHit()

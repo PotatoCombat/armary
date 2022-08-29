@@ -1,23 +1,15 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Team : MonoBehaviour
 {
+    [Header("Runtime")]
     public Faction faction;
+
+    [Header("Components")]
+    public Actor effects;
     public SimpleButton target;
-
     public List<Battler> battlers;
-
-    public Events events;
-
-    [Serializable]
-    public class Events
-    {
-        public UnityEvent<Team> onTarget;
-        // public UnityEvent<Team, HitEvent> onHit;
-    }
 
     // Equips
     // Items
@@ -123,15 +115,5 @@ public class Team : MonoBehaviour
     //             npcs[i].Hide();
     //         }
     //     }
-    // }
-
-    public void Target()
-    {
-        events.onTarget.Invoke(this);
-    }
-
-    // public void Hit(HitEvent hitEvent)
-    // {
-        // events.onHit.Invoke(this, hitEvent);
     // }
 }
