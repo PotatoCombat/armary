@@ -4,7 +4,7 @@ using UnityEngine;
 public class Battler : MonoBehaviour
 {
     [Header("Runtime")]
-    public Faction faction;
+    public BattlerFaction faction;
     //  TODO: public bool hit = false; // to mark which foes can counter
     public int actions = 0;
     public BattlerData data; // TODO: make private
@@ -18,7 +18,7 @@ public class Battler : MonoBehaviour
     [SerializeField] private SimpleButton target;
 
     public bool IsAlive => data.hp > 0;
-    public bool IsControllable => faction == Faction.Player;
+    public bool IsControllable => faction == BattlerFaction.Player;
 
     public void LoadData(BattlerData data)
     {

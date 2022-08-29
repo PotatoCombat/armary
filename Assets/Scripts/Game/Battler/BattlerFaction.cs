@@ -1,4 +1,4 @@
-public enum Faction
+public enum BattlerFaction
 {
     Player,
     Npc,

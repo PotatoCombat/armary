@@ -4,7 +4,7 @@ using UnityEngine;
 public class Team : MonoBehaviour
 {
     [Header("Runtime")]
-    public Faction faction;
+    public BattlerFaction faction;
 
     [Header("Components")]
     public Actor effects;

@@ -1,9 +1,9 @@
 using System;
 
 [Serializable]
-public class TargetData
+public class TargetType
 {
-    public TargetType type;
+    public TargetGroup group;
     public TargetTeam team;
     public TargetCondition condition;
 
@@ -14,7 +14,7 @@ public class TargetData
     public bool TargetDead => condition != TargetCondition.Alive;
 }
 
-public enum TargetType
+public enum TargetGroup
 {
     Self,
     Single,

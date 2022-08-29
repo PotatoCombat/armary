@@ -20,12 +20,12 @@ public class BattleStage : MonoBehaviour
         var user = context.User;
         var target = context.Move.target;
 
-        switch (context.Move.target.type)
+        switch (context.Move.target.@group)
         {
-            case TargetType.Self:
+            case TargetGroup.Self:
                 ShowSingleTarget(user, target);
                 break;
-            case TargetType.Single:
+            case TargetGroup.Single:
                 if (target.TargetAllies)
                 {
                     foreach (var ally in context.AllyTeam.battlers)
@@ -41,7 +41,7 @@ public class BattleStage : MonoBehaviour
                     }
                 }
                 break;
-            case TargetType.Team:
+            case TargetGroup.Team:
                 if (target.TargetAllies)
                 {
                     context.AllyTeam.ShowTarget(true);
@@ -51,7 +51,7 @@ public class BattleStage : MonoBehaviour
                     context.FoeTeam.ShowTarget(true);
                 }
                 break;
-            case TargetType.Mixed:
+            case TargetGroup.Mixed:
                 if (target.TargetAllies)
                 {
                     context.AllyTeam.ShowTarget(true);
@@ -69,16 +69,16 @@ public class BattleStage : MonoBehaviour
                     }
                 }
                 break;
-            case TargetType.All:
+            case TargetGroup.All:
             default:
                 context.WeatherTeam.ShowTarget(true);
                 break;
         }
     }
 
-    private void ShowSingleTarget(Battler battler, TargetData data)
+    private void ShowSingleTarget(Battler battler, TargetType target)
     {
-        if ((battler.IsAlive && data.TargetAlive) || (!battler.IsAlive && data.TargetDead))
+        if ((battler.IsAlive && target.TargetAlive) || (!battler.IsAlive && target.TargetDead))
         {
             battler.ShowTarget(true);
         }

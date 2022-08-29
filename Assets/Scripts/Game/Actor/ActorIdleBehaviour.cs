@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IdleBehaviour : StateMachineBehaviour
+public class ActorIdleBehaviour : StateMachineBehaviour
 {
     [SerializeField] private GameObjectEvent onEnter;
     [SerializeField] private GameObjectEvent onExit;

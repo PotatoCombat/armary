@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class WeatherData : ScriptableObject
+public class WeatherType : ScriptableObject
 {
     public Sprite icon;
     // Overworld Effect
