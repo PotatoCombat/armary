@@ -54,15 +54,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 0}
   button: {fileID: 7819947430472024235}
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
-  onHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  onHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
+  onClick: {fileID: 11400000, guid: e02d98320ea8c4c268ea39c8e9a1e60f, type: 2}
+  onHoverEnter: {fileID: 11400000, guid: 06c9c114eb27f4eb49b97d540259237c, type: 2}
+  onHoverExit: {fileID: 11400000, guid: 522b00fe694a140adb00c98c7d4b6cd2, type: 2}
 --- !u!222 &3906473575649744363
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -118,7 +112,6 @@ MonoBehaviour:
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   hoverColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   disabledColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
-  colorMultiplier: 1
   fadeDuration: 0
   onClick:
     m_PersistentCalls:

@@ -132,9 +132,9 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log($"Show Ui: {user}");
         stage.ShowPickers();
-        menu.LoadContext(context.User, context.AllyTeam);
-        menu.SelectDefaultPanel();
-        menu.Show();
+        menu.ShowDefaultPanel();
+        menu.ShowInterface(true);
+        menu.ShowCancelButton(false);
     }
 
     public void SelectMove(MoveType move)
@@ -143,6 +143,8 @@ public class BattleManager : MonoBehaviour
         context.Move = move;
         stage.HidePickers();
         stage.ShowTargets();
+        menu.ShowInterface(false);
+        menu.ShowCancelButton(true);
     }
 
     public void CancelMove()
@@ -151,7 +153,8 @@ public class BattleManager : MonoBehaviour
         context.Move = null;
         stage.HideTargets();
         stage.ShowPickers();
-        context.User.ShowPicker(false);
+        menu.ShowInterface(true);
+        menu.ShowCancelButton(false);
     }
 
     public void SelectTarget(Battler battler)
@@ -197,7 +200,8 @@ public class BattleManager : MonoBehaviour
     private void PerformMove()
     {
         stage.HideTargets();
-        menu.Hide();
+        menu.ShowInterface(false);
+        menu.ShowCancelButton(false);
         positions.UpdateTeamPositions();
         positions.UpdateUserPosition();
         positions.UpdateTargetPositions();

@@ -8,11 +8,12 @@ using UnityEditor.Events;
 public class MoveButton : MonoBehaviour
 {
     public MoveType data;
-    public SimpleButton button;
 
-    public UnityEvent<MoveType> onClick;
-    public UnityEvent<MoveType> onHoverEnter;
-    public UnityEvent<MoveType> onHoverExit;
+    [Header("Components")]
+    public SimpleButton button;
+    public MoveTypeEvent onClick;
+    public MoveTypeEvent onHoverEnter;
+    public MoveTypeEvent onHoverExit;
 
     public void LoadData(MoveType data)
     {
@@ -26,17 +27,17 @@ public class MoveButton : MonoBehaviour
 
     public void Click()
     {
-        onClick.Invoke(data);
+        onClick.Raise(data);
     }
 
     public void HoverEnter()
     {
-        onHoverEnter.Invoke(data);
+        onHoverEnter.Raise(data);
     }
 
     public void HoverExit()
     {
-        onHoverExit.Invoke(data);
+        onHoverExit.Raise(data);
     }
 
 #if UNITY_EDITOR

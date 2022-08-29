@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ListPanel : BattleMenuPanel
+public class ListPanel : BattlePanel
 {
     [Header("Buttons")]
     [SerializeField] private SimpleButton attack;
@@ -13,9 +13,9 @@ public class ListPanel : BattleMenuPanel
     [SerializeField] private MoveButton attackAlt;
     public MoveType attackMove;
 
-    public override void LoadContext(Battler user, Team team)
+    protected override void OnEnable()
     {
-        var useAlternativeAttack = user.data.moves.Count <= 1;
+        var useAlternativeAttack = context.User.data.moves.Count <= 1;
         attack.gameObject.SetActive(!useAlternativeAttack);
         attackAlt.gameObject.SetActive(useAlternativeAttack);
         attackAlt.LoadData(attackMove);

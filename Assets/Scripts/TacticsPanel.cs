@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class TacticsPanel : BattleMenuPanel
+public class TacticsPanel : BattlePanel
 {
     public List<MoveButton> buttons;
     public MoveType defend;
@@ -10,9 +10,8 @@ public class TacticsPanel : BattleMenuPanel
     public MoveType swap1;
     public MoveType swap2;
 
-    public override void LoadContext(Battler user, Team team)
+    protected override void OnEnable()
     {
-        base.LoadContext(user, team);
         buttons[0].LoadData(defend);
         buttons[1].LoadData(scan);
         buttons[2].LoadData(skip);

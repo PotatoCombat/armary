@@ -1,90 +1,16 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BattleMenu : MonoBehaviour
 {
     [Header("Runtime")]
-    public Battler user;
-    public Team team;
-    public BattleMenuPanel panel;
+    public GameObject panel;
 
     [Header("Components")]
     public GameObject cancelButton;
-    public BattleMenuPanel listPanel;
-    public BattleMenuPanel defaultPanel;
-    public MoveTooltip moveTooltip;
+    public GameObject listPanel;
+    public GameObject defaultPanel;
 
-    [Header("Events")]
-    public UnityEvent<MoveType> onSelectMove;
-    public UnityEvent onCancelMove;
-
-    public void LoadContext(Battler user, Team team)
-    {
-        this.user = user;
-        this.team = team;
-
-        listPanel.LoadContext(user, team);
-        if (panel)
-        {
-            panel.LoadContext(user, team);
-        }
-    }
-
-    public void Show()
-    {
-        ShowInterface(true);
-        ShowCancelButton(false);
-    }
-
-    public void Hide()
-    {
-        ShowInterface(false);
-        ShowCancelButton(false);
-    }
-
-    public void ShowTooltip(MoveType move)
-    {
-        moveTooltip.LoadData(move);
-        moveTooltip.gameObject.SetActive(true);
-    }
-
-    public void HideTooltip()
-    {
-        moveTooltip.gameObject.SetActive(false);
-    }
-
-    public void SelectDefaultPanel()
-    {
-        SelectPanel(defaultPanel);
-    }
-
-    public void SelectPanel(BattleMenuPanel panel)
-    {
-        if (this.panel)
-        {
-            this.panel.gameObject.SetActive(false);
-        }
-        this.panel = panel;
-        this.panel.LoadContext(user, team);
-        this.panel.gameObject.SetActive(true);
-    }
-
-    public void SelectMove(MoveType move)
-    {
-        onSelectMove.Invoke(move);
-        ShowInterface(false);
-        ShowCancelButton(true);
-        HideTooltip();
-    }
-
-    public void CancelMove()
-    {
-        onCancelMove.Invoke();
-        ShowInterface(true);
-        ShowCancelButton(false);
-    }
-
-    private void ShowInterface(bool visible)
+    public void ShowInterface(bool visible)
     {
         listPanel.gameObject.SetActive(visible);
         if (panel)
@@ -93,7 +19,25 @@ public class BattleMenu : MonoBehaviour
         }
     }
 
-    private void ShowCancelButton(bool visible)
+    public void ShowPanel(GameObject panel)
+    {
+        if (this.panel)
+        {
+            this.panel.SetActive(false);
+        }
+        if (panel)
+        {
+            panel.SetActive(true);
+        }
+        this.panel = panel;
+    }
+
+    public void ShowDefaultPanel()
+    {
+        ShowPanel(defaultPanel);
+    }
+
+    public void ShowCancelButton(bool visible)
     {
         cancelButton.gameObject.SetActive(visible);
     }

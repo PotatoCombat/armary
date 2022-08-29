@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 
-public class EquipsPanel : BattleMenuPanel
+public class EquipsPanel : BattlePanel
 {
-    public override void LoadContext(Battler user, Team team)
-    {
-        base.LoadContext(user, team);
-    }
+    protected override void OnEnable() { }
 }

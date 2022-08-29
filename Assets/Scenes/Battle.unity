@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55615e10226741beaf4a2ee6289ef68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
   buttons:
   - {fileID: 1203543284}
   - {fileID: 1339541447}
@@ -1329,6 +1330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e6bc9f0c1242fabf9c73511e8f9b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
 --- !u!1001 &75811281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2248,11 +2250,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 908482682}
         m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: SelectPanel
+        m_MethodName: ShowPanel
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 270735029}
-          m_ObjectArgumentAssemblyTypeName: BattleMenuPanel, Assembly-CSharp
+          m_ObjectArgument: {fileID: 270735025}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2277,7 +2279,7 @@ GameObject:
   - component: {fileID: 169469203}
   - component: {fileID: 169469202}
   m_Layer: 5
-  m_Name: List (Alt)
+  m_Name: Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2804,11 +2806,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 908482682}
         m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: SelectPanel
+        m_MethodName: ShowPanel
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2016232979}
-          m_ObjectArgumentAssemblyTypeName: BattleMenuPanel, Assembly-CSharp
+          m_ObjectArgument: {fileID: 2016232975}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2885,10 +2887,10 @@ MonoBehaviour:
       - m_Target: {fileID: 216527696}
         m_TargetAssemblyTypeName: MoveButton, Assembly-CSharp
         m_MethodName: Click
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2976,51 +2978,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 0}
   button: {fileID: 216527693}
-  onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 908482682}
-        m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: SelectMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onHoverEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 908482682}
-        m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: ShowTooltip
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onHoverExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 908482682}
-        m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: HideTooltip
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  onClick: {fileID: 11400000, guid: e02d98320ea8c4c268ea39c8e9a1e60f, type: 2}
+  onHoverEnter: {fileID: 11400000, guid: 06c9c114eb27f4eb49b97d540259237c, type: 2}
+  onHoverExit: {fileID: 11400000, guid: 522b00fe694a140adb00c98c7d4b6cd2, type: 2}
 --- !u!1 &263552077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,6 +3148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b852e852acab4770b5101f739b54b92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
 --- !u!1001 &279144784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6543,11 +6504,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 908482682}
         m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: SelectPanel
+        m_MethodName: ShowPanel
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 520944028}
-          m_ObjectArgumentAssemblyTypeName: BattleMenuPanel, Assembly-CSharp
+          m_ObjectArgument: {fileID: 520944024}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7147,6 +7108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6052414f1594edea8049e0628ddbbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
   buttons:
   - {fileID: 1196718321}
   - {fileID: 33021689}
@@ -13346,43 +13308,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1544782816a3457280ca37da20b84f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  user: {fileID: 0}
-  team: {fileID: 0}
   panel: {fileID: 0}
   cancelButton: {fileID: 169469200}
-  listPanel: {fileID: 1012992445}
-  defaultPanel: {fileID: 7686668}
-  moveTooltip: {fileID: 901916229}
-  onSelectMove:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 117926851}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: SelectMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onCancelMove:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 117926851}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: CancelMove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  listPanel: {fileID: 1012992440}
+  defaultPanel: {fileID: 7686663}
 --- !u!114 &908482683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13707,11 +13636,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 908482682}
         m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: SelectPanel
+        m_MethodName: ShowPanel
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 67126323}
-          m_ObjectArgumentAssemblyTypeName: BattleMenuPanel, Assembly-CSharp
+          m_ObjectArgument: {fileID: 67126319}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14481,7 +14410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1012992441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14582,6 +14511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ad49dcc1be4d58999fc6369dca3bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
   attack: {fileID: 199191919}
   tactic: {fileID: 1385478283}
   skill: {fileID: 458883863}
@@ -19065,11 +18995,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 908482682}
         m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: SelectPanel
+        m_MethodName: ShowPanel
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1727940349}
-          m_ObjectArgumentAssemblyTypeName: BattleMenuPanel, Assembly-CSharp
+          m_ObjectArgument: {fileID: 1727940345}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -20003,7 +19933,7 @@ GameObject:
   - component: {fileID: 1516845431}
   - component: {fileID: 1516845430}
   m_Layer: 5
-  m_Name: Cancel
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20051,9 +19981,9 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 908482682}
-        m_TargetAssemblyTypeName: BattleMenu, Assembly-CSharp
-        m_MethodName: CancelMove
+      - m_Target: {fileID: 11400000, guid: 294c440a8cf6b4109825162e7c7580b8, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22599,6 +22529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c1a8f8690349f0933540faaa961e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
   buttons:
   - {fileID: 757744441}
   - {fileID: 437394674}
@@ -25448,6 +25379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f946fd0f5d704a08a59619ef31df2895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  context: {fileID: 117926856}
   buttons:
   - {fileID: 1362728519}
   - {fileID: 2111152822}

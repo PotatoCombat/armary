@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5fe6a45008425fa2a5dff2569b46c8, type: 3}
-  m_Name: Battle-NotifyBusy
+  m_Name: GameObject-NotifyIdle
   m_EditorClassIdentifier: 

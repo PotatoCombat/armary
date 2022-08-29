@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 
-public class SkillsPanel : BattleMenuPanel
+public class SkillsPanel : BattlePanel
 {
     public List<MoveButton> buttons;
 
-    public override void LoadContext(Battler user, Team team)
+    protected override void OnEnable()
     {
-        base.LoadContext(user, team);
-        var numMoves = user.data.moves.Count;
+        var numMoves = context.User.data.moves.Count;
         for (var i = 0; i < buttons.Count; i++)
         {
             if (i < numMoves)
