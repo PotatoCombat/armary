@@ -1,40 +1,31 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Battler : MonoBehaviour
 {
+    [Header("Runtime")]
     public Faction faction;
+    //  TODO: public bool hit = false; // to mark which foes can counter
     public int actions = 0;
-    // TODO: Bool flag to indicate hit foes / foes that can counter
-    // public bool hit = false;
+    public BattlerData data; // TODO: make private
 
+    [Header("Components")]
     public Actor model;
     public Actor effects;
 
-    public TextMeshProUGUI hpText;
-
-    public SimpleButton picker;
-    public SimpleButton target;
-
-    public BattlerData data;
-    public Events events;
-
-    [Serializable]
-    public class Events
-    {
-        public UnityEvent<Battler> onSelect;
-        public UnityEvent<Battler> onTarget;
-        // public UnityEvent<Battler, HitEvent> onHit;
-    }
-
-    // private void OnEnable()
-    // {
-    //     hitReceiver.onHit.AddListener(() => onHit.Raise(this));
-    // }
+    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private SimpleButton picker;
+    [SerializeField] private SimpleButton target;
 
     public bool IsAlive => data.hp > 0;
+    public bool IsControllable => faction == Faction.Player;
+
+    public void LoadData(BattlerData data)
+    {
+        // Model and AI
+        this.data = data;
+        gameObject.SetActive(true);
+    }
 
     public void ShowPicker(bool visible)
     {
@@ -46,33 +37,16 @@ public class Battler : MonoBehaviour
         target.gameObject.SetActive(visible);
     }
 
-    public void ShowTooltip(bool visible)
+    public BattleDecision GetTurnDecision(BattleContext context)
     {
-
+        return data.type.ai.GetTurnDecision(context);
     }
 
-    public void LoadData(BattlerData data)
+    public BattleDecision GetCounterDecision(BattleContext context)
     {
-        // Model and AI
-        this.data = data;
-        gameObject.SetActive(true);
+        return data.type.ai.GetCounterDecision(context);
     }
 
-    public void Select()
-    {
-        events.onSelect.Invoke(this);
-    }
-
-    public void Target()
-    {
-        events.onTarget.Invoke(this);
-    }
-
-    // public void Hit(HitData hitData)
-    // {
-        // onHit.Raise(this, hitData);
-        // events.onHit.Invoke(this, hitEvent);
-    // }
     public void Damage(int value)
     {
         Hit(-value);

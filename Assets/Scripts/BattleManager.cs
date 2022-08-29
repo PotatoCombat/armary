@@ -109,7 +109,6 @@ public class BattleManager : MonoBehaviour
 
     private void ApplyDecision(BattleDecision decision)
     {
-        context.User = decision.User;
         context.Move = decision.Move;
         context.TargetBattler = decision.TargetBattler;
         context.TargetTeam = decision.TargetTeam;
@@ -119,7 +118,7 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log($"Selected User: {user}");
         context.User = user;
-        if (user.IsAlive)
+        if (user.IsControllable)
         {
             ShowUi(user);
         }
@@ -133,6 +132,7 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log($"Show Ui: {user}");
         stage.ShowPickers();
+        menu.Load();
         menu.ShowDefaultPanel();
         menu.ShowInterface(true);
         menu.ShowCancelButton(false);
@@ -157,6 +157,7 @@ public class BattleManager : MonoBehaviour
         stage.ShowPickers();
         menu.ShowInterface(true);
         menu.ShowCancelButton(false);
+        tooltips.HideAll();
     }
 
     public void SelectTarget(Battler battler)
@@ -176,26 +177,14 @@ public class BattleManager : MonoBehaviour
     public void PerformAiTurn(Battler user)
     {
         Debug.Log($"Run Ai: {user}");
-        var decision = context.User.data.type.ai.GetTurnDecision(context); // TODO: reduce dot chain
-        if (decision == null)
-        {
-            fsm.Next();
-            return;
-        }
-        ApplyDecision(decision);
+        ApplyDecision(context.User.GetTurnDecision(context));
         PerformMove();
     }
 
     public void PerformAiCounter(Battler user)
     {
         Debug.Log($"Run Ai: {user}");
-        var decision = context.User.data.type.ai.GetCounterDecision(context); // TODO: reduce dot chain
-        if (decision == null)
-        {
-            fsm.Next();
-            return;
-        }
-        ApplyDecision(decision);
+        ApplyDecision(context.User.GetCounterDecision(context));
         PerformMove();
     }
 
@@ -208,8 +197,18 @@ public class BattleManager : MonoBehaviour
         positions.UpdateTeamPositions();
         positions.UpdateUserPosition();
         positions.UpdateTargetPositions();
-        hits = context.Move.logic.CreateHits(context);
-        context.User.model.Animate(context.Move.animation);
+        if (context.Move == null)
+        {
+            // Skip Turn
+            // TODO: context.User.Actions--;
+            fsm.Next();
+        }
+        else
+        {
+            // Start Animating
+            hits = context.Move.logic.CreateHits(context);
+            context.User.model.Animate(context.Move.animation);
+        }
     }
 
     public void PerformFx()
@@ -219,6 +218,11 @@ public class BattleManager : MonoBehaviour
 
     public void PerformHit()
     {
+        if (hits.Count <= 0)
+        {
+            Debug.LogError($"{nameof(BattleManager)}: No hits to perform");
+            return;
+        }
         hits[0].Execute(); // Try Execute to interrupt if foe is dead, Repeat flag for multihits
         hits.RemoveAt(0);
         positions.UpdateTargetPositions();
@@ -231,6 +235,7 @@ public class BattleManager : MonoBehaviour
         var completedAnimations = animating.Remove(obj) && animating.Count <= 0;
         if (completedAnimations)
         {
+            // TODO: context.User.Actions--;
             fsm.Next();
         }
     }

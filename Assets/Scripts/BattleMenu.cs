@@ -10,13 +10,20 @@ public class BattleMenu : MonoBehaviour
     public BattlePanel listPanel;
     public BattlePanel defaultPanel;
 
-    public void ShowInterface(bool visible)
+    public void Load()
     {
         listPanel.Load();
-        listPanel.gameObject.SetActive(visible);
         if (panel)
         {
             panel.Load();
+        }
+    }
+
+    public void ShowInterface(bool visible)
+    {
+        listPanel.gameObject.SetActive(visible);
+        if (panel)
+        {
             panel.gameObject.SetActive(visible);
         }
     }

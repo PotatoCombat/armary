@@ -15,6 +15,7 @@ public class BattlerTemplate
     {
         return new BattlerData()
         {
+            type = type,
             hp = type.hp * level,
             maxHp = type.hp * level,
             moves = new List<MoveType>(type.moves),

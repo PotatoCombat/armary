@@ -1667,6 +1667,7 @@ MonoBehaviour:
   <FoeTeam>k__BackingField: {fileID: 0}
   <User>k__BackingField: {fileID: 0}
   <Move>k__BackingField: {fileID: 0}
+  <TargetUser>k__BackingField: {fileID: 0}
   <TargetBattler>k__BackingField: {fileID: 0}
   <TargetTeam>k__BackingField: {fileID: 0}
 --- !u!1 &123512415
@@ -8800,20 +8801,22 @@ MonoBehaviour:
       moves:
       - {fileID: 11400000, guid: dd9cffa8218f44734bf95534eedfc769, type: 2}
       - {fileID: 11400000, guid: 2457e8c9025ca482fb5ddb2c3e413f55, type: 2}
-      hp: 10
+      hp: 100
       maxHp: 100
     - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
       attack: {fileID: 11400000, guid: 50c67e589ed54487bafdf90423bd933c, type: 2}
       moves:
+      - {fileID: 11400000, guid: dd9cffa8218f44734bf95534eedfc769, type: 2}
       - {fileID: 11400000, guid: deeac90d1a93244f89f5332c81276087, type: 2}
-      hp: 20
+      hp: 100
       maxHp: 100
     - type: {fileID: 11400000, guid: ed11347fa5d154ceea3f9ed096deb866, type: 2}
       attack: {fileID: 11400000, guid: 50c67e589ed54487bafdf90423bd933c, type: 2}
       moves:
+      - {fileID: 11400000, guid: dd9cffa8218f44734bf95534eedfc769, type: 2}
       - {fileID: 11400000, guid: deeac90d1a93244f89f5332c81276087, type: 2}
       - {fileID: 11400000, guid: 1346d6389c6c5483daaca5c930c76f35, type: 2}
-      hp: 30
+      hp: 999
       maxHp: 999
     backup: []
   surpriseAttack: 0
