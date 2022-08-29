@@ -56,7 +56,7 @@ MonoBehaviour:
   button: {fileID: 7819947430472024235}
   onClick: {fileID: 11400000, guid: e02d98320ea8c4c268ea39c8e9a1e60f, type: 2}
   onHoverEnter: {fileID: 11400000, guid: 06c9c114eb27f4eb49b97d540259237c, type: 2}
-  onHoverExit: {fileID: 11400000, guid: 522b00fe694a140adb00c98c7d4b6cd2, type: 2}
+  onHoverExit: {fileID: 11400000, guid: abb97723f7dc143df938e54dc3fd42ba, type: 2}
 --- !u!222 &3906473575649744363
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class MoveButton : MonoBehaviour
     public SimpleButton button;
     public MoveTypeEvent onClick;
     public MoveTypeEvent onHoverEnter;
-    public MoveTypeEvent onHoverExit;
+    public BattleEvent onHoverExit;
 
     public void LoadData(MoveType data)
     {
@@ -37,7 +37,7 @@ public class MoveButton : MonoBehaviour
 
     public void HoverExit()
     {
-        onHoverExit.Raise(data);
+        onHoverExit.Raise();
     }
 
 #if UNITY_EDITOR

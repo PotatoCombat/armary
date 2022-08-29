@@ -13,7 +13,7 @@ public class ListPanel : BattlePanel
     [SerializeField] private MoveButton attackAlt;
     public MoveType attackMove;
 
-    protected override void OnEnable()
+    public override void Load()
     {
         var useAlternativeAttack = context.User.data.moves.Count <= 1;
         attack.gameObject.SetActive(!useAlternativeAttack);

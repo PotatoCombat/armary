@@ -10,7 +10,7 @@ public class TacticsPanel : BattlePanel
     public MoveType swap1;
     public MoveType swap2;
 
-    protected override void OnEnable()
+    public override void Load()
     {
         buttons[0].LoadData(defend);
         buttons[1].LoadData(scan);

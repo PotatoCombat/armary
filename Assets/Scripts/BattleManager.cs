@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattleStage stage;
     [SerializeField] private BattleInfo info;
     [SerializeField] private BattleMenu menu;
+    [SerializeField] private BattleTooltips tooltips;
 
     public BattleContext Context => context;
 
@@ -145,6 +146,7 @@ public class BattleManager : MonoBehaviour
         stage.ShowTargets();
         menu.ShowInterface(false);
         menu.ShowCancelButton(true);
+        tooltips.HideAll();
     }
 
     public void CancelMove()
@@ -202,6 +204,7 @@ public class BattleManager : MonoBehaviour
         stage.HideTargets();
         menu.ShowInterface(false);
         menu.ShowCancelButton(false);
+        tooltips.HideAll();
         positions.UpdateTeamPositions();
         positions.UpdateUserPosition();
         positions.UpdateTargetPositions();

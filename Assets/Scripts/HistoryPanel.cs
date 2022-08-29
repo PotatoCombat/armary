@@ -4,5 +4,5 @@ public class HistoryPanel : BattlePanel
 {
     public List<MoveButton> buttons;
 
-    protected override void OnEnable() { }
+    public override void Load() { }
 }

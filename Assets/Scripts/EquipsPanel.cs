@@ -1,5 +1,5 @@
 
 public class EquipsPanel : BattlePanel
 {
-    protected override void OnEnable() { }
+    public override void Load() { }
 }

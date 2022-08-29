@@ -4,7 +4,7 @@ public class ItemsPanel : BattlePanel
 {
     // public List<MoveButton> buttons;
 
-    protected override void OnEnable()
+    public override void Load()
     {
         // var numMoves = user.data.moves.Length;
         // for (var i = 0; i < buttons.Count; i++)

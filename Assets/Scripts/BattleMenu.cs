@@ -3,31 +3,34 @@ using UnityEngine;
 public class BattleMenu : MonoBehaviour
 {
     [Header("Runtime")]
-    public GameObject panel;
+    public BattlePanel panel;
 
     [Header("Components")]
     public GameObject cancelButton;
-    public GameObject listPanel;
-    public GameObject defaultPanel;
+    public BattlePanel listPanel;
+    public BattlePanel defaultPanel;
 
     public void ShowInterface(bool visible)
     {
+        listPanel.Load();
         listPanel.gameObject.SetActive(visible);
         if (panel)
         {
+            panel.Load();
             panel.gameObject.SetActive(visible);
         }
     }
 
-    public void ShowPanel(GameObject panel)
+    public void ShowPanel(BattlePanel panel)
     {
         if (this.panel)
         {
-            this.panel.SetActive(false);
+            this.panel.gameObject.SetActive(false);
         }
         if (panel)
         {
-            panel.SetActive(true);
+            panel.Load();
+            panel.gameObject.SetActive(true);
         }
         this.panel = panel;
     }
