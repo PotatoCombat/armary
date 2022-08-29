@@ -7,12 +7,12 @@ public class BattleEvents : MonoBehaviour
     [Header("Events")]
     public GameObjectEvent onIdle;
     public GameObjectEvent onBusy;
-    public BattleEvent onFx;
-    public BattleEvent onHit;
+    public GameEvent onFx;
+    public GameEvent onHit;
 
     public BattlerEvent onSelectUser;
     public MoveTypeEvent onSelectMove;
-    public BattleEvent onCancelMove;
+    public GameEvent onCancelMove;
     public BattlerEvent onTargetBattler;
     public TeamEvent onTargetTeam;
 

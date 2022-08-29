@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameEvent : ScriptableObject
+public class GameEvent : ScriptableObject
 {
     private List<Action> _listeners = new();
 

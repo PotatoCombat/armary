@@ -13,7 +13,7 @@ public class MoveButton : MonoBehaviour
     public SimpleButton button;
     public MoveTypeEvent onClick;
     public MoveTypeEvent onHoverEnter;
-    public BattleEvent onHoverExit;
+    public GameEvent onHoverExit;
 
     public void LoadData(MoveType data)
     {

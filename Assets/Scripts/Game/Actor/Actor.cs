@@ -6,8 +6,8 @@ public class Actor : MonoBehaviour
     public Animator animator;
 
     [Header("Events")]
-    public BattleEvent fxEvent;
-    public BattleEvent hitEvent;
+    public GameEvent fxEvent;
+    public GameEvent hitEvent;
 
     private Coroutine _animateRoutine;
 

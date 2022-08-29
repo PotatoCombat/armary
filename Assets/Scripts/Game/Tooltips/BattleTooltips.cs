@@ -6,7 +6,7 @@ public class BattleTooltips : MonoBehaviour
     [SerializeField] private MoveTooltip moveTooltip;
 
     [Header("Events")]
-    [SerializeField] private BattleEvent onHideTooltips;
+    [SerializeField] private GameEvent onHideTooltips;
     [SerializeField] private MoveTypeEvent onMoveTooltip;
 
     private void OnEnable()
